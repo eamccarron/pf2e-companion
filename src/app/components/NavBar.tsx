@@ -16,6 +16,7 @@ import {
   IconButton,
   Typography,
   Button,
+  CssBaseline,
 } from '@mui/material'
 
 import PersonIcon from '@mui/icons-material/Person';
@@ -35,7 +36,7 @@ const navItems = [
   { text: 'Creatures', icon: <PetsIcon /> },
 ];
 
-export const NavBar = ({ window }: { window: Window | undefined }) => {
+export const NavBar = ({ children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -43,7 +44,8 @@ export const NavBar = ({ window }: { window: Window | undefined }) => {
   }
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <div>
+      <Toolbar />
       <Divider />
       <List>
         {navItems.map(({ text, icon }: NavigationItem) => (
@@ -57,13 +59,12 @@ export const NavBar = ({ window }: { window: Window | undefined }) => {
           </ListItem>
         ))}
       </List>
-    </Box>
+    </div >
   );
-
-  const container = window !== undefined ? () => window.document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -88,29 +89,26 @@ export const NavBar = ({ window }: { window: Window | undefined }) => {
           >
             Pathfinder 2e Companion
           </Typography>
-          <Box
-            component="nav"
-            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-          >
-            <Drawer
-              container={container}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              ModalProps={{
-                keepMounted: true
-              }}
-              sx={{
-                display: { xs: 'block', sm: 'none' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Box>
         </Toolbar>
       </AppBar>
-      <nav>
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
         <Drawer
           variant="permanent"
           open
@@ -121,7 +119,14 @@ export const NavBar = ({ window }: { window: Window | undefined }) => {
         >
           {drawer}
         </Drawer>
-      </nav>
+      </Box>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
+        <Toolbar />
+        {children}
+      </Box>
     </Box >
   );
 };
