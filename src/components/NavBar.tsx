@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react';
-
 import {
   Drawer,
   Toolbar,
@@ -18,25 +17,29 @@ import {
   Button,
   CssBaseline,
 } from '@mui/material'
+import Link from 'next/link';
 
 import PersonIcon from '@mui/icons-material/Person';
 import AutoStories from '@mui/icons-material/AutoStories';
 import PetsIcon from '@mui/icons-material/Pets';
 import MenuIcon from '@mui/icons-material/Menu';
 
+import type { PropsWithChildren } from 'react';
+
 type NavigationItem = {
   text: string,
   icon: JSX.Element,
+  href: string,
 };
 
 const drawerWidth = 240;
-const navItems = [
-  { text: 'Characters', icon: <PersonIcon /> },
-  { text: 'Campaigns', icon: <AutoStories /> },
-  { text: 'Creatures', icon: <PetsIcon /> },
-];
+const navItems: Array<NavigationItem> = [
+  { text: 'Characters', icon: <PersonIcon />, href: '/characters' },
+  { text: 'Campaigns', icon: <AutoStories />, href: '/campaigns' },
+  { text: 'Creatures', icon: <PetsIcon />, href: '/creatures' },
+]
 
-export const NavBar = ({ children }) => {
+export const NavBar = ({ children }: PropsWithChildren<any>) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -48,14 +51,14 @@ export const NavBar = ({ children }) => {
       <Toolbar />
       <Divider />
       <List>
-        {navItems.map(({ text, icon }: NavigationItem) => (
+        {navItems.map(({ text, icon, href }: NavigationItem) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {icon}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+              <ListItemButton LinkComponent={Link} href={href}>
+                <ListItemIcon>
+                  {icon}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
           </ListItem>
         ))}
       </List>
