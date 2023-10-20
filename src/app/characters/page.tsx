@@ -1,8 +1,11 @@
 import React from 'react';
 import { Stack, Typography } from '@mui/material';
 
-import { ListDetailPane } from '@/components/ListDetailPane';
-import CardList from '@/components/CardList';
+import { ContentDetailPane } from '@/components/ContentDetailPane';
+import ContentList from '@/components/ContentList';
+import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
+import { CharacterDetail } from '@/components/character/CharacterDetail';
+
 import type { Character } from '@/types/Character';
 
 export const revalidate = 3;
@@ -16,10 +19,11 @@ export default async function Characters() {
   const characters: Array<Character> = await getCharacters();
 
   const listContent = characters.map(
-    ({ name: characterName, class: classType, level }, index) => ({
+    ({ name: characterName, class: classType, level, ...content }, index) => ({
       primary: characterName ?? '',
       secondary: `${classType} ${level}`,
       id: index,
+      content,
     })
   );
 
@@ -30,12 +34,17 @@ export default async function Characters() {
         direction="row"
         spacing={2}
       >
-        <CardList content={listContent} />
-        <ListDetailPane
+        <ContentList
           content={listContent}
+          selectionContext={CharacterSelectionContext}
+        />
+        <ContentDetailPane
+          selectionContext={CharacterSelectionContext}
           slide
           slideDirection="left"
-        />
+        >
+          <CharacterDetail />
+        </ContentDetailPane>
       </Stack>
     </>
   );

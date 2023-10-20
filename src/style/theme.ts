@@ -28,13 +28,13 @@ const palette = {
 
 type M3Palette = typeof palette;
 
-const buildM2Palette = (palette: M3Palette) => Object.fromEntries(Object.entries(palette).map(([key, value]) => ([ 
+const buildM2Palette = (palette: M3Palette) => Object.fromEntries(Object.entries(palette).map(([key, value]) => ([
   key, {
     main: value,
     // @ts-ignore
     contrastText: palette[`on${key[0].toUpperCase()}${key.slice(1)}`],
   },
- ])));
+])));
 
 export const theme = createTheme({
   palette: buildM2Palette(palette),

@@ -4,24 +4,44 @@ import React, { createContext, useState } from 'react';
 
 export type selectionID = string | number | null;
 
-export type SelectionContextProps = {
-  selectionID: selectionID;
-  setSelection: React.Dispatch<React.SetStateAction<selectionID>>;
+export interface Selection<T> {
+  primary: string;
+  id: string | number;
+  secondary?: string;
+  avatar?: JSX.Element;
+  action?: JSX.Element;
+  description?: string;
+  content: T;
+}
+
+export type SelectionContext<T> = {
+  selection: Selection<T> | null;
+  setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
 };
 
-export const SelectionContext = createContext<SelectionContextProps>({
-  selectionID: null,
-  setSelection: () => {},
-});
+export function createSelectionContext<T>(): React.Context<
+  SelectionContext<T>
+> {
+  return createContext<SelectionContext<T>>({
+    selection: null,
+    setSelection: () => {},
+  });
+}
 
-export function SelectionContextProvider({
+type SelectionContextProviderProps<T> = {
+  children: React.ReactNode;
+  Context: React.Context<SelectionContext<T>>;
+};
+
+export function SelectionContextProvider<T>({
   children,
-}: React.PropsWithChildren<unknown>) {
-  const [selectionID, setSelection] = useState<selectionID>(null);
+  Context,
+}: React.PropsWithChildren<SelectionContextProviderProps<T>>) {
+  const [selection, setSelection] = useState<Selection<T> | null>(null);
 
   return (
-    <SelectionContext.Provider value={{ selectionID, setSelection }}>
+    <Context.Provider value={{ selection, setSelection }}>
       {children}
-    </SelectionContext.Provider>
+    </Context.Provider>
   );
 }

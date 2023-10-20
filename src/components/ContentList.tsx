@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   List,
@@ -11,32 +11,30 @@ import {
   ListItemText,
 } from '@mui/material';
 
-import { SelectionContext } from './providers/SelectionContextProvider';
-import type { SelectionContextProps } from './providers/SelectionContextProvider';
+import type { Selection } from './providers/SelectionContextProvider';
+import type { SelectionContext } from './providers/SelectionContextProvider';
 
-export type CardListContent = {
-  primary: string;
-  id: string | number;
-  secondary?: string;
-  avatar?: JSX.Element;
-  action?: JSX.Element;
-  description?: string;
-};
+type ListItem = Selection<any>;
 
-export type CardSelection = string | number | undefined;
-
-export type CardListProps = PropsWithChildren<{
-  content: Array<CardListContent>;
+export type ContentListProps = PropsWithChildren<{
+  content: Array<ListItem>;
+  selectionContext: React.Context<SelectionContext<any>>;
 }>;
 
-export default function CardList({ content }: CardListProps) {
-  const { selectionID, setSelection } =
-    useContext<SelectionContextProps>(SelectionContext);
+export default function ContentList({
+  content,
+  selectionContext,
+}: ContentListProps) {
+  const { selection, setSelection } =
+    useContext<SelectionContext<any>>(selectionContext);
 
-  const handleSelection = (content: CardListContent) =>
-    setSelection(content.id);
+  const handleSelection = (content: ListItem) => setSelection(content);
 
-  const CardListItem = ({ content }: { content: CardListContent }) => {
+  useEffect(() => {
+    setSelection(content[0] ?? null);
+  }, [content, setSelection]);
+
+  const CardListItem = ({ content }: { content: ListItem }) => {
     return (
       <ListItem key={content.id}>
         <Box
@@ -47,7 +45,7 @@ export default function CardList({ content }: CardListProps) {
           }}
         >
           <ListItemButton
-            selected={selectionID === content.id}
+            selected={selection?.id === content.id}
             sx={{ borderRadius: 6 }}
             onClick={() => handleSelection(content)}
           >

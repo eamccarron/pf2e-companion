@@ -1,70 +1,43 @@
 'use client';
 
-import React, {
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useMemo,
-} from 'react';
+import React, { PropsWithChildren, useContext } from 'react';
 import { Box, Card, CardContent, CardHeader, Slide } from '@mui/material';
-import {
-  SelectionContext,
-  SelectionContextProps,
-} from './providers/SelectionContextProvider';
+import { SelectionContext } from './providers/SelectionContextProvider';
 
-type ListDetailPaneContent = {
-  primary: string;
-  secondary?: string;
-  id: string | number;
-  avatar?: JSX.Element;
-  action?: JSX.Element;
-  description?: string;
-};
-
-interface ListDetailPaneContentProps {
-  content: Array<ListDetailPaneContent>;
+interface ContentDetailPaneContentProps {
+  selectionContext: React.Context<SelectionContext<any>>;
 }
 
-interface ListDetailPaneProps extends ListDetailPaneContentProps {
+interface ContentDetailPaneProps extends ContentDetailPaneContentProps {
   slide: never;
   slideDirection: never;
 }
 
-interface ListDetailPaneWithSlide extends ListDetailPaneContentProps {
+interface ContentDetailPaneWithSlide extends ContentDetailPaneContentProps {
   slide: boolean;
   slideDirection: 'up' | 'left' | 'right' | 'down';
 }
 
-export function ListDetailPane({
+export function ContentDetailPane({
   children,
-  content,
+  selectionContext,
   ...slideProps
 }:
-  | PropsWithChildren<ListDetailPaneProps>
-  | PropsWithChildren<ListDetailPaneWithSlide>) {
-  const { selectionID, setSelection } =
-    useContext<SelectionContextProps>(SelectionContext);
-
-  useEffect(() => {
-    setSelection(content[0]?.id ?? null);
-  }, [content, setSelection]);
-
-  const selectedItem = useMemo(
-    () => content.find((item) => item.id === selectionID),
-    [selectionID, content]
-  );
+  | PropsWithChildren<ContentDetailPaneProps>
+  | PropsWithChildren<ContentDetailPaneWithSlide>) {
+  const { selection } = useContext<SelectionContext<any>>(selectionContext);
 
   return (
     <Box sx={{ width: '100%' }}>
       <Slide
-        in={selectionID !== null}
+        in={selection !== null}
         direction={slideProps.slideDirection}
       >
         <Card>
           <CardHeader
-            title={selectedItem?.primary}
-            avatar={selectedItem?.avatar}
-            subheader={selectedItem?.secondary}
+            title={selection?.primary}
+            avatar={selection?.avatar}
+            subheader={selection?.secondary}
           />
           <CardContent>{children}</CardContent>
         </Card>
