@@ -21,7 +21,7 @@ export class DBConnection {
   }
 
   public static async getConnection() {
-    if (DBConnection.instance === null) {
+    if (!DBConnection.instance) {
       DBConnection.instance = new DBConnection();
     }
     await DBConnection.instance.init();

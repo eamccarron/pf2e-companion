@@ -21,7 +21,7 @@ export const CharacterCreationStepper = () => {
   return (
     <>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
+        {steps.map(({ title, route }, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: { optional?: React.ReactNode } = {};
           if (completed.has(index)) {
@@ -29,14 +29,14 @@ export const CharacterCreationStepper = () => {
           }
           return (
             <Step
-              key={label}
+              key={title}
               {...stepProps}
             >
               <StepLabel
                 {...labelProps}
                 onClick={handleNext}
               >
-                {label}
+                {title}
               </StepLabel>
             </Step>
           );

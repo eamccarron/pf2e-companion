@@ -2,30 +2,29 @@ import { Stack } from '@mui/material';
 
 import ContentList from '@/components/ContentList';
 import { ContentDetailPane } from '@/components/ContentDetailPane';
-import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
+import { AncestrySelectionContext } from '@/components/character/create/AncestrySelectionContext';
 
 import type { Selection } from '@/components/providers/SelectionContextProvider';
-import type { ClassDescription } from '@/types/ClassDescription';
+import type { Ancestry } from '@/types/Ancestry';
 
 export const revalidate = 3;
 
-const getClassDescriptions = async () => {
-  const res = await fetch('http://localhost:3000/api/class-descriptions');
+const getAncestries = async () => {
+  const res = await fetch('http://localhost:3000/api/compendium/ancestries');
   return res.json();
 };
 
-export default async function CreateCharacter() {
-  const classDescriptions: Array<ClassDescription> =
-    await getClassDescriptions();
+export default async function SelectAncestryAndAbilityScores() {
+  const ancestries: Array<Ancestry> = await getAncestries();
 
-  const listContent = classDescriptions.map(
-    ({ className, description, keyAbility, startingHP }, index) => ({
-      primary: className,
-      secondary: [`Key ability: ${keyAbility}`, `Starting HP: ${startingHP}`],
+  const listContent = ancestries.map(
+    ({ name, system: { description, hp }, _id: id }) => ({
+      primary: name,
+      secondary: [`Starting HP: ${hp}`],
       description,
-      id: index,
+      id,
     })
-  ) as Selection<ClassDescription>[];
+  ) as Selection<Ancestry>[];
 
   return (
     <Stack
@@ -34,11 +33,11 @@ export default async function CreateCharacter() {
     >
       <ContentList
         content={listContent}
-        selectionContext={CharacterSelectionContext}
-        secondaryContentLength={2}
+        selectionContext={AncestrySelectionContext}
+        secondaryContentLength={1}
       />
       <ContentDetailPane
-        selectionContext={CharacterSelectionContext}
+        selectionContext={AncestrySelectionContext}
         slide
         slideDirection="left"
       />

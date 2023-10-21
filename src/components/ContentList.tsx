@@ -34,10 +34,6 @@ export default function ContentList({
 
   const handleSelection = (content: ListItem) => setSelection(content);
 
-  useEffect(() => {
-    setSelection(content[0] ?? null);
-  }, [content, setSelection]);
-
   const CardListItem = ({ content }: { content: ListItem }) => {
     return (
       <ListItem key={content.id}>
