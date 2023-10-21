@@ -1,4 +1,4 @@
-import { Typography, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
 import ContentList from '@/components/ContentList';
 import { ContentDetailPane } from '@/components/ContentDetailPane';

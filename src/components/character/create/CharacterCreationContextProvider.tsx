@@ -1,6 +1,9 @@
 'use client';
 
 import { PropsWithChildren, createContext, useState } from 'react';
+import { ClassSelectionContext } from './ClassSelectionContext';
+import { FeatSelectionContext } from './ClassSelectionContext';
+import { SelectionContextProvider } from '@/components/providers/SelectionContextProvider';
 
 export const steps = [
   'Select Class',
@@ -52,7 +55,9 @@ export const CharacterCreationContextProvider = ({
         completed,
       }}
     >
-      {children}
+      <SelectionContextProvider Context={ClassSelectionContext}>
+        {children}
+      </SelectionContextProvider>
     </CharacterCreationContext.Provider>
   );
 };
