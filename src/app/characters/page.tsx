@@ -1,10 +1,12 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Box, Typography, Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 import { ContentDetailPane } from '@/components/ContentDetailPane';
 import ContentList from '@/components/ContentList';
 import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
 import { CharacterDetail } from '@/components/character/CharacterDetail';
+import { FabLink } from '@/components/FabLink';
 
 import type { Character } from '@/types/Character';
 
@@ -21,7 +23,7 @@ export default async function Characters() {
   const listContent = characters.map(
     ({ name: characterName, class: classType, level, ...content }, index) => ({
       primary: characterName ?? '',
-      secondary: `${classType} ${level}`,
+      secondary: [`${classType} ${level}`],
       id: index,
       content,
     })
@@ -46,6 +48,11 @@ export default async function Characters() {
           <CharacterDetail />
         </ContentDetailPane>
       </Stack>
+
+      <FabLink
+        icon={<AddIcon />}
+        href="/characters/create"
+      />
     </>
   );
 }

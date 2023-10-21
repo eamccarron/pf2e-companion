@@ -1,7 +1,14 @@
 'use client';
 
 import React, { PropsWithChildren, useContext } from 'react';
-import { Box, Card, CardContent, CardHeader, Slide } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Slide,
+  Typography,
+} from '@mui/material';
 import { SelectionContext } from './providers/SelectionContextProvider';
 
 interface ContentDetailPaneContentProps {
@@ -37,9 +44,19 @@ export function ContentDetailPane({
           <CardHeader
             title={selection?.primary}
             avatar={selection?.avatar}
-            subheader={selection?.secondary}
+            subheader={(selection?.secondary ?? [])[0] ?? ''}
           />
-          <CardContent>{children}</CardContent>
+          <CardContent>
+            <>
+              {children}
+              {/* {selection?.description ? (
+                <Typography variant="body2">{selection.description}</Typography>
+              ) : (
+                <></>
+              )} */}
+              <Typography variant="body2">{selection?.description}</Typography>
+            </>
+          </CardContent>
         </Card>
       </Slide>
     </Box>

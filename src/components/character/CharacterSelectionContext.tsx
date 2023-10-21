@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { createSelectionContext } from '@/components/providers/SelectionContextProvider';
 import type { Character } from '@/types/Character';

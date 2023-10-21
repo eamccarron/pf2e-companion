@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import * as React from 'react';
 import {
@@ -16,7 +16,7 @@ import {
   Typography,
   Button,
   CssBaseline,
-} from '@mui/material'
+} from '@mui/material';
 import Link from 'next/link';
 
 import PersonIcon from '@mui/icons-material/Person';
@@ -27,9 +27,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import type { PropsWithChildren } from 'react';
 
 type NavigationItem = {
-  text: string,
-  icon: JSX.Element,
-  href: string,
+  text: string;
+  icon: JSX.Element;
+  href: string;
 };
 
 const drawerWidth = 240;
@@ -37,14 +37,14 @@ const navItems: Array<NavigationItem> = [
   { text: 'Characters', icon: <PersonIcon />, href: '/characters' },
   { text: 'Campaigns', icon: <AutoStories />, href: '/campaigns' },
   { text: 'Creatures', icon: <PetsIcon />, href: '/creatures' },
-]
+];
 
 export const NavBar = ({ children }: PropsWithChildren<any>) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  }
+  };
 
   const drawer = (
     <div>
@@ -52,17 +52,21 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
       <Divider />
       <List>
         {navItems.map(({ text, icon, href }: NavigationItem) => (
-          <ListItem key={text} disablePadding>
-              <ListItemButton LinkComponent={Link} href={href}>
-                <ListItemIcon>
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
+          <ListItem
+            key={text}
+            disablePadding
+          >
+            <ListItemButton
+              LinkComponent={Link}
+              href={href}
+            >
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
           </ListItem>
         ))}
       </List>
-    </div >
+    </div>
   );
 
   return (
@@ -103,11 +107,14 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -117,7 +124,10 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
           open
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -125,11 +135,15 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
         <Toolbar />
         {children}
       </Box>
-    </Box >
+    </Box>
   );
 };

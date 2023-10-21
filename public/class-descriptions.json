@@ -1,0 +1,86 @@
+[
+  {
+    "className": "Alchemist",
+    "description": "Masters of alchemy and science, alchemists are able to create powerful bombs, mutagens, and elixirs to aid themselves and their allies in combat.",
+    "keyAbility": "int",
+    "startingHP": "8"
+  },
+  {
+    "className": "Barbarian",
+    "description": "Fierce warriors who channel their rage to become stronger and more resilient in battle, barbarians are known for their brutal combat style and ability to shrug off damage.",
+    "keyAbility": "str",
+    "startingHP": "12"
+  },
+  {
+    "className": "Bard",
+    "description": "Versatile performers and spellcasters, bards can inspire their allies with music and magic, and are skilled at a variety of tasks both in and out of combat.",
+    "keyAbility": "cha",
+    "startingHP": "8"
+  },
+  {
+    "className": "Champion",
+    "description": "Devoted warriors who serve a deity or cause, champions are able to call upon divine power to protect themselves and their allies, and are skilled at both offense and defense.",
+    "keyAbility": "str or dex",
+    "startingHP": "10"
+  },
+  {
+    "className": "Cleric",
+    "description": "Priests and holy men and women who serve a deity, clerics are able to channel divine power to heal their allies, harm their enemies, and protect themselves and others.",
+    "keyAbility": "wis",
+    "startingHP": "8"
+  },
+  {
+    "className": "Druid",
+    "description": "Mystical guardians of the natural world, druids are able to shape-shift into animals, call upon the power of the elements, and command the forces of nature to aid them in combat.",
+    "keyAbility": "wis",
+    "startingHP": "8"
+  },
+  {
+    "className": "Fighter",
+    "description": "Masters of martial combat, fighters are skilled with a variety of weapons and armor, and are able to perform impressive feats of strength and agility in battle.",
+    "keyAbility": "str or dex",
+    "startingHP": "10"
+  },
+  {
+    "className": "Monk",
+    "description": "Disciplined warriors who use their bodies as weapons, monks are able to perform incredible feats of acrobatics and martial arts, and are skilled at both offense and defense.",
+    "keyAbility": "str or dex",
+    "startingHP": "10"
+  },
+  {
+    "className": "Oracle",
+    "description": "Mystical seers who are able to call upon divine power to aid themselves and their allies, oracles are able to see into the future and gain insight into the mysteries of the universe.",
+    "keyAbility": "cha",
+    "startingHP": "8"
+  },
+  {
+    "className": "Ranger",
+    "description": "Skilled hunters and trackers, rangers are able to navigate the wilderness with ease, and are deadly with a bow or other ranged weapon.",
+    "keyAbility": "str or dex",
+    "startingHP": "10"
+  },
+  {
+    "className": "Rogue",
+    "description": "Masters of stealth and deception, rogues are able to slip past guards, pick locks, and disarm traps with ease, and are deadly in combat when attacking from surprise.",
+    "keyAbility": "dex or other",
+    "startingHP": "8"
+  },
+  {
+    "className": "Sorcerer",
+    "description": "Innate spellcasters who are able to call upon the power of magic to cast spells and manipulate the elements, sorcerers are able to cast spells quickly and with great power.",
+    "keyAbility": "cha",
+    "startingHP": "6"
+  },
+  {
+    "className": "Swashbuckler",
+    "description": "Dashing swordsmen and women who are able to perform incredible feats of swordplay and acrobatics, swashbucklers are able to charm their enemies and inspire their allies with their daring exploits.",
+    "keyAbility": "dex",
+    "startingHP": "10"
+  },
+  {
+    "className": "Wizard",
+    "description": "Scholars of arcane magic, wizards are able to cast a wide variety of spells and manipulate the forces of magic to their will, but are physically weak and vulnerable in combat.",
+    "keyAbility": "int",
+    "startingHP": "6"
+  }
+]

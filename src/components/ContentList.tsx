@@ -11,6 +11,8 @@ import {
   ListItemText,
 } from '@mui/material';
 
+import { SecondaryContent } from './SecondaryContent';
+
 import type { Selection } from './providers/SelectionContextProvider';
 import type { SelectionContext } from './providers/SelectionContextProvider';
 
@@ -19,11 +21,13 @@ type ListItem = Selection<any>;
 export type ContentListProps = PropsWithChildren<{
   content: Array<ListItem>;
   selectionContext: React.Context<SelectionContext<any>>;
+  secondaryContentLength?: number;
 }>;
 
 export default function ContentList({
   content,
   selectionContext,
+  secondaryContentLength = 1,
 }: ContentListProps) {
   const { selection, setSelection } =
     useContext<SelectionContext<any>>(selectionContext);
@@ -57,7 +61,14 @@ export default function ContentList({
 
             <ListItemText
               primary={content.primary}
-              secondary={content.secondary}
+              secondary={
+                <React.Fragment>
+                  <SecondaryContent
+                    secondary={content.secondary}
+                    secondaryContentLength={secondaryContentLength}
+                  />
+                </React.Fragment>
+              }
               sx={{
                 color: 'onSurface.main',
               }}
