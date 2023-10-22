@@ -13,7 +13,7 @@ import type { Character } from '@/types/Character';
 export const revalidate = 3;
 
 const getCharacters = async () => {
-  const res = await fetch('http://localhost:3000/api/characters');
+  const res = await fetch('http://localhost:4200/api/characters');
   return res.json();
 };
 
