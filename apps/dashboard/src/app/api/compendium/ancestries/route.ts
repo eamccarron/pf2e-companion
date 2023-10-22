@@ -1,15 +1,16 @@
-import { DBConnection } from '@/app/lib/db/DBConnection';
-import { formatCompendiumJSON } from '@/app/lib/compendium/formatCompendiumJSON';
+import { DBConnection } from '@/lib/db/DBConnection';
+import { formatCompendiumJSON } from '@/lib/db/formatCompendiumJSON';
 import type { NextRequest } from 'next/server';
+import type { Ancestry } from '@/types/Ancestry';
 
 export const revalidate = 3;
 
 export async function GET(req: NextRequest) {
   const db = await DBConnection.getCompendiumDB();
 
-  const ancestries = formatCompendiumJSON(
+  const ancestries: Array<any> = formatCompendiumJSON(
     await db.collection('ancestries').find().toArray()
-  );
+  ) as Array<any>;
 
   // const searchParams = req.nextUrl.searchParams;
   // const query = searchParams.get('suggested_for_character');
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
             .substring(0, description.indexOf('@'))
             .replace(/<[^>]*>?/gm, ''),
         },
-      };
+      } as Ancestry;
     })
   );
 }
