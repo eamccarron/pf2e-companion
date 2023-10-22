@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@nx-pf2e-companion/character-builder": [
+        "libs/character-builder/src/index.ts"
+      ],
+      "@nx-pf2e-companion/character-builder/server": [
+        "libs/character-builder/src/server.ts"
+      ],
+      "@nx-pf2e-companion/data-access-characters": [
+        "libs/data-access-characters/src/index.ts"
+      ],
+      "@nx-pf2e-companion/data-access-compendium": [
+        "libs/data-access-compendium/src/index.ts"
+      ],
+      "@nx-pf2e-companion/db": ["libs/db/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

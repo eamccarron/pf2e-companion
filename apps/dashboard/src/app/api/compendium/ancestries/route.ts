@@ -12,22 +12,5 @@ export async function GET(req: NextRequest) {
     await db.collection('ancestries').find().toArray()
   ) as Array<any>;
 
-  // const searchParams = req.nextUrl.searchParams;
-  // const query = searchParams.get('suggested_for_character');
-
-  return Response.json(
-    ancestries.map((ancestry) => {
-      const { value: description } = ancestry.system.description;
-
-      return {
-        ...ancestry,
-        system: {
-          ...ancestry.system,
-          description: description
-            .substring(0, description.indexOf('@'))
-            .replace(/<[^>]*>?/gm, ''),
-        },
-      } as Ancestry;
-    })
-  );
+  return Response.json(ancestries);
 }

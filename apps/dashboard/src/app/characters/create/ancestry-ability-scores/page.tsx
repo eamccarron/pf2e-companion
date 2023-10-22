@@ -10,7 +10,7 @@ import type { Ancestry } from '@/types/Ancestry';
 export const revalidate = 3;
 
 const getAncestries = async () => {
-  const res = await fetch('http://localhost:3000/api/compendium/ancestries');
+  const res = await fetch('http://localhost:4200/api/compendium/ancestries');
   return res.json();
 };
 

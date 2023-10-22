@@ -10,7 +10,7 @@ import type { ClassDescription } from '@/types/ClassDescription';
 export const revalidate = 3;
 
 const getClassDescriptions = async () => {
-  const res = await fetch('http://localhost:3000/api/class-descriptions');
+  const res = await fetch('http://localhost:4200/api/class-descriptions');
   return res.json();
 };
 
