@@ -1,8 +1,11 @@
 'use client';
 
 import { useContext } from 'react';
-import { CharacterSelectionContext } from './CharacterSelectionContext';
 import { Box, Typography, Grid } from '@mui/material';
+
+import { CharacterSelectionContext } from './CharacterSelectionContext';
+import { ContentDetailPane } from '@pf2-companion/ui-selection';
+import type { Character } from '@pf2-companion/data-access-characters/types';
 
 type AbilityScoreBoxProps = {
   abilityScore: number;
@@ -34,7 +37,7 @@ const AbilityScoreBox = ({ abilityScore, ability }: AbilityScoreBoxProps) => {
   );
 };
 
-export const CharacterDetail = () => {
+export const CharacterDetailPane = () => {
   const { selection } = useContext(CharacterSelectionContext);
   const character = selection?.content;
 
@@ -46,17 +49,23 @@ export const CharacterDetail = () => {
   );
 
   return (
-    <Grid
-      container
-      spacing={2}
+    <ContentDetailPane<Character>
+      slide
+      slideDirection="left"
+      selection={selection}
     >
-      {abilityScores.map(({ ability, abilityScore }) => (
-        <AbilityScoreBox
-          ability={ability}
-          abilityScore={abilityScore}
-          key={ability}
-        />
-      ))}
-    </Grid>
+      <Grid
+        container
+        spacing={2}
+      >
+        {abilityScores.map(({ ability, abilityScore }) => (
+          <AbilityScoreBox
+            ability={ability}
+            abilityScore={abilityScore}
+            key={ability}
+          />
+        ))}
+      </Grid>
+    </ContentDetailPane>
   );
 };

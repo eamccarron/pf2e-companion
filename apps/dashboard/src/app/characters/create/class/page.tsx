@@ -1,13 +1,9 @@
 import { Stack } from '@mui/material';
 
-import {
-  ContentDetailPane,
-  ContentList,
-  type Selection,
-} from '@pf2-companion/ui-selection';
-import type { ClassDescription } from '@pf2-companion/character-builder/types';
+import type { Selection } from '@pf2-companion/ui-selection';
+import { ClassList, ClassDetailPane } from '@pf2-companion/character-builder';
 
-import { CharacterSelectionContext } from '../../../../components/character/CharacterSelectionContext';
+import type { ClassDescription } from '@pf2-companion/character-builder/types';
 
 export const revalidate = 3;
 
@@ -34,16 +30,8 @@ export default async function CreateCharacter() {
       direction="row"
       spacing={2}
     >
-      <ContentList
-        content={listContent}
-        selectionContext={CharacterSelectionContext}
-        secondaryContentLength={2}
-      />
-      <ContentDetailPane
-        selectionContext={CharacterSelectionContext}
-        slide
-        slideDirection="left"
-      />
+      <ClassList content={listContent} />
+      <ClassDetailPane />
     </Stack>
   );
 }

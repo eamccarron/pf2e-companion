@@ -2,10 +2,8 @@ import React from 'react';
 import { Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-import { ContentDetailPane, ContentList } from '@pf2-companion/ui-selection';
-
-import { CharacterSelectionContext } from '../../components/character/CharacterSelectionContext';
-import { CharacterDetail } from '../../components/character/CharacterDetail';
+import { CharacterDetailPane } from './CharacterDetailPane';
+import { CharacterList } from './CharacterList';
 import { FabLink } from '../../components/FabLink';
 
 import type { Character } from '@pf2-companion/data-access-characters/types';
@@ -36,17 +34,8 @@ export default async function Characters() {
         direction="row"
         spacing={2}
       >
-        <ContentList
-          content={listContent}
-          selectionContext={CharacterSelectionContext}
-        />
-        <ContentDetailPane
-          selectionContext={CharacterSelectionContext}
-          slide
-          slideDirection="left"
-        >
-          <CharacterDetail />
-        </ContentDetailPane>
+        <CharacterList content={listContent} />
+        <CharacterDetailPane />
       </Stack>
 
       <FabLink

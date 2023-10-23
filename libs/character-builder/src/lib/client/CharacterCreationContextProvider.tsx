@@ -2,8 +2,8 @@
 
 import { PropsWithChildren, createContext, useState } from 'react';
 
-import { ClassSelectionContext } from './ClassSelectionContext';
-import { AncestrySelectionContext } from './AncestrySelectionContext';
+import { ClassSelectionContext } from './character-class/ClassSelectionContext';
+import { AncestrySelectionContext } from './ancestry/AncestrySelectionContext';
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
 import { useRouter } from 'next/navigation';

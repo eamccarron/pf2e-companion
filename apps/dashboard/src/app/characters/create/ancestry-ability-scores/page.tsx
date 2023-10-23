@@ -1,12 +1,11 @@
 import { Stack } from '@mui/material';
 
 import {
-  ContentList,
-  ContentDetailPane,
-  type Selection,
-} from '@pf2-companion/ui-selection';
-import { AncestrySelectionContext } from '@pf2-companion/character-builder';
+  AncestryList,
+  AncestryDetailPane,
+} from '@pf2-companion/character-builder';
 
+import type { Selection } from '@pf2-companion/ui-selection';
 import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
 
 export const revalidate = 3;
@@ -33,16 +32,8 @@ export default async function SelectAncestryAndAbilityScores() {
       direction="row"
       spacing={2}
     >
-      <ContentList
-        content={listContent}
-        selectionContext={AncestrySelectionContext}
-        secondaryContentLength={1}
-      />
-      <ContentDetailPane
-        selectionContext={AncestrySelectionContext}
-        slide
-        slideDirection="left"
-      />
+      <AncestryList content={listContent} />
+      <AncestryDetailPane />
     </Stack>
   );
 }

@@ -1,6 +1,4 @@
-'use client';
-
-import React, { PropsWithChildren, useContext } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import {
   Box,
   Card,
@@ -9,31 +7,22 @@ import {
   Slide,
   Typography,
 } from '@mui/material';
-import { SelectionContext } from './SelectionContextProvider';
 
-interface ContentDetailPaneContentProps {
-  selectionContext: React.Context<SelectionContext<any>>;
-}
+import { Selection } from './SelectionContextProvider';
 
-interface ContentDetailPaneProps extends ContentDetailPaneContentProps {
-  slide: never;
-  slideDirection: never;
-}
-
-interface ContentDetailPaneWithSlide extends ContentDetailPaneContentProps {
+interface ContentDetailPaneProps<T> {
+  selection: Selection<T> | null;
+  selectionDetail?: (selection: Selection<T> | null) => React.ReactNode;
   slide: boolean;
   slideDirection: 'up' | 'left' | 'right' | 'down';
 }
 
-export function ContentDetailPane({
+export function ContentDetailPane<T>({
   children,
-  selectionContext,
+  selection,
+  selectionDetail = () => undefined,
   ...slideProps
-}:
-  | PropsWithChildren<ContentDetailPaneProps>
-  | PropsWithChildren<ContentDetailPaneWithSlide>) {
-  const { selection } = useContext<SelectionContext<any>>(selectionContext);
-
+}: PropsWithChildren<ContentDetailPaneProps<T>>) {
   return (
     <Box sx={{ width: '100%' }}>
       <Slide
@@ -49,11 +38,7 @@ export function ContentDetailPane({
           <CardContent>
             <>
               {children}
-              {/* {selection?.description ? (
-                <Typography variant="body2">{selection.description}</Typography>
-              ) : (
-                <></>
-              )} */}
+              {selectionDetail(selection)}
               <Typography variant="body2">{selection?.description}</Typography>
             </>
           </CardContent>
@@ -61,31 +46,31 @@ export function ContentDetailPane({
       </Slide>
     </Box>
   );
-
-  // TODO: Paramaterize slide in animation
-  // const containerRef = React.useRef<HTMLElement>(null);
-  // const DetailPaneContent = ({ children }: PropsWithChildren<unknown>) => (
-  //   <Card>
-  //     <CardHeader
-  //       title={selectedItem?.primary}
-  //       avatar={selectedItem?.avatar}
-  //       subheader={selectedItem?.secondary}
-  //     />
-  //     <CardContent>{children}</CardContent>
-  //   </Card>
-  // );
-
-  // return:
-  // <Box sx={{ width: '100%' }}>
-  //   {slideProps.slide ? (
-  //     <Slide
-  //       direction={slideProps.slideDirection}
-  //       in={selectionID !== null}
-  //     >
-  //       <DetailPaneContent>{children}</DetailPaneContent>
-  //     </Slide>
-  //   ) : (
-  //     <DetailPaneContent>{children}</DetailPaneContent>
-  //   )}
-  // </Box>
 }
+
+// TODO: Paramaterize slide in animation
+// const containerRef = React.useRef<HTMLElement>(null);
+// const DetailPaneContent = ({ children }: PropsWithChildren<unknown>) => (
+//   <Card>
+//     <CardHeader
+//       title={selectedItem?.primary}
+//       avatar={selectedItem?.avatar}
+//       subheader={selectedItem?.secondary}
+//     />
+//     <CardContent>{children}</CardContent>
+//   </Card>
+// );
+
+// return:
+// <Box sx={{ width: '100%' }}>
+//   {slideProps.slide ? (
+//     <Slide
+//       direction={slideProps.slideDirection}
+//       in={selectionID !== null}
+//     >
+//       <DetailPaneContent>{children}</DetailPaneContent>
+//     </Slide>
+//   ) : (
+//     <DetailPaneContent>{children}</DetailPaneContent>
+//   )}
+// </Box>

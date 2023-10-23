@@ -8,9 +8,10 @@ export const revalidate = 3;
 export async function GET(req: NextRequest) {
   const db = await DBConnection.getCompendiumDB();
 
+  // TODO: typing on data access layer for better typing here
   const ancestries: Array<any> = formatCompendiumJSON(
     await db.collection('ancestries').find().toArray()
-  ) as Array<any>;
+  );
 
   return Response.json(ancestries);
 }

@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useContext } from 'react';
+import React from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   List,
@@ -13,24 +11,23 @@ import {
 } from '@mui/material';
 
 import { SecondaryContent } from './SecondaryContent';
-import type { Selection, SelectionContext } from './SelectionContextProvider';
+import type { Selection } from './SelectionContextProvider';
 
 type ListItem = Selection<any>;
 
-export type ContentListProps = PropsWithChildren<{
+export type ContentListProps<T> = PropsWithChildren<{
   content: Array<ListItem>;
-  selectionContext: React.Context<SelectionContext<any>>;
+  selection: Selection<T> | null;
+  setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
   secondaryContentLength?: number;
 }>;
 
-export function ContentList({
+export function ContentList<T>({
   content,
-  selectionContext,
+  selection,
+  setSelection,
   secondaryContentLength = 1,
-}: ContentListProps) {
-  const { selection, setSelection } =
-    useContext<SelectionContext<any>>(selectionContext);
-
+}: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
 
   const CardListItem = ({ content }: { content: ListItem }) => {
