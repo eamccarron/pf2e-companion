@@ -1,11 +1,13 @@
 import { Stack } from '@mui/material';
 
-import ContentList from '@/components/ContentList';
-import { ContentDetailPane } from '@/components/ContentDetailPane';
-import { AncestrySelectionContext } from '@/components/character/create/AncestrySelectionContext';
+import {
+  ContentList,
+  ContentDetailPane,
+  type Selection,
+} from '@pf2-companion/ui-selection';
+import { AncestrySelectionContext } from '@pf2-companion/character-builder';
 
-import type { Selection } from '@/components/providers/SelectionContextProvider';
-import type { Ancestry } from '@/types/Ancestry';
+import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
 
 export const revalidate = 3;
 

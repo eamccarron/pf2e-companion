@@ -1,11 +1,13 @@
 import { Stack } from '@mui/material';
 
-import ContentList from '@/components/ContentList';
-import { ContentDetailPane } from '@/components/ContentDetailPane';
-import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
-
-import type { Selection } from '@/components/providers/SelectionContextProvider';
+import {
+  ContentDetailPane,
+  ContentList,
+  type Selection,
+} from '@pf2-companion/ui-selection';
 import type { ClassDescription } from '@pf2-companion/character-builder/types';
+
+import { CharacterSelectionContext } from '../../../../components/character/CharacterSelectionContext';
 
 export const revalidate = 3;
 

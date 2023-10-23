@@ -24,7 +24,7 @@ export function createSelectionContext<T>(): React.Context<
 > {
   return createContext<SelectionContext<T>>({
     selection: null,
-    setSelection: () => {},
+    setSelection: () => null,
   });
 }
 

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@types": ["types/index.ts"],
       "@pf2-companion/character-builder": [
         "libs/character-builder/src/index.ts"
       ],

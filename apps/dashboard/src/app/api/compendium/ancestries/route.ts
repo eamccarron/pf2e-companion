@@ -1,5 +1,3 @@
-// import { DBConnection } from '@/lib/db/DBConnection';
-// import { formatCompendiumJSON } from '@/lib/db/formatCompendiumJSON';
 import { DBConnection } from '@pf2-companion/db';
 import { formatCompendiumJSON } from '@pf2-companion/data-access-compendium';
 import type { NextRequest } from 'next/server';
