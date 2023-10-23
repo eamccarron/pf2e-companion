@@ -1,3 +1,1 @@
-export function db(): string {
-  return 'db';
-}
+export { DBConnection } from './DBConnection';

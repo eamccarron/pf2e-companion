@@ -14,7 +14,7 @@ type System = {
     per: string;
   };
   level: {
-    value: number,
+    value: number;
   };
   prerequisites: {
     value: Array<{ value: string }>;

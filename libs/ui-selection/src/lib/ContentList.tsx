@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   List,
@@ -13,9 +13,7 @@ import {
 } from '@mui/material';
 
 import { SecondaryContent } from './SecondaryContent';
-
-import type { Selection } from './providers/SelectionContextProvider';
-import type { SelectionContext } from './providers/SelectionContextProvider';
+import type { Selection, SelectionContext } from './SelectionContextProvider';
 
 type ListItem = Selection<any>;
 
@@ -25,7 +23,7 @@ export type ContentListProps = PropsWithChildren<{
   secondaryContentLength?: number;
 }>;
 
-export default function ContentList({
+export function ContentList({
   content,
   selectionContext,
   secondaryContentLength = 1,
@@ -59,14 +57,12 @@ export default function ContentList({
             <ListItemText
               primary={content.primary}
               secondary={
-                <React.Fragment>
-                  <Typography component="span">
-                    <SecondaryContent
-                      secondary={content.secondary}
-                      secondaryContentLength={secondaryContentLength}
-                    />
-                  </Typography>
-                </React.Fragment>
+                <Typography component="span">
+                  <SecondaryContent
+                    secondary={content.secondary}
+                    secondaryContentLength={secondaryContentLength}
+                  />
+                </Typography>
               }
               sx={{
                 color: 'onSurface.main',

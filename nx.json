@@ -8,7 +8,12 @@
     "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "options": {
+        "main": "{projectRoot}/src/index.ts",
+        "outputPath": "{projectRoot}/dist",
+        "tsConfig": "{projectRoot}/tsconfig.json"
+      }
     },
     "lint": {
       "cache": true,
@@ -48,7 +53,9 @@
       "application": {
         "babel": true
       },
-      "library": {}
+      "library": {
+        "unitTestRunner": "jest"
+      }
     },
     "@nx/next": {
       "application": {

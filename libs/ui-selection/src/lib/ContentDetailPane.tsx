@@ -9,7 +9,7 @@ import {
   Slide,
   Typography,
 } from '@mui/material';
-import { SelectionContext } from './providers/SelectionContextProvider';
+import { SelectionContext } from './SelectionContextProvider';
 
 interface ContentDetailPaneContentProps {
   selectionContext: React.Context<SelectionContext<any>>;

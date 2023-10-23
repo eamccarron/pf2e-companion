@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import { CharacterCreationStepper } from '@/components/character/create/CharacterCreationStepper';
-import { CharacterCreationContextProvider } from '@/components/character/create/CharacterCreationContextProvider';
+import { CharacterCreationStepper } from '@pf2-companion/character-builder';
+import { CharacterCreationContextProvider } from '@pf2-companion/character-builder';
 
 export default function CharacterLayout({
   children,

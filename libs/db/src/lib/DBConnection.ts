@@ -1,8 +1,7 @@
 import { MongoClient } from 'mongodb';
 
-const uri: string = 'mongodb://localhost:27017/mydatabase';
+const uri = 'mongodb://localhost:27017/mydatabase';
 
-/** @deprecated Duplicated code. Migrate to libs/db/DBConnection. */
 export class DBConnection {
   private static instance: DBConnection;
   private client: MongoClient;
@@ -14,7 +13,6 @@ export class DBConnection {
   private async init() {
     try {
       await this.client.connect();
-      console.log('Connected to MongoDB');
     } catch (error) {
       console.error('Error connecting to MongoDB:', error);
       throw error;
@@ -24,8 +22,8 @@ export class DBConnection {
   public static async getConnection() {
     if (!DBConnection.instance) {
       DBConnection.instance = new DBConnection();
+      await DBConnection.instance.init();
     }
-    await DBConnection.instance.init();
     return this.instance.client;
   }
 

@@ -1,5 +1,5 @@
-import { SelectionContextProvider } from '@/components/providers/SelectionContextProvider';
-import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
+import { SelectionContextProvider } from '@pf2-companion/ui-selection';
+import { CharacterSelectionContext } from '../../components/character/CharacterSelectionContext';
 
 export default function CharacterLayout({
   children,

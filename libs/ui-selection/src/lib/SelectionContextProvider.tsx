@@ -24,7 +24,7 @@ export function createSelectionContext<T>(): React.Context<
 > {
   return createContext<SelectionContext<T>>({
     selection: null,
-    setSelection: () => {},
+    setSelection: () => null,
   });
 }
 
@@ -41,6 +41,7 @@ export function SelectionContextProvider<T>({
 
   return (
     <Context.Provider value={{ selection, setSelection }}>
+      {/* TODO: type children and use {children({selection}) instead of context} */}
       {children}
     </Context.Provider>
   );

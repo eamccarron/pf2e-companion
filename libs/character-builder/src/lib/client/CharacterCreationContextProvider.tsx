@@ -4,7 +4,7 @@ import { PropsWithChildren, createContext, useState } from 'react';
 
 import { ClassSelectionContext } from './ClassSelectionContext';
 import { AncestrySelectionContext } from './AncestrySelectionContext';
-import { SelectionContextProvider } from '@/components/providers/SelectionContextProvider';
+import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
 import { useRouter } from 'next/navigation';
 
@@ -30,9 +30,9 @@ export const CharacterCreationContext =
   createContext<CharacterCreationContextProps>({
     activeStep: 0,
     completed: new Set<number>(),
-    setCompleted: () => {},
-    handleNext: () => {},
-    handleBack: () => {},
+    setCompleted: () => null,
+    handleNext: () => null,
+    handleBack: () => null,
   });
 
 export const CharacterCreationContextProvider = ({

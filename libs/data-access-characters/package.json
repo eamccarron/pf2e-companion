@@ -1,5 +1,5 @@
 {
-  "name": "@nx-pf2e-companion/data-access-characters",
+  "name": "@pf2-companion/data-access-characters",
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0"

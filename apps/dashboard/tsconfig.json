@@ -17,9 +17,6 @@
       }
     ],
     "types": ["jest", "node"],
-    "paths": {
-      "@/*": ["apps/dashboard/src/*"]
-    }
   },
   "include": [
     "**/*.ts",

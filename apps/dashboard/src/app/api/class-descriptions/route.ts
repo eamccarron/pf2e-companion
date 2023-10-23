@@ -1,4 +1,4 @@
-import classDescriptions from '@/../public/class-descriptions.json';
+import { classDescriptions } from '@pf2-companion/character-builder/server';
 
 export async function GET() {
   return Response.json(classDescriptions);

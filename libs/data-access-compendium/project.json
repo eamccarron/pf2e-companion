@@ -11,7 +11,9 @@
         "outputPath": "dist/libs/data-access-compendium",
         "main": "libs/data-access-compendium/src/index.ts",
         "tsConfig": "libs/data-access-compendium/tsconfig.lib.json",
-        "assets": ["libs/data-access-compendium/*.md"]
+        "assets": ["libs/data-access-compendium/*.md"],
+        "additionalEntryPoints": ["libs/data-access-compendium/types/index.ts"],
+        "generateExportsField": true
       }
     },
     "lint": {

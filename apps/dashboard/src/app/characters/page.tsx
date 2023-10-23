@@ -1,14 +1,14 @@
 import React from 'react';
-import { Stack, Box, Typography, Fab } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-import { ContentDetailPane } from '@/components/ContentDetailPane';
-import ContentList from '@/components/ContentList';
-import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
-import { CharacterDetail } from '@/components/character/CharacterDetail';
-import { FabLink } from '@/components/FabLink';
+import { ContentDetailPane, ContentList } from '@pf2-companion/ui-selection';
 
-import type { Character } from '@/types/Character';
+import { CharacterSelectionContext } from '../../components/character/CharacterSelectionContext';
+import { CharacterDetail } from '../../components/character/CharacterDetail';
+import { FabLink } from '../../components/FabLink';
+
+import type { Character } from '@pf2-companion/data-access-characters/types';
 
 export const revalidate = 3;
 

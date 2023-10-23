@@ -1,4 +1,4 @@
-import { DBConnection } from '@/app/lib/db/DBConnection';
+import { DBConnection } from '@pf2-companion/db';
 
 export async function GET() {
   const db = await DBConnection.getCompendiumDB();
