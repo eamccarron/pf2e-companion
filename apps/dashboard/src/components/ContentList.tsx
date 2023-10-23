@@ -9,6 +9,7 @@ import {
   Box,
   ListItemAvatar,
   ListItemText,
+  Typography,
 } from '@mui/material';
 
 import { SecondaryContent } from './SecondaryContent';
@@ -59,10 +60,12 @@ export default function ContentList({
               primary={content.primary}
               secondary={
                 <React.Fragment>
-                  <SecondaryContent
-                    secondary={content.secondary}
-                    secondaryContentLength={secondaryContentLength}
-                  />
+                  <Typography component="span">
+                    <SecondaryContent
+                      secondary={content.secondary}
+                      secondaryContentLength={secondaryContentLength}
+                    />
+                  </Typography>
                 </React.Fragment>
               }
               sx={{
