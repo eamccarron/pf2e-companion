@@ -41,6 +41,7 @@ export function SelectionContextProvider<T>({
 
   return (
     <Context.Provider value={{ selection, setSelection }}>
+      {/* TODO: type children and use {children({selection}) instead of context} */}
       {children}
     </Context.Provider>
   );

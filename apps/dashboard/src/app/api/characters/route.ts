@@ -1,4 +1,4 @@
-import type { Character } from '@/types/Character';
+import type { Character } from '@pf2-companion/data-access-characters/types';
 import { faker } from '@faker-js/faker';
 
 export const dynamic = 'force-dynamic';

@@ -5,7 +5,7 @@ import { ContentDetailPane } from '@/components/ContentDetailPane';
 import { CharacterSelectionContext } from '@/components/character/CharacterSelectionContext';
 
 import type { Selection } from '@/components/providers/SelectionContextProvider';
-import type { ClassDescription } from '@/types/ClassDescription';
+import type { ClassDescription } from '@pf2-companion/character-builder/types';
 
 export const revalidate = 3;
 

@@ -15,19 +15,29 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-pf2e-companion/character-builder": [
+      "@pf2-companion/character-builder": [
         "libs/character-builder/src/index.ts"
       ],
-      "@nx-pf2e-companion/character-builder/server": [
+      "@pf2-companion/character-builder/server": [
         "libs/character-builder/src/server.ts"
       ],
-      "@nx-pf2e-companion/data-access-characters": [
+      "@pf2-companion/character-builder/types": [
+        "libs/character-builder/types/index.ts"
+      ],
+      "@pf2-companion/data-access-characters": [
         "libs/data-access-characters/src/index.ts"
       ],
-      "@nx-pf2e-companion/data-access-compendium": [
+      "@pf2-companion/data-access-characters/types": [
+        "libs/data-access-characters/types/index.ts"
+      ],
+      "@pf2-companion/data-access-compendium": [
         "libs/data-access-compendium/src/index.ts"
       ],
-      "@nx-pf2e-companion/db": ["libs/db/src/index.ts"]
+      "@pf2-companion/data-access-compendium/types": [
+        "libs/data-access-compendium/types/index.ts"
+      ],
+      "@pf2-companion/db": ["libs/db/src/index.ts"],
+      "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
