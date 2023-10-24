@@ -25,6 +25,17 @@
         "cwd": "{projectRoot}"
       }
     },
+    "test-db:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker compose up --detach test-db"
+          }
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
