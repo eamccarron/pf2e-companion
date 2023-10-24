@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, type Db } from 'mongodb';
 
 const uri = process.env['DB_URI'];
 
@@ -28,7 +28,7 @@ export class DBConnection {
     return this.instance.client;
   }
 
-  public static async getCompendiumDB() {
+  public static async getCompendiumDB(): Promise<Db> {
     const connection = await this.getConnection();
     return connection.db('compendium');
   }

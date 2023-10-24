@@ -12,6 +12,17 @@ const nextConfig = {
       transform: '@mui/material/{{member}}',
     },
   },
+  experimental: {
+    esmExternals: 'loose',
+    serverComponentsExternalPackages: ['mongoose'],
+  },
+  webpack: (config) => {
+    config.experiments = {
+      topLevelAwait: true,
+      layers: true,
+    };
+    return config;
+  },
   nx: {
     // Set this to true if you would like to to use SVGR
     // See: https://github.com/gregberge/svgr

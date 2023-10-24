@@ -30,7 +30,7 @@ export function ContentList<T>({
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
 
-  const CardListItem = ({ content }: { content: ListItem }) => {
+  const ContentListItem = ({ content }: { content: ListItem }) => {
     return (
       <ListItem key={content.id}>
         <Box
@@ -83,7 +83,7 @@ export function ContentList<T>({
       data-cy="content-list"
     >
       {content.map((content) => (
-        <CardListItem
+        <ContentListItem
           key={content.id}
           content={content}
         />

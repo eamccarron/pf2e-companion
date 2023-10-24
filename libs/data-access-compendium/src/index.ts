@@ -1,1 +1,2 @@
-export * from './lib/data-access-compendium';
+export { formatCompendiumJSON } from './utils/formatCompendiumJSON';
+export * from './lib/repositories';

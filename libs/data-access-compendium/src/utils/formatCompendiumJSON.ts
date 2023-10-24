@@ -1,6 +1,8 @@
+/** @deprecated Migrated into schema middleware (lib/middleware.ts) */
 const removeDescriptionHTML = (description: string): string =>
   description.replace(/<[^>]*>?/gm, '');
 
+/** @deprecated Migrated into schema middleware (lib/middleware.ts) */
 const removeDescriptionUUIDRef = (description: string): string => {
   if (description.includes('@')) {
     return description.substring(0, description.indexOf('@'));
@@ -9,6 +11,7 @@ const removeDescriptionUUIDRef = (description: string): string => {
   return description;
 };
 
+/** @deprecated Migrated into middleware which runs on mongoose schemas */
 export const formatCompendiumJSON = (
   json: object | Array<object>
 ): Array<object> => {
