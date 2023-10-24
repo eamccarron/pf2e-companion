@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 const uri = 'mongodb://localhost:27017/mydatabase';
+const uri = process.env.DB_URI;
 
 export class DBConnection {
   private static instance: DBConnection;

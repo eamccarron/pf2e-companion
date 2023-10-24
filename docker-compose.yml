@@ -1,0 +1,5 @@
+services:
+  test-db:
+    image: registry.gitlab.com/mccarronea/pf2e-companion/test-db:latest
+    ports:
+      - 26017:26017

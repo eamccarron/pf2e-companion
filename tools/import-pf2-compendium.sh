@@ -24,8 +24,6 @@ git checkout
 
 echo 'Importing compendium into local mongo database...'
 
-
-
 # Feats
 # for file in packs/feats/*; do
 #   mongoimport --db compendium --collection feats --file "$file" > /dev/null 2>&1

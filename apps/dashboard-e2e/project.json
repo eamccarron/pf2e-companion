@@ -6,6 +6,7 @@
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
+      "dependsOn": ["test-db:up"],
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
         "devServerTarget": "dashboard:serve:development",
@@ -15,6 +16,17 @@
         "production": {
           "devServerTarget": "dashboard:serve:production"
         }
+      }
+    },
+    "test-db:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker compose up --detach test-db"
+          }
+        ],
+        "cwd": "{projectRoot}"
       }
     },
     "lint": {

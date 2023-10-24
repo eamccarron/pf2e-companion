@@ -2,7 +2,10 @@
   "name": "@pf2-companion/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "docker:build:test-db": "cd ./tools/docker/test-db && ./build.sh",
+    "docker:push:test-db": "cd ./tools/docker/test-db && ./push.sh"
+  },
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.14.5",
