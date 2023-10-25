@@ -19,7 +19,10 @@ export const CharacterCreationStepper = () => {
   // };
 
   return (
-    <Stepper activeStep={activeStep}>
+    <Stepper
+      activeStep={activeStep}
+      data-cy="character-creation-stepper"
+    >
       {steps.map(({ title, route }, index) => {
         const stepProps: { completed?: boolean } = {};
         const labelProps: { optional?: React.ReactNode } = {};
@@ -48,12 +51,14 @@ export const CharacterCreationStepper = () => {
         <Button
           disabled={activeStep === 0}
           onClick={handleBack}
+          data-cy="character-creation-back"
         >
           Back
         </Button>
         <Button
           variant="contained"
           onClick={handleNext}
+          data-cy="character-creation-next"
         >
           {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
         </Button>

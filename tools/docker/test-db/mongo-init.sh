@@ -3,15 +3,12 @@
 # Import compendium fixtures
 
 # Feats
-for file in /fixtures/compendium/feats/*; do
-  mongoimport --db compendium --collection feats --file "$file" > /dev/null 2>&1
-done
+
+cd /fixtures/compendium || exit
+mongoimport --db compendium --collection feats --file "./feats.json"
 
 # Classes
-for file in /fixtures/compendium/classes/*; do
-  mongoimport --db compendium --collection classes --file "$file" > /dev/null 2>&1
-done
+mongoimport --db compendium --collection classes --file "./classes.json"
 
-for file in /fixtures/compendium/ancestries/*; do
-  mongoimport --db compendium --collection ancestries --file "$file" > /dev/null 2>&1
-done
+# Ancestries
+mongoimport --db compendium --collection ancestries --file "./ancestries.json"

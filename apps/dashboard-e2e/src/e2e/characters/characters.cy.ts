@@ -8,8 +8,10 @@ describe('Characters Page', () => {
   });
 
   it('should display a list of characters', () => {
-    cy.get('ul').should('be.visible');
-    cy.get('li').should('be.visible');
+    cy.getBySel('content-list').each((listItem) => {
+      expect(listItem.text()).to.not.be.empty;
+      expect(listItem).to.be.visible;
+    });
   });
 
   it('should display class and level for each character', () => {

@@ -6,7 +6,8 @@
     "dev": "nx serve dashboard -c 'node ./server.js'",
     "docker:build:test-db": "cd ./tools/docker/test-db && ./build.sh",
     "docker:push:test-db": "cd ./tools/docker/test-db && ./push.sh",
-    "test-db:up": "docker compose up --detach test-db"
+    "test-db:up": "docker compose up --detach test-db",
+    "test-db:build": "docker compose pull && docker compose up --build --force-recreate -d test-db"
   },
   "private": true,
   "devDependencies": {
