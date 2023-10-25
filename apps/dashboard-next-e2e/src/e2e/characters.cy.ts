@@ -1,5 +1,3 @@
-import { getGreeting } from '../support/app.po';
-
 describe('Characters Page', () => {
   beforeEach(() => {
     cy.visit('/characters');
@@ -10,14 +8,28 @@ describe('Characters Page', () => {
   });
 
   it('should display a list of characters', () => {
-    cy.get('ul').should('have.class', 'characters-list');
-    cy.get('li').should('have.length.greaterThan', 0);
+    cy.get('ul').should('be.visible');
+    cy.get('li').should('be.visible');
   });
 
-  it('should display details for each character', () => {
-    cy.get('li').first().click();
-    cy.url().should('include', '/characters/');
-    cy.get('h2').should('have.class', 'character-name');
-    cy.get('p').should('have.class', 'character-description');
+  it('should display class and level for each character', () => {
+    cy.getBySel('content-list').each((listItem) => {
+      expect(listItem.text()).to.match(/\w \d+/);
+    });
+  });
+
+  it('Should not display detail until a character is clicked', () => {
+    cy.getBySel('detail-pane-header').should('not.be.visible');
+  });
+
+  it('Should display detail when a character is clicked', () => {
+    cy.getBySel('content-list-button').first().click();
+    cy.getBySel('detail-pane-header').should('be.visible');
+    cy.getBySel('detail-pane-content').should('be.visible');
+  });
+
+  it('Should navigate to character creation when FAB is clicked', () => {
+    cy.getBySel('fab-link').click();
+    cy.url().should('include', 'create');
   });
 });
