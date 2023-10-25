@@ -7,7 +7,6 @@ export class DBConnection {
   private client: MongoClient;
 
   private constructor() {
-    console.log(uri);
     this.client = new MongoClient(uri ?? '');
   }
 
