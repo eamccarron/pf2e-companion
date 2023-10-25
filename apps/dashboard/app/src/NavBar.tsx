@@ -50,7 +50,7 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
     <div>
       <Toolbar />
       <Divider />
-      <List>
+      <List data-cy="nav-list">
         {navItems.map(({ text, icon, href }: NavigationItem) => (
           <ListItem
             key={text}
@@ -86,6 +86,7 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
+            data-cy="open-nav"
           >
             <MenuIcon />
           </IconButton>
@@ -116,6 +117,7 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
               width: drawerWidth,
             },
           }}
+          data-cy="nav-drawer-modal"
         >
           {drawer}
         </Drawer>
