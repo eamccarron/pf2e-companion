@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@types": ["types/index.ts"],
       "@pf2-companion/character-builder": [
         "libs/character-builder/src/index.ts"
       ],
@@ -38,7 +37,8 @@
         "libs/data-access-compendium/types/index.ts"
       ],
       "@pf2-companion/db": ["libs/db/src/index.ts"],
-      "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"]
+      "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"],
+      "@types": ["types/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
