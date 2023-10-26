@@ -5,7 +5,11 @@ module.exports = {
   ignoredRouteFiles: ['**/.*'],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
-  // serverBuildPath: "build/index.js",
-  // publicPath: "/build/",
+  serverPlatform: 'node',
+  serverModuleFormat: 'cjs',
+  serverBuildPath: 'build/index.js',
+  serverMainFields: ['main', 'module'],
+  serverMinify: false,
+  publicPath: '/build/',
   watchPaths: () => require('@nx/remix').createWatchPaths(__dirname),
 };
