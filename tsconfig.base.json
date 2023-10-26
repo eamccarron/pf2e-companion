@@ -37,6 +37,7 @@
         "libs/data-access-compendium/types/index.ts"
       ],
       "@pf2-companion/db": ["libs/db/src/index.ts"],
+      "@pf2-companion/remix-v2": ["libs/remix-v2/src/index.ts"],
       "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"],
       "@types": ["types/index.ts"]
     }

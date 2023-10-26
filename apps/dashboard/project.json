@@ -9,13 +9,18 @@
       "executor": "@nx/remix:build",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "command": "serve build/index.js",
         "outputPath": "dist/apps/dashboard"
       }
     },
     "serve": {
-      "executor": "@nx/remix:serve",
+      "executor": "nx:run-commands",
       "options": {
-        "port": 4200
+        "commands": [
+          "npx remix build",
+          "npx remix-serve build/index.js"
+        ],
+        "cwd": "{projectRoot}"
       }
     },
     "start": {
