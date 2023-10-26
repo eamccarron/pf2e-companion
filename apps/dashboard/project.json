@@ -23,6 +23,15 @@
         "cwd": "{projectRoot}"
       }
     },
+    "serve:dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx remix dev --port 4200 -c 'remix-serve build/index.js'"
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
     "start": {
       "dependsOn": ["build"],
       "command": "remix-serve build",

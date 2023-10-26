@@ -1,22 +1,26 @@
-import React from 'react';
+// Server
+import { generateCharacters } from './generateCharacter.server';
+
+// Client
+import { useLoaderData } from '@remix-run/react';
 import { Stack, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 
 import { CharacterDetailPane } from './CharacterDetailPane';
 import { CharacterList } from './CharacterList';
-// import { FabLink } from '../../components/FabLink';
+import { Outlet } from '@remix-run/react';
+import AddIcon from '@mui/icons-material/Add';
+
+import { FabLink } from '../../src/FabLink';
 
 import type { Character } from '@pf2-companion/data-access-characters/types';
+import { SelectionContextProvider } from '@pf2-companion/ui-selection';
+import { CharacterSelectionContext } from './CharacterSelectionContext';
 
-export const revalidate = 3;
+export const loader = () => generateCharacters();
 
-const getCharacters = async () => {
-  const res = await fetch('http://localhost:4200/api/characters');
-  return res.json();
-};
 
-export default async function Characters() {
-  const characters: Array<Character> = await getCharacters();
+export default function Characters() {
+  const characters: Array<Character> = useLoaderData<Array<Character>>();
 
   const listContent = characters.map(
     ({ name: characterName, class: classType, level, ...content }, index) => ({
@@ -28,7 +32,8 @@ export default async function Characters() {
   );
 
   return (
-    <>
+    <SelectionContextProvider Context={CharacterSelectionContext}>
+      <Typography>Test</Typography>
       <Typography variant="h2">Characters</Typography>
       <Stack
         direction="row"
@@ -37,11 +42,12 @@ export default async function Characters() {
         <CharacterList content={listContent} />
         <CharacterDetailPane />
       </Stack>
+      <Outlet/>
 
-      {/* <FabLink
+      <FabLink
         icon={<AddIcon />}
-        href="/characters/create/class"
-      /> */}
-    </>
+        href="/character-builder/class"
+      />
+    </SelectionContextProvider>
   );
 }

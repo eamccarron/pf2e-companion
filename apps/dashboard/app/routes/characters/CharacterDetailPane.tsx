@@ -1,5 +1,3 @@
-'use client';
-
 import { useContext } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 

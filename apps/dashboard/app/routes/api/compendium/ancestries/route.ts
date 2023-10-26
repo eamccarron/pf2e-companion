@@ -1,5 +1,5 @@
-import { DBConnection } from '@pf2-companion/db';
-import { formatCompendiumJSON } from '@pf2-companion/data-access-compendium';
+  import { DBConnection } from '@pf2-companion/db';
+  import { formatCompendiumJSON } from '@pf2-companion/data-access-compendium';
 import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
 
 export const revalidate = 3;

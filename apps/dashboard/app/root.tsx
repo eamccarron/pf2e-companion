@@ -11,7 +11,6 @@ import { withEmotionCache } from '@emotion/react';
 import { unstable_useEnhancedEffect as useEnhancedEffect } from '@mui/material';
 import { theme } from './src/theme';
 import ClientStyleContext from './src/ClientStyleContext';
-import Layout from './src/Layout';
 import { NavBar } from './src/NavBar';
 
 interface DocumentProps {
@@ -88,30 +87,22 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <Layout>
+      <NavBar>
         <Outlet />
-      </Layout>
+      </NavBar>
     </Document>
   );
 }
 
 // https://remix.run/docs/en/v1/api/conventions#errorboundary
 export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
 
   return (
     <Document title="Error!">
-      <Layout>
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
-        </div>
-      </Layout>
+      <div>
+        <h1>There was an error</h1>
+        <hr />
+      </div>
     </Document>
   );
 }
