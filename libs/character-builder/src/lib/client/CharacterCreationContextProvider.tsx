@@ -1,21 +1,18 @@
-'use client';
-
 import { PropsWithChildren, createContext, useState } from 'react';
+import { useNavigate } from '@remix-run/react';
 
 import { ClassSelectionContext } from './character-class/ClassSelectionContext';
 import { AncestrySelectionContext } from './ancestry/AncestrySelectionContext';
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
-import { useRouter } from 'next/navigation';
-
 export const steps = [
-  { title: 'Select class', route: '/characters/create/class' },
+  { title: 'Select class', route: '/character-builder/class' },
   {
     title: 'Select ancestry and ability scores',
-    route: '/characters/create/ancestry-ability-scores',
+    route: '/character-builder/ability-scores',
   },
-  { title: 'Select feats', route: '/characters/create/feats' },
-  { title: 'Select starting equipment', route: '/characters/create/equipment' },
+  { title: 'Select feats', route: '/character-builder/feats' },
+  { title: 'Select starting equipment', route: '/character-builder/equipment' },
 ];
 
 export type CharacterCreationContextProps = {
@@ -41,18 +38,18 @@ export const CharacterCreationContextProvider = ({
   const [activeStep, setActiveStep] = useState<number>(0);
   const [completed, setCompleted] = useState(new Set<number>());
 
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const totalSteps = steps.length - 1;
 
   const handleNext = () => {
     setActiveStep(activeStep === totalSteps ? totalSteps : activeStep + 1);
-    router.push(steps[activeStep + 1].route);
+    navigate(steps[activeStep + 1].route);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep === 0 ? 0 : activeStep - 1);
-    router.push(steps[activeStep - 1].route);
+    navigate(steps[activeStep - 1].route);
   };
 
   return (

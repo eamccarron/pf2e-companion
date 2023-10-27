@@ -1,68 +1,49 @@
 {
   "name": "dashboard",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/dashboard/src",
+  "sourceRoot": "apps/dashboard",
   "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/next:build",
+      "executor": "@nx/remix:build",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
       "options": {
+        "command": "serve build/index.js",
         "outputPath": "dist/apps/dashboard"
-      },
-      "configurations": {
-        "development": {
-          "outputPath": "apps/dashboard"
-        },
-        "production": {}
       }
     },
     "serve": {
-      "executor": "@nx/next:server",
-      "defaultConfiguration": "development",
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "dashboard:build",
-        "dev": true
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "dashboard:build:development",
-          "dev": true
-        },
-        "production": {
-          "buildTarget": "dashboard:build:production",
-          "dev": false
-        }
+        "commands": [
+          "npx remix build",
+          "npx remix-serve build/index.js"
+        ],
+        "cwd": "{projectRoot}"
       }
     },
-    "export": {
-      "executor": "@nx/next:export",
+    "serve:dev": {
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "dashboard:build:production"
+        "commands": [
+          "npx remix dev --port 4200 -c 'remix-serve build/index.js'"
+        ],
+        "cwd": "{projectRoot}"
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "start": {
+      "dependsOn": ["build"],
+      "command": "remix-serve build",
       "options": {
-        "jestConfig": "apps/dashboard/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "cwd": "apps/dashboard"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+    "typecheck": {
+      "command": "tsc",
       "options": {
-        "lintFilePatterns": ["apps/dashboard/**/*.{ts,tsx,js,jsx}"]
+        "cwd": "apps/dashboard"
       }
     }
-  },
-  "tags": []
+  }
 }
