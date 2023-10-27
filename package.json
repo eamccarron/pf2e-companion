@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "postinstall": "patch-package",
     "dev": "nx serve dashboard -c 'node ./server.js'",
     "docker:build:test-db": "cd ./tools/docker/test-db && ./build.sh",
     "docker:push:test-db": "cd ./tools/docker/test-db && ./push.sh",
@@ -21,7 +22,7 @@
     "@nx/next": "^17.0.1",
     "@nx/plugin": "^17.0.2",
     "@nx/react": "17.0.1",
-    "@nx/remix": "^17.0.0",
+    "@nx/remix": "17.0.0",
     "@nx/vite": "17.0.1",
     "@nx/workspace": "17.0.1",
     "@remix-run/dev": "^2.0.0",
@@ -78,6 +79,7 @@
     "isbot": "^3.6.8",
     "mongodb": "^6.2.0",
     "next": "13.4.1",
+    "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.3.0"

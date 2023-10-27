@@ -24,7 +24,7 @@
     "dev-server": {
       "command": "nx serve dashboard",
       "options": {
-        "readyWhen": "Server started"
+        "readyWhen": "[remix-serve]"
       },
       "configurations": {
         "production": {

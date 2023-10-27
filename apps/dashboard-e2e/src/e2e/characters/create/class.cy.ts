@@ -1,6 +1,6 @@
 describe('Character Creation', () => {
   beforeEach(() => {
-    cy.visit('/characters/create/character-class');
+    cy.visit('/character-builder/class');
   });
 
   it('should display a list of class descriptions', () => {

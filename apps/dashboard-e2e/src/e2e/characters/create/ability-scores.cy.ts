@@ -1,6 +1,6 @@
 describe('Character Creation', () => {
   beforeEach(() => {
-    cy.visit('/characters/create/ancestry-ability-scores');
+    cy.visit('/character-builder/ability-scores');
   });
 
   it('should display a list of ancestries', () => {

@@ -1,6 +1,6 @@
 describe('Character Creation', () => {
   beforeEach(() => {
-    cy.visit('/characters/create/');
+    cy.visit('/character-builder');
   });
 
   it('should navigate to class selection page', () => {
