@@ -19,47 +19,45 @@ export const CharacterCreationStepper = () => {
   // };
 
   return (
-    <>
-      <Stepper activeStep={activeStep}>
-        {steps.map(({ title, route }, index) => {
-          const stepProps: { completed?: boolean } = {};
-          const labelProps: { optional?: React.ReactNode } = {};
-          if (completed.has(index)) {
-            stepProps.completed = true;
-          }
-          return (
-            <Step
-              key={title}
-              {...stepProps}
+    <Stepper activeStep={activeStep}>
+      {steps.map(({ title, route }, index) => {
+        const stepProps: { completed?: boolean } = {};
+        const labelProps: { optional?: React.ReactNode } = {};
+        if (completed.has(index)) {
+          stepProps.completed = true;
+        }
+        return (
+          <Step
+            key={title}
+            {...stepProps}
+          >
+            <StepLabel
+              {...labelProps}
+              onClick={handleNext}
             >
-              <StepLabel
-                {...labelProps}
-                onClick={handleNext}
-              >
-                {title}
-              </StepLabel>
-            </Step>
-          );
-        })}
+              {title}
+            </StepLabel>
+          </Step>
+        );
+      })}
 
-        <Stack
-          spacing={1}
-          direction="row"
+      <Stack
+        spacing={1}
+        direction="row"
+      >
+        <Button
+          disabled={activeStep === 0}
+          onClick={handleBack}
         >
-          <Button
-            disabled={activeStep === 0}
-            onClick={handleBack}
-          >
-            Back
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleNext}
-          >
-            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-          </Button>
-        </Stack>
-      </Stepper>
-    </>
+          Back
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleNext}
+        >
+          {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+        </Button>
+      </Stack>
+    </Stepper>
   );
 };

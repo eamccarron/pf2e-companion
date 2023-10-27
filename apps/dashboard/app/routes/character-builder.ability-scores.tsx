@@ -29,7 +29,7 @@ export const loader = async () => {
   return json(ancestries);
 };
 
-export default async function SelectAncestryAndAbilityScores() {
+export default function SelectAncestryAndAbilityScores() {
   const ancestries: Array<any> = useLoaderData<Ancestry[]>();
 
   const listContent = ancestries.map(

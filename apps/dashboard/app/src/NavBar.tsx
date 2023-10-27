@@ -57,8 +57,8 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
             disablePadding
           >
             <ListItemButton
-              LinkComponent={Link}
-              href={href}
+              component={Link}
+              to={href}
             >
               <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText primary={text} />
