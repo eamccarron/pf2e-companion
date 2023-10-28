@@ -1,6 +1,7 @@
 describe('Navbar - md', () => {
   beforeEach(() => {
     cy.visit('/');
+    cy.reload(true);
   });
 
   it('Should display a permanent navigation drawer on a medium screen', () => {

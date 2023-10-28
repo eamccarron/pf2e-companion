@@ -32,8 +32,8 @@ describe('Character Creation', () => {
     cy.getBySel('detail-pane-content').should('be.visible');
   });
 
-  it('Should navigate to ancestry selection when next is clicked', () => {
+  it('Should navigate to ability scores when next is clicked', () => {
     cy.getBySel('character-creation-next').click();
-    cy.url().should('include', '/characters/create/ancestry');
+    cy.url().should('include', '/character-builder/ability-scores');
   });
 });

@@ -1,6 +1,7 @@
 describe('Characters Page', () => {
   beforeEach(() => {
     cy.visit('/characters');
+    cy.reload(true);
   });
 
   it('should display a header with the text "Characters"', () => {
@@ -32,6 +33,6 @@ describe('Characters Page', () => {
 
   it('Should navigate to character creation when FAB is clicked', () => {
     cy.getBySel('fab-link').click();
-    cy.url().should('include', 'create');
+    cy.url().should('include', 'character-builder');
   });
 });

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Suspense } from 'react';
 import {
   Links,
   LiveReload,
@@ -8,7 +8,10 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import { withEmotionCache } from '@emotion/react';
-import { unstable_useEnhancedEffect as useEnhancedEffect } from '@mui/material';
+import {
+  unstable_useEnhancedEffect as useEnhancedEffect,
+  CircularProgress,
+} from '@mui/material';
 import { theme } from './src/theme';
 import ClientStyleContext from './src/ClientStyleContext';
 import { NavBar } from './src/NavBar';
@@ -88,7 +91,9 @@ export default function App() {
   return (
     <Document>
       <NavBar>
-        <Outlet />
+        <Suspense fallback={<CircularProgress />}>
+          <Outlet />
+        </Suspense>
       </NavBar>
     </Document>
   );
@@ -96,7 +101,6 @@ export default function App() {
 
 // https://remix.run/docs/en/v1/api/conventions#errorboundary
 export function ErrorBoundary({ error }: { error: Error }) {
-
   return (
     <Document title="Error!">
       <div>

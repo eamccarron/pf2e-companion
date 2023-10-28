@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useState } from 'react';
+import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { useNavigate } from '@remix-run/react';
 
 import { ClassSelectionContext } from './character-class/ClassSelectionContext';
@@ -42,14 +42,18 @@ export const CharacterCreationContextProvider = ({
 
   const totalSteps = steps.length - 1;
 
+  useEffect(() => {
+    navigate(steps[activeStep].route);
+  }, [activeStep, navigate]);
+
   const handleNext = () => {
     setActiveStep(activeStep === totalSteps ? totalSteps : activeStep + 1);
-    navigate(steps[activeStep + 1].route);
+    // navigate(steps[activeStep + 1].route);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep === 0 ? 0 : activeStep - 1);
-    navigate(steps[activeStep - 1].route);
+    // navigate(steps[activeStep - 1].route);
   };
 
   return (

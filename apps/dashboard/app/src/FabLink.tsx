@@ -14,6 +14,7 @@ export const FabLink = ({ icon, href }: FabLinkProps) => (
     aria-label="add"
     component={Link}
     to={href}
+    data-cy="fab-link"
   >
     {icon}
   </Fab>

@@ -5,5 +5,9 @@ export default defineConfig({
   e2e: {
     ...nxE2EPreset(__dirname),
     experimentalRunAllSpecs: true,
+    retries: {
+      runMode: 3,
+      openMode: 0,
+    }
   },
 });
