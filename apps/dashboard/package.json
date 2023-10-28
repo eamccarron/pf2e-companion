@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "private": true,
   "name": "dashboard",
   "description": "",
@@ -7,5 +8,9 @@
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@remix-run/node": "^2.1.0",
+    "isbot": "latest"
+  }
 }

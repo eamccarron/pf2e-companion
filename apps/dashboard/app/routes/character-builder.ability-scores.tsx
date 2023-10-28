@@ -1,7 +1,7 @@
 // Server
 import { json } from '@remix-run/node';
-import { DBConnection } from '../server/db.server';
-import { formatCompendiumJSON } from '../server/db.server';
+import { DBConnection } from '../../server/db.server';
+import { formatCompendiumJSON } from '../../server/db.server';
 
 // Client
 import { Stack } from '@mui/material';
@@ -14,9 +14,6 @@ import {
 
 import type { Selection } from '@pf2-companion/ui-selection';
 import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
-
-
-
 
 export const loader = async () => {
   const db = await DBConnection.getCompendiumDB();

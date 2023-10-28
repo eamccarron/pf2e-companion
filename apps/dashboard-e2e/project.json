@@ -12,6 +12,11 @@
         "baseUrl": "http://localhost:4200",
         "devServerTarget": "dashboard:serve",
         "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "dashboard:serve:production"
+        }
       }
     },
     "test-db:up": {
