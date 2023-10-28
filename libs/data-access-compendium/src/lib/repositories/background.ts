@@ -1,7 +1,7 @@
-import { model, type Model } from 'mongoose';
-
-import { BackgroundSchema, type Background } from '../schemas/background';
 import { CompendiumRepository } from './compendium';
+import { BackgroundSchema } from '../models/background';
+
+import type { Background } from '../../../types';
 
 export class BackgroundRepository extends CompendiumRepository<Background> {
   private static instance: BackgroundRepository;

@@ -1,3 +1,5 @@
+import { DataSource } from 'typeorm';
+
 import { MongoClient, type Db } from 'mongodb';
 
 const uri = process.env['DB_URI'];

@@ -1,4 +1,3 @@
-import type { Schema } from 'mongoose';
 import type { CompendiumDocument } from '../../types/CompendiumDocument';
 
 const removeDescriptionHTML = (description: string): string =>

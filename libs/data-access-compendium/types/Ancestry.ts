@@ -3,6 +3,9 @@ import type {
   AdditionalLanguages,
   Languages,
   Item,
+  Description,
+  Publication,
+  Traits,
 } from './System';
 
 export interface Ancestry {
@@ -28,19 +31,4 @@ export interface AncestrySystem {
   speed: number;
   traits: Traits;
   vision: string;
-}
-
-export interface Description {
-  value: string;
-}
-
-export interface Publication {
-  license: string;
-  remaster: boolean;
-  title: string;
-}
-
-export interface Traits {
-  rarity: string;
-  value: string[];
 }

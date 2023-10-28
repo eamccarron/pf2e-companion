@@ -1,4 +1,3 @@
-import type { Schema } from 'mongoose';
 import { CollectionRepository } from '@pf2-companion/db';
 import { initializeSchemaMiddleware } from '../middleware';
 

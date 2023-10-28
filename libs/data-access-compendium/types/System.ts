@@ -25,9 +25,11 @@ export interface Description {
 }
 
 export interface AbilityScoreModifiers {
-  [key: number]: {
-    value: AbilityIdentifier[];
-  };
+  [key: number]: AbilityScoreModifier;
+}
+
+export interface AbilityScoreModifier {
+  value: AbilityIdentifier[];
 }
 
 export interface AdditionalLanguages {
@@ -46,4 +48,15 @@ export interface Item {
   level: number;
   name: string;
   uuid: string;
+}
+
+export interface Publication {
+  license: string;
+  remaster: boolean;
+  title: string;
+}
+
+export interface Traits {
+  rarity: Rarity;
+  value: string[];
 }
