@@ -1,7 +1,7 @@
 // Server
 import { json } from '@remix-run/node';
-import { DBConnection } from '../server/db.server';
-import { formatCompendiumJSON } from '../server/db.server';
+import { CompendiumDB, formatCompendiumJSON } from '../server/db.server';
+import { Ancestry as AncestryModel } from '../server/models.server';
 
 // Client
 import { Stack } from '@mui/material';
@@ -16,11 +16,11 @@ import type { Selection } from '@pf2-companion/ui-selection';
 import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
 
 export const loader = async () => {
-  const db = await DBConnection.getCompendiumDB();
+  const db = await CompendiumDB.initialize();
 
   // TODO: typing on data access layer for better typing here
   const ancestries: Array<any> = formatCompendiumJSON(
-    await db.collection('ancestries').find().toArray()
+    await db.getRepository(AncestryModel).find()
   );
 
   return json(ancestries);

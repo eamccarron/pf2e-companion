@@ -18,5 +18,8 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  // typeORM config
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true
 }

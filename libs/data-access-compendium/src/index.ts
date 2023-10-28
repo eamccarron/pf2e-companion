@@ -1,2 +1,2 @@
 export { formatCompendiumJSON } from './utils/formatCompendiumJSON';
-export * from './lib/repositories';
+export { Ancestry } from './lib/models/Ancestry';
