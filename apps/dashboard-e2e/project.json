@@ -10,19 +10,9 @@
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
         "baseUrl": "http://localhost:4200",
-        "devServerTarget": "dashboard:serve",
-        "testingType": "e2e"
-      }
-    },
-    "test-db:up": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "docker compose up --detach test-db"
-          }
-        ],
-        "cwd": "{projectRoot}"
+        "devServerTarget": "dashboard:serve:e2e",
+        "testingType": "e2e",
+        "quiet": true
       }
     },
     "test-db:up": {

@@ -1,30 +1,46 @@
-type AbilityModifier = {
-  [key: number]: { value: Array<string> };
-};
+import type {
+  AbilityScoreModifiers,
+  AdditionalLanguages,
+  Languages,
+  Item,
+} from './System';
 
-export type Ancestry = {
+export interface Ancestry {
   _id: string;
+  img: string;
   name: string;
-  system: {
-    additionalLanguages: any;
-    boosts: AbilityModifier;
-    description: string;
-    flaws: AbilityModifier;
-    hp: number;
-    items: any;
-    languages: {
-      custom: string;
-      value: Array<string>;
-    };
-    reach: number;
-    rules: Array<any>;
-    size: string;
-    speed: 25;
-    traits: {
-      rarity: string;
-      value: Array<string>;
-    };
-    vision: string;
-  };
+  system: AncestrySystem;
   type: string;
-};
+}
+
+export interface AncestrySystem {
+  additionalLanguages: AdditionalLanguages;
+  boosts: AbilityScoreModifiers;
+  description: Description;
+  flaws: AbilityScoreModifiers;
+  hp: number;
+  items: { [key: string]: Item };
+  languages: Languages;
+  publication: Publication;
+  reach: number;
+  rules: object[];
+  size: string;
+  speed: number;
+  traits: Traits;
+  vision: string;
+}
+
+export interface Description {
+  value: string;
+}
+
+export interface Publication {
+  license: string;
+  remaster: boolean;
+  title: string;
+}
+
+export interface Traits {
+  rarity: string;
+  value: string[];
+}

@@ -21,6 +21,14 @@
         "cwd": "{projectRoot}"
       }
     },
+    "serve:e2e": {
+      "executor": "@nx/remix:serve",
+      "options": {
+        "port": 4200,
+        "command": "npx remix-serve build/index.js > /dev/null",
+        "cwd": "{projectRoot}"
+      }
+    },
     "serve:dev": {
       "executor": "nx:run-commands",
       "options": {
