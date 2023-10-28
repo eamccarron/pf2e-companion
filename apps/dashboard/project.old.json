@@ -1,3 +1,4 @@
+
 {
   "name": "dashboard",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
@@ -14,10 +15,12 @@
       }
     },
     "serve": {
-      "executor": "@nx/remix:serve",
+      "executor": "nx:run-commands",
       "options": {
-        "port": 4200,
-        "command": "npx remix-serve build/index.js",
+        "commands": [
+          "npx remix build",
+          "npx remix-serve build/index.js"
+        ],
         "cwd": "{projectRoot}"
       }
     },

@@ -40,7 +40,7 @@ export default async function Characters() {
 
       <FabLink
         icon={<AddIcon />}
-        href="/characters/create/class"
+        href="/characters/create"
       />
     </>
   );

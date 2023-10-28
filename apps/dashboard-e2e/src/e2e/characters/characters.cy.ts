@@ -1,6 +1,7 @@
 describe('Characters Page', () => {
   beforeEach(() => {
     cy.visit('/characters');
+    cy.reload(true);
   });
 
   it('should display a header with the text "Characters"', () => {
@@ -8,8 +9,10 @@ describe('Characters Page', () => {
   });
 
   it('should display a list of characters', () => {
-    cy.get('ul').should('be.visible');
-    cy.get('li').should('be.visible');
+    cy.getBySel('content-list').each((listItem) => {
+      expect(listItem.text()).to.not.be.empty;
+      expect(listItem).to.be.visible;
+    });
   });
 
   it('should display class and level for each character', () => {
@@ -30,6 +33,6 @@ describe('Characters Page', () => {
 
   it('Should navigate to character creation when FAB is clicked', () => {
     cy.getBySel('fab-link').click();
-    cy.url().should('include', 'create');
+    cy.url().should('include', 'character-builder');
   });
 });

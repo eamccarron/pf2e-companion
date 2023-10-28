@@ -44,6 +44,7 @@ export function ContentList<T>({
             selected={selection?.id === content.id}
             sx={{ borderRadius: 6 }}
             onClick={() => handleSelection(content)}
+            data-cy="content-list-button"
           >
             {content.avatar ? (
               <ListItemAvatar>{content.avatar}</ListItemAvatar>
@@ -79,6 +80,7 @@ export function ContentList<T>({
         overflow: 'auto',
         bgcolor: 'background.paper',
       }}
+      data-cy="content-list"
     >
       {content.map((content) => (
         <CardListItem

@@ -6,30 +6,30 @@
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
+      "dependsOn": ["test-db:up"],
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
-        "baseUrl": "http://localhost:3000",
-        "testingType": "e2e",
-        "skipServe": true
-      },
-      "dependsOn": ["dev-server"]
+        "baseUrl": "http://localhost:4200",
+        "devServerTarget": "dashboard:serve",
+        "testingType": "e2e"
+      }
+    },
+    "test-db:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker compose up --detach test-db"
+          }
+        ],
+        "cwd": "{projectRoot}"
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
-      }
-    },
-    "dev-server": {
-      "command": "nx serve dashboard",
-      "options": {
-        "readyWhen": "Server started"
-      },
-      "configurations": {
-        "production": {
-          "command": "nx serve dashboard --configuration=production"
-        }
       }
     }
   },

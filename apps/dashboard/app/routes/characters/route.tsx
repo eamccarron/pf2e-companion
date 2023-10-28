@@ -33,7 +33,6 @@ export default function Characters() {
 
   return (
     <SelectionContextProvider Context={CharacterSelectionContext}>
-      <Typography>Test</Typography>
       <Typography variant="h2">Characters</Typography>
       <Stack
         direction="row"

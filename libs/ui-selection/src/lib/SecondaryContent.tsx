@@ -10,15 +10,9 @@ export const SecondaryContent = ({
   secondary,
   secondaryContentLength,
 }: SecondaryContentProps) => {
-  const mapContentToLine = (index: number) => (
+  const mapContentToLine = (content: string, index: number) => (
     <Box key={index}>{`${(secondary ?? [])[index]}`}</Box>
   );
-  return (
-    <>
-      {/* Pre-render skeleton to avoid hydration errors for variable secondary content lengths */}
-      {[...Array(secondaryContentLength)].map((item, i) =>
-        mapContentToLine(i)
-      )}
-    </>
-  );
+
+  return <Box>{secondary?.map(mapContentToLine)}</Box>;
 };

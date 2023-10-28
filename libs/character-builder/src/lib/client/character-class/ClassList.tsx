@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { ClassSelectionContext } from './ClassSelectionContext';
 import { ContentList, Selection } from '@pf2-companion/ui-selection';
 
-import type { ClassDescription } from '@types';
+import type { ClassDescription } from '../../../../types';
 import type { SelectionContext } from '@pf2-companion/ui-selection';
 
 export const ClassList = ({
