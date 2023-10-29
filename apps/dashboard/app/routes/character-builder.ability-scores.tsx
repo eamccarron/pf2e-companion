@@ -27,11 +27,11 @@ export const loader = async (): Promise<{
   const ancestries = (await ancestryResponse.json()) as Array<Ancestry>;
 
   const backgroundResponse = await fetchCompendium('backgrounds');
-  const backgounds = (await ancestryResponse.json()) as Array<Background>;
+  const backgrounds = (await backgroundResponse.json()) as Array<Background>;
 
   return {
     ancestries: formatAncestryJSON(ancestries),
-    backgrounds: formatAncestryJSON(ancestries),
+    backgrounds: formatAncestryJSON(backgrounds),
   };
 };
 
@@ -44,7 +44,7 @@ export default function CharacterBuilderAbilityScores() {
   return (
     <Suspense fallback={<CircularProgress />}>
       <AncestrySelection content={ancestries} />
-      <BackgroundSele content={ancestries} />
+      <BackgroundSelection content={backgrounds} />
     </Suspense>
   );
 }

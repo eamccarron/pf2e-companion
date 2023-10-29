@@ -45,8 +45,6 @@ export function ContentListFilter<T>({
           return filterContent(initialContent, [filter]);
         })
         .flat();
-
-      console.log(filteredContent.map((c) => c.content.rarity));
     } else {
       filteredContent = filterContent(initialContent, filters);
     }

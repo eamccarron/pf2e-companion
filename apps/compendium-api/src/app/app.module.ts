@@ -8,7 +8,6 @@ import { BackgroundsModule } from './backgrounds/backgrounds.module';
 
 // Data model
 import { Ancestry, Background } from '@pf2-companion/data-access-compendium';
-import { CompendiumDB } from '@pf2-companion/db';
 import { ClassesController } from './character-classes/classes.controller';
 
 @Module({
