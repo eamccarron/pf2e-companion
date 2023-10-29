@@ -1,6 +1,7 @@
-export { AncestryList } from './lib/client/ancestry/AncestryList';
-export { AncestryDetailPane } from './lib/client/ancestry/AncestryDetailPane';
-export { AncestrySelectionContext } from './lib/client/ancestry/AncestrySelectionContext';
+export { AncestrySelection } from './lib/client/ancestry/AncestrySelection';
+export { BackgroundSelection } from './lib/client/background/BackgroundSelection';
+
+export type * from './lib/client/ancestry/types/AncestrySelectionContent';
 
 export { ClassList } from './lib/client/character-class/ClassList';
 export { ClassDetailPane } from './lib/client/character-class/ClassDetailPane';

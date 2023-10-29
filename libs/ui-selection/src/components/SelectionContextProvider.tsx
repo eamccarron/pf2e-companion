@@ -8,8 +8,6 @@ export interface Selection<T> {
   primary: string;
   id: string | number;
   secondary?: Array<string>;
-  avatar?: JSX.Element;
-  action?: JSX.Element;
   description?: string;
   content: T;
 }

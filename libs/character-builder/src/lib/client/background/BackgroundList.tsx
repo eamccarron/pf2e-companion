@@ -1,22 +1,23 @@
-'use client';
-
 import { useContext } from 'react';
 
 import { BackgroundSelectionContext } from './BackgroundSelectionContext';
-import { ContentList, Selection } from '@pf2-companion/ui-selection';
+import { ContentList } from '@pf2-companion/ui-selection';
+import type { Selection } from '@pf2-companion/ui-selection';
 
-import type { Background } from '@pf2-companion/data-access-compendium/types';
-import type { SelectionContext } from '@pf2-companion/ui-selection';
+import type {
+  BackgroundSelectionContent,
+  BackgroundContent,
+} from './types/BackgroundSelectionContent';
 
 export const BackgroundList = ({
   content,
-}: React.PropsWithChildren<{ content: Selection<Background>[] }>) => {
-  const { selection, setSelection } = useContext<SelectionContext<Background>>(
-    BackgroundSelectionContext
-  );
+}: {
+  content: BackgroundSelectionContent;
+}) => {
+  const { selection, setSelection } = useContext(BackgroundSelectionContext);
 
   return (
-    <ContentList<Background>
+    <ContentList<BackgroundContent>
       selection={selection}
       setSelection={setSelection}
       content={content}

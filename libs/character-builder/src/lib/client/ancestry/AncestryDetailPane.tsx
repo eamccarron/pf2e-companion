@@ -1,17 +1,16 @@
 'use client';
 
 import { useContext } from 'react';
-import { Box, Typography, Grid } from '@mui/material';
 
 import { AncestrySelectionContext } from './AncestrySelectionContext';
 import { ContentDetailPane } from '@pf2-companion/ui-selection';
-import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
+import type { AncestryContent } from './types/AncestrySelectionContent';
 
 export const AncestryDetailPane = () => {
   const { selection } = useContext(AncestrySelectionContext);
 
   return (
-    <ContentDetailPane<Ancestry>
+    <ContentDetailPane<AncestryContent>
       slide
       slideDirection="left"
       selection={selection}

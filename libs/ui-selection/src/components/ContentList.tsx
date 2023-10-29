@@ -5,7 +5,6 @@ import {
   ListItem,
   ListItemButton,
   Box,
-  ListItemAvatar,
   ListItemText,
   Typography,
 } from '@mui/material';
@@ -16,7 +15,7 @@ import type { Selection } from './SelectionContextProvider';
 type ListItem = Selection<any>;
 
 export type ContentListProps<T> = PropsWithChildren<{
-  content: Array<ListItem>;
+  content: Selection<T>[];
   selection: Selection<T> | null;
   setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
   secondaryContentLength?: number;
@@ -46,9 +45,6 @@ export function ContentList<T>({
             onClick={() => handleSelection(content)}
             data-cy="content-list-button"
           >
-            {content.avatar ?? (
-              <ListItemAvatar>{content.avatar}</ListItemAvatar>
-            )}
 
             <ListItemText
               primary={content.primary}

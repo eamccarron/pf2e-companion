@@ -3,20 +3,19 @@
 import { useContext } from 'react';
 
 import { AncestrySelectionContext } from './AncestrySelectionContext';
-import { ContentList, Selection } from '@pf2-companion/ui-selection';
+import { ContentList } from '@pf2-companion/ui-selection';
+import type { Selection } from '@pf2-companion/ui-selection';
 
-import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
-import type { SelectionContext } from '@pf2-companion/ui-selection';
+import type { AncestrySelectionContent } from './types/AncestrySelectionContent';
+import type { AncestryContent } from './types/AncestrySelectionContent';
 
 export const AncestryList = ({
   content,
-}: React.PropsWithChildren<{ content: Selection<Ancestry>[] }>) => {
-  const { selection, setSelection } = useContext<SelectionContext<Ancestry>>(
-    AncestrySelectionContext
-  );
+}: { content: AncestrySelectionContent }) => {
+  const { selection, setSelection } = useContext(AncestrySelectionContext);
 
   return (
-    <ContentList<Ancestry>
+    <ContentList<AncestryContent>
       selection={selection}
       setSelection={setSelection}
       content={content}

@@ -32,7 +32,6 @@ export function ContentDetailPane<T>({
         <Card>
           <CardHeader
             title={selection?.primary}
-            avatar={selection?.avatar}
             subheader={(selection?.secondary ?? [])[0] ?? ''}
             data-cy="detail-pane-header"
           />
