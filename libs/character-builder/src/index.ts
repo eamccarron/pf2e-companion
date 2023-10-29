@@ -1,5 +1,6 @@
 export { AncestrySelection } from './lib/client/ancestry/AncestrySelection';
 export { BackgroundSelection } from './lib/client/background/BackgroundSelection';
+export { AbilityScoreSelection } from './lib/client/ability-scores/AbilityScoreSelection';
 
 export type * from './lib/client/ancestry/types/AncestrySelectionContent';
 

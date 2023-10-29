@@ -19,6 +19,7 @@ export type ContentListProps<T> = PropsWithChildren<{
   selection: Selection<T> | null;
   setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
   secondaryContentLength?: number;
+  maxHeight?: number | string;
 }>;
 
 export function ContentList<T>({
@@ -26,6 +27,7 @@ export function ContentList<T>({
   selection,
   setSelection,
   secondaryContentLength = 1,
+  maxHeight = '100%',
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
 
@@ -70,7 +72,7 @@ export function ContentList<T>({
     <List
       sx={{
         width: '100%',
-        maxHeight: '100%',
+        maxHeight: maxHeight,
         overflow: 'auto',
         bgcolor: 'background.paper',
       }}

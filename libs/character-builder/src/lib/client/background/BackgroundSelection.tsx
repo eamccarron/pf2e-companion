@@ -2,13 +2,10 @@
 import { useState } from 'react';
 
 // Client
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import {
-  BackgroundList,
-  BackgroundDetailPane,
-} from '.';
+import { BackgroundList, BackgroundDetailPane } from '.';
 
 import { RarityFilter } from '../RarityFilter';
 
@@ -34,9 +31,14 @@ export const BackgroundSelection = ({ content }: { content: Content }) => {
         direction="row"
         spacing={2}
       >
-        <BackgroundList content={listContent} />
-        <BackgroundDetailPane />
+        <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
+          <BackgroundList content={listContent} />
+        </Box>
+
+        <Box sx={{ maxWidth: '50%' }}>
+          <BackgroundDetailPane />
+        </Box>
       </Stack>
     </>
   );
-}
+};

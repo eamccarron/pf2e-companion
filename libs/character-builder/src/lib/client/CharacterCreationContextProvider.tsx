@@ -3,6 +3,7 @@ import { useNavigate } from '@remix-run/react';
 
 import { ClassSelectionContext } from './character-class/ClassSelectionContext';
 import { AncestrySelectionContext } from './ancestry/AncestrySelectionContext';
+import { BackgroundSelectionContext } from './background';
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
 export const steps = [
@@ -68,7 +69,9 @@ export const CharacterCreationContextProvider = ({
     >
       <SelectionContextProvider Context={ClassSelectionContext}>
         <SelectionContextProvider Context={AncestrySelectionContext}>
+          <SelectionContextProvider Context={BackgroundSelectionContext}>
           {children}
+          </SelectionContextProvider>
         </SelectionContextProvider>
       </SelectionContextProvider>
     </CharacterCreationContext.Provider>

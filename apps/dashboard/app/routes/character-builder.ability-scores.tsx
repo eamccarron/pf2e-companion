@@ -2,17 +2,21 @@
 import { fetchCompendium } from '../server/fetchCompendium.server';
 
 // Client
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Tabs, Tab, Box, Typography, Divider } from '@mui/material';
 import { useLoaderData } from '@remix-run/react';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 import {
   type AncestrySelectionContent as Content,
   AncestrySelection,
   BackgroundSelection,
+  AbilityScoreSelection,
 } from '@pf2-companion/character-builder';
 
-import { formatAncestryJSON } from '@pf2-companion/character-builder/server';
+import {
+  formatAncestryJSON,
+  formatBackgroundJSON,
+} from '@pf2-companion/character-builder/server';
 
 import type {
   Ancestry,
@@ -31,8 +35,34 @@ export const loader = async (): Promise<{
 
   return {
     ancestries: formatAncestryJSON(ancestries),
-    backgrounds: formatAncestryJSON(backgrounds),
+    backgrounds: formatBackgroundJSON(backgrounds),
   };
+};
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+const TabPanel = (props: TabPanelProps) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
 };
 
 export default function CharacterBuilderAbilityScores() {
@@ -41,10 +71,51 @@ export default function CharacterBuilderAbilityScores() {
     backgrounds: Content;
   }>();
 
+  const [section, setSection] = useState<number>(0);
+  const handleSectionChange = (
+    event: React.SyntheticEvent,
+    newValue: number
+  ) => {
+    setSection(newValue);
+  };
+
   return (
     <Suspense fallback={<CircularProgress />}>
-      <AncestrySelection content={ancestries} />
-      <BackgroundSelection content={backgrounds} />
+      <AbilityScoreSelection
+        hp={14}
+        abilityScores={[
+          { ability: 'Strength', abilityScore: 18 },
+          { ability: 'Dexterity', abilityScore: 16 },
+          { ability: 'Constitution', abilityScore: 14 },
+          { ability: 'Intelligence', abilityScore: 12 },
+          { ability: 'Wisdom', abilityScore: 10 },
+          { ability: 'Charisma', abilityScore: 8 },
+        ]}
+      />
+
+      <Divider />
+
+      <Tabs
+        value={section}
+        onChange={handleSectionChange}
+      >
+        <Tab label="Ancestry" />
+        <Tab label="Background" />
+      </Tabs>
+
+      <TabPanel
+        value={section}
+        index={0}
+      >
+        <AncestrySelection content={ancestries} />
+      </TabPanel>
+
+      <TabPanel
+        value={section}
+        index={1}
+      >
+        <BackgroundSelection content={backgrounds} />
+      </TabPanel>
     </Suspense>
   );
 }

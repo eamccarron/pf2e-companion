@@ -2,13 +2,10 @@
 import { useState } from 'react';
 
 // Client
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import {
-  AncestryList,
-  AncestryDetailPane,
-} from '.';
+import { AncestryList, AncestryDetailPane } from '.';
 
 import { RarityFilter } from '../RarityFilter';
 
@@ -34,9 +31,11 @@ export const AncestrySelection = ({ content }: { content: Content }) => {
         direction="row"
         spacing={2}
       >
-        <AncestryList content={listContent} />
+        <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
+          <AncestryList content={listContent} />
+        </Box>
         <AncestryDetailPane />
       </Stack>
     </>
   );
-}
+};
