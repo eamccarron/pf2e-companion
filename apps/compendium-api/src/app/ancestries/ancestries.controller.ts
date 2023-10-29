@@ -1,0 +1,14 @@
+import { Controller, Get } from '@nestjs/common';
+import { AncestriesService } from './ancestries.service';
+
+import type { Ancestry } from '@pf2-companion/data-access-compendium';
+
+@Controller('ancestries')
+export class AncestriesController {
+  constructor(private ancestriesService: AncestriesService) {}
+
+  @Get()
+  async get(): Promise<Ancestry[]> {
+    return await this.ancestriesService.findAll();
+  }
+}

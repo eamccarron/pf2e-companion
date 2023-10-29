@@ -47,7 +47,7 @@ export class BackgroundSystem {
 @Entity()
 export class Background {
   @ObjectIdColumn()
-  _id: string;
+  id: string;
 
   @Column()
   name: string;
@@ -60,8 +60,8 @@ export class Background {
   @Column((type) => BackgroundSystem)
   system: BackgroundSystem;
 
-  constructor(_id: string, name: string, system: BackgroundSystem) {
-    this._id = _id;
+  constructor(id: string, name: string, system: BackgroundSystem) {
+    this.id = id;
     this.name = name;
     this.system = system;
   }

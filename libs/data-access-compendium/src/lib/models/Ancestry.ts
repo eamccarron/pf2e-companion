@@ -89,7 +89,7 @@ export class AncestrySystem {
 @Entity()
 export class Ancestry {
   @ObjectIdColumn()
-  _id: string;
+  id: string;
 
   @Column()
   img: string;
@@ -104,13 +104,13 @@ export class Ancestry {
   type: string;
 
   constructor(
-    _id: string,
+    id: string,
     img: string,
     name: string,
     system: AncestrySystem,
     type: string
   ) {
-    this._id = _id;
+    this.id = id;
     this.img = img;
     this.name = name;
     this.system = system;
