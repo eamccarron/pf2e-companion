@@ -8,3 +8,5 @@ export { ClassSelectionContext } from './lib/client/character-class/ClassSelecti
 
 export { CharacterCreationContextProvider } from './lib/client/CharacterCreationContextProvider';
 export { CharacterCreationStepper } from './lib/client/CharacterCreationStepper';
+
+export { RarityFilter } from './lib/client/RarityFilter';

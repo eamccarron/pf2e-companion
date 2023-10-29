@@ -76,6 +76,7 @@
     "@faker-js/faker": "^8.2.0",
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
+    "@mui/material-next": "^6.0.0-alpha.107",
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
