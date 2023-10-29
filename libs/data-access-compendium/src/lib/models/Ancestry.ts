@@ -26,8 +26,9 @@ export class AncestrySystem {
   @Column()
   hp: number;
 
-  @Column((type) => Item)
-  items: Item[];
+  // Breaking due to issue with arrays in mongo: https://github.com/typeorm/typeorm/issues/10391
+  // @Column((type) => Item)
+  // items: Item[];
 
   @Column((type) => Languages)
   languages: Languages;
@@ -59,7 +60,7 @@ export class AncestrySystem {
     description: Description,
     flaws: AbilityScoreModifiers,
     hp: number,
-    items: Item[],
+    // items: Item[],
     languages: Languages,
     publication: Publication,
     reach: number,
@@ -74,7 +75,7 @@ export class AncestrySystem {
     this.description = description;
     this.flaws = flaws;
     this.hp = hp;
-    this.items = items;
+    // this.items = items;
     this.languages = languages;
     this.publication = publication;
     this.reach = reach;
@@ -86,10 +87,10 @@ export class AncestrySystem {
   }
 }
 
-@Entity()
+@Entity('ancestries')
 export class Ancestry {
   @ObjectIdColumn()
-  id: string;
+  _id: string;
 
   @Column()
   img: string;
@@ -104,13 +105,13 @@ export class Ancestry {
   type: string;
 
   constructor(
-    id: string,
+    _id: string,
     img: string,
     name: string,
     system: AncestrySystem,
     type: string
   ) {
-    this.id = id;
+    this._id = _id;
     this.img = img;
     this.name = name;
     this.system = system;

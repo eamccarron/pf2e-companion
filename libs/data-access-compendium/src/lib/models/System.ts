@@ -31,6 +31,15 @@ export class Description {
   }
 }
 
+export class AbilityScoreModifier {
+  @Column()
+  value: AbilityIdentifier[];
+
+  constructor(value: AbilityIdentifier[]) {
+    this.value = value;
+  }
+}
+
 export class AbilityScoreModifiers {
   @Column((type) => AbilityScoreModifier)
   '0': AbilityScoreModifier;
@@ -40,15 +49,6 @@ export class AbilityScoreModifiers {
 
   @Column((type) => AbilityScoreModifier)
   '2': AbilityScoreModifier;
-}
-
-export class AbilityScoreModifier {
-  @Column()
-  value: AbilityIdentifier[];
-
-  constructor(value: AbilityIdentifier[]) {
-    this.value = value;
-  }
 }
 
 export class AdditionalLanguages {

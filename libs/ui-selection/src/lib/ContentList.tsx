@@ -46,10 +46,8 @@ export function ContentList<T>({
             onClick={() => handleSelection(content)}
             data-cy="content-list-button"
           >
-            {content.avatar ? (
+            {content.avatar ?? (
               <ListItemAvatar>{content.avatar}</ListItemAvatar>
-            ) : (
-              <></>
             )}
 
             <ListItemText

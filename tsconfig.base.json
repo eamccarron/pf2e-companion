@@ -42,5 +42,7 @@
     }
   },
   "exclude": ["node_modules", "tmp"],
-  "types": ["cypress"]
+  "types": ["cypress"],
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
 }

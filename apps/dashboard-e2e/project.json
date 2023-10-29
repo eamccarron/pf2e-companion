@@ -6,7 +6,7 @@
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
-      "dependsOn": ["test-db:up"],
+      "dependsOn": ["test-db:up, compendium-api:serve"],
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
         "baseUrl": "http://localhost:4200",
