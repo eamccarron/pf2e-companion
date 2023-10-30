@@ -8,6 +8,7 @@ export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
       system: {
         description: { value: description },
         traits: { rarity },
+        boosts,
       },
       id,
     }: Background) =>
@@ -15,6 +16,12 @@ export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
         primary: name,
         description,
         id,
-        content: { rarity },
+        content: { 
+          rarity,
+          boosts: {
+            choices: boosts['0']?.value ?? [],
+            free: boosts['1']?.value ?? [],
+          }, 
+        },
       })
   );

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
-import { Stack, Box, Typography, Checkbox } from '@mui/material';
+import { Stack, Box, Typography, Checkbox, Badge } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
@@ -64,7 +64,7 @@ export const AbilityScoreSelection = () => {
   );
 
   const [freeAncestryBoostAvailable, setFreeAncestryBoostAvailable] =
-    useState<boolean>(true);
+    useState<boolean>(false);
 
   const [ancestryBoosts, ancestryBoostDispatch] = useReducer(
     ancestryBoostReducer,
@@ -85,14 +85,16 @@ export const AbilityScoreSelection = () => {
     [classSelection, ancestrySelection]
   );
 
-  const abilityScores = useMemo(() => 
-    (['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
-      (ability) => ({
-         ability,
-         abilityScore: 10 + (ancestryBoosts[ability] ? 2 : 0),
-      }),
-    )
-  , [ancestryBoosts]);
+  const abilityScores = useMemo(
+    () =>
+      (['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
+        (ability) => ({
+          ability,
+          abilityScore: 10 + (ancestryBoosts[ability] ? 2 : 0),
+        })
+      ),
+    [ancestryBoosts]
+  );
 
   useEffect(() => {
     console.log(fixedAncestryBoosts);
@@ -151,7 +153,15 @@ export const AbilityScoreSelection = () => {
           justifyContent={'space-evenly'}
         >
           <Typography sx={{ mt: 2 }}>Class Boost</Typography>
-          <Typography>Ancestry Boosts</Typography>
+
+          <Badge
+            color="secondary"
+            variant="dot"
+            invisible={!freeAncestryBoostAvailable}
+          >
+            <Typography sx={{ pr: 1 }}>Ancestry Boosts</Typography>
+          </Badge>
+
           <Typography>Background Boosts</Typography>
           <Typography>Free Boosts</Typography>
         </Stack>
