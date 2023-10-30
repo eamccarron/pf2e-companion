@@ -7,16 +7,25 @@ export const formatAncestryJSON = (ancestries: Array<Ancestry>) =>
       name,
       system: {
         description: { value: description },
+        boosts,
+        flaws,
         hp,
         traits: { rarity },
       },
       _id: id,
-    }: Ancestry) =>
-      ({
-        primary: name,
-        secondary: [`Starting HP: ${hp}`],
-        description,
-        id,
-        content: { rarity },
-      })
+    }: Ancestry) => ({
+      primary: name,
+      secondary: [`Starting HP: ${hp}`],
+      description,
+      id,
+      content: {
+        rarity,
+        hp: hp,
+        boosts: {
+          fixed: [...boosts['0'].value, ...boosts['1'].value],
+          free: boosts['2']?.value ?? [],
+        },
+        flaws,
+      },
+    })
   );

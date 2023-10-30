@@ -27,6 +27,7 @@ export default function CreateCharacter() {
       secondary: [`Key ability: ${keyAbility}`, `Starting HP: ${startingHP}`],
       description,
       id: index,
+      content: { hp: startingHP },
     })
   ) as Selection<ClassDescription>[];
 

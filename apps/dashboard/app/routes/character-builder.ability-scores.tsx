@@ -2,7 +2,14 @@
 import { fetchCompendium } from '../server/fetchCompendium.server';
 
 // Client
-import { CircularProgress, Tabs, Tab, Box, Typography, Divider } from '@mui/material';
+import {
+  CircularProgress,
+  Tabs,
+  Tab,
+  Box,
+  Typography,
+  Divider,
+} from '@mui/material';
 import { useLoaderData } from '@remix-run/react';
 import { Suspense, useState } from 'react';
 
@@ -81,17 +88,7 @@ export default function CharacterBuilderAbilityScores() {
 
   return (
     <Suspense fallback={<CircularProgress />}>
-      <AbilityScoreSelection
-        hp={14}
-        abilityScores={[
-          { ability: 'Strength', abilityScore: 18 },
-          { ability: 'Dexterity', abilityScore: 16 },
-          { ability: 'Constitution', abilityScore: 14 },
-          { ability: 'Intelligence', abilityScore: 12 },
-          { ability: 'Wisdom', abilityScore: 10 },
-          { ability: 'Charisma', abilityScore: 8 },
-        ]}
-      />
+      <AbilityScoreSelection />
 
       <Divider />
 
