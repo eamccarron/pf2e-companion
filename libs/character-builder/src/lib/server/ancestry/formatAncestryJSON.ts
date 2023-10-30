@@ -1,5 +1,5 @@
 import type { AncestrySelectionContent } from '../../client/ancestry';
-import type { Ancestry } from '@pf2-companion/data-access-compendium';
+import type { Ancestry, AncestrySystem } from '@pf2-companion/data-access-compendium';
 
 export const formatAncestryJSON = (ancestries: Array<Ancestry>) =>
   ancestries.map(
@@ -21,11 +21,13 @@ export const formatAncestryJSON = (ancestries: Array<Ancestry>) =>
       content: {
         rarity,
         hp: hp,
-        boosts: {
-          fixed: [...boosts['0'].value, ...boosts['1'].value],
-          free: boosts['2']?.value ?? [],
-        },
+        boosts: calculateAbilityBoosts(boosts),
         flaws,
       },
     })
   );
+
+const calculateAbilityBoosts = ( boosts: AncestrySystem["boosts"]) => ({
+  free: Object.values(boosts).map(({ value }) => value).filter((value) => value.length === 6),
+  fixed: Object.values(boosts).map(({ value }) => value).filter((value) => value.length !== 6).flat(),
+});

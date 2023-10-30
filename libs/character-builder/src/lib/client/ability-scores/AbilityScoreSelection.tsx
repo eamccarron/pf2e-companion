@@ -63,8 +63,8 @@ export const AbilityScoreSelection = () => {
     [ancestrySelection]
   );
 
-  const [freeAncestryBoostAvailable, setFreeAncestryBoostAvailable] =
-    useState<boolean>(false);
+  const [freeAncestryBoostsAvailable, setFreeAncestryBoostsAvailable] =
+    useState<number>(0);
 
   const [ancestryBoosts, ancestryBoostDispatch] = useReducer(
     ancestryBoostReducer,
@@ -105,12 +105,8 @@ export const AbilityScoreSelection = () => {
   }, [fixedAncestryBoosts]);
 
   useEffect(() => {
-    console.log(freeAncestryBoostOptions);
-    if (freeAncestryBoostOptions.length === 0) {
-      setFreeAncestryBoostAvailable(false);
-    } else {
-      setFreeAncestryBoostAvailable(true);
-    }
+    console.log('free:', freeAncestryBoostOptions);
+    setFreeAncestryBoostsAvailable(freeAncestryBoostOptions.length);
   }, [freeAncestryBoostOptions]);
 
   useEffect(() => {
@@ -156,8 +152,8 @@ export const AbilityScoreSelection = () => {
 
           <Badge
             color="secondary"
-            variant="dot"
-            invisible={!freeAncestryBoostAvailable}
+            invisible={freeAncestryBoostsAvailable === 0}
+            badgeContent={freeAncestryBoostsAvailable}
           >
             <Typography sx={{ pr: 1 }}>Ancestry Boosts</Typography>
           </Badge>
@@ -200,7 +196,7 @@ export const AbilityScoreSelection = () => {
             checked={ancestryBoosts[ability as AbilityScore] ?? false}
             disabled={
               fixedAncestryBoosts?.includes(ability as AbilityScore) ||
-              (!freeAncestryBoostAvailable &&
+              (!freeAncestryBoostsAvailable &&
                 !ancestryBoosts[ability as AbilityScore])
             }
             onChange={() => {
@@ -216,9 +212,9 @@ export const AbilityScoreSelection = () => {
               }
 
               if (ancestryBoosts[ability as AbilityScore]) {
-                setFreeAncestryBoostAvailable(true);
+                setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable + 1);
               } else {
-                setFreeAncestryBoostAvailable(false);
+                setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable - 1);
               }
             }}
             icon={<AddCircleOutlineIcon />}
