@@ -6,9 +6,12 @@ import { Stack } from '@mui/material';
 import { useLoaderData } from '@remix-run/react';
 
 import type { Selection } from '@pf2-companion/ui-selection';
-import { ClassList, ClassDetailPane } from '@pf2-companion/character-builder';
+import {
+  ClassList,
+  ClassDetailPane,
+} from '@pf2-companion/character-builder-temp';
 
-import type { ClassDescription } from '@pf2-companion/character-builder/types';
+import type { ClassDescription } from '@pf2-companion/character-builder-temp/types';
 
 export const revalidate = 3;
 

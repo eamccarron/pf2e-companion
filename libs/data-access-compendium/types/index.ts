@@ -1,4 +1,2 @@
-export * from './System';
-export * from './Background';
-export * from './Ancestry';
-export * from './Feat';
+export type { Ancestry } from '../src/lib/models/Ancestry';
+export type { Background } from '../src/lib/models/Background';

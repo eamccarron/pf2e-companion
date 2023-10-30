@@ -15,11 +15,23 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pf2-companion/character-builder": [
-        "libs/character-builder/src/index.ts"
+      "@pf2-companion/character-builder-temp": [
+        "libs/character-builder-temp/src/index.ts"
       ],
-      "@pf2-companion/character-builder/server": [
-        "libs/character-builder/src/server.ts"
+      "@pf2-companion/character-builder-temp/types": [
+        "libs/character-builder-temp/types/index.ts"
+      ],
+      "@pf2-companion/character-builder/data-access": [
+        "libs/character-builder/data-access/src/index.ts"
+      ],
+      "@pf2-companion/character-builder/feature": [
+        "libs/character-builder/feature/src/index.ts"
+      ],
+      "@pf2-companion/character-builder/feature/server": [
+        "libs/character-builder/feature/src/server.ts"
+      ],
+      "@pf2-companion/character-builder/ui": [
+        "libs/character-builder/ui/src/index.ts"
       ],
       "@pf2-companion/character-builder/types": [
         "libs/character-builder/types/index.ts"
@@ -38,11 +50,12 @@
       ],
       "@pf2-companion/db": ["libs/db/src/index.ts"],
       "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"],
+      "@pf2-companion/ui-selection/types": ["libs/ui-selection/src/types.ts"],
       "@types": ["types/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],
   "types": ["cypress"],
   "emitDecoratorMetadata": true,
-  "experimentalDecorators": true,
+  "experimentalDecorators": true
 }
