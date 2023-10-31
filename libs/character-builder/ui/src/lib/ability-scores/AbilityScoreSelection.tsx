@@ -7,47 +7,8 @@ import { AncestrySelectionContext } from '../ancestry/AncestrySelectionContext';
 import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
 import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
 
-type AbilityScore = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
-
-type AncestryBoostAction =
-  | {
-      type: 'ADD' | 'REMOVE';
-      target: AbilityScore;
-    }
-  | {
-      type: 'SET_FIXED';
-      target: Array<AbilityScore>;
-    };
-
-type AncestryBoostState = Partial<{
-  str: boolean;
-  dex: boolean;
-  con: boolean;
-  int: boolean;
-  wis: boolean;
-  cha: boolean;
-}>;
-
-const ancestryBoostReducer = (
-  state: AncestryBoostState,
-  action: AncestryBoostAction
-) => {
-  if (action.type === 'SET_FIXED') {
-    const fixedBoosts = Object.fromEntries(
-      action.target?.map((boost) => [boost, true]) ?? []
-    );
-    return fixedBoosts;
-  }
-
-  switch (action.type) {
-    case 'ADD':
-      return { ...state, [action.target]: true };
-    case 'REMOVE':
-      return { ...state, [action.target]: false };
-    default:
-      return state;
-  }
-};
+import type { AbilityScore } from './types';
+import { ancestryBoostReducer } from './ancestryBoost';
 
 export const AbilityScoreSelection = () => {
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
@@ -95,6 +56,23 @@ export const AbilityScoreSelection = () => {
       ),
     [ancestryBoosts]
   );
+
+  const handleAncestryBoostSelection = (ability: AbilityScore) => {
+    if (fixedAncestryBoosts?.includes(ability)) {
+      return;
+    } else {
+      ancestryBoostDispatch({
+        type: ancestryBoosts[ability] ? 'REMOVE' : 'ADD',
+        target: ability,
+      });
+    }
+
+    if (ancestryBoosts[ability]) {
+      setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable + 1);
+    } else {
+      setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable - 1);
+    }
+  };
 
   useEffect(() => {
     console.log(fixedAncestryBoosts);
@@ -199,24 +177,7 @@ export const AbilityScoreSelection = () => {
               (!freeAncestryBoostsAvailable &&
                 !ancestryBoosts[ability as AbilityScore])
             }
-            onChange={() => {
-              if (fixedAncestryBoosts?.includes(ability as AbilityScore)) {
-                return;
-              } else {
-                ancestryBoostDispatch({
-                  type: ancestryBoosts[ability as AbilityScore]
-                    ? 'REMOVE'
-                    : 'ADD',
-                  target: ability as AbilityScore,
-                });
-              }
-
-              if (ancestryBoosts[ability as AbilityScore]) {
-                setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable + 1);
-              } else {
-                setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable - 1);
-              }
-            }}
+            onChange={() => handleAncestryBoostSelection(ability as AbilityScore)}
             icon={<AddCircleOutlineIcon />}
             checkedIcon={<AddCircleIcon />}
           />

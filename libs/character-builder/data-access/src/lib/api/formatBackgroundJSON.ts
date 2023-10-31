@@ -18,7 +18,7 @@ export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
       content: {
         rarity,
         boosts: {
-          choices: boosts['0']?.value ?? [],
+          restricted: boosts['0']?.value ?? [],
           free: boosts['1']?.value ?? [],
         },
       },
