@@ -4,7 +4,7 @@ import { useContext } from 'react';
 
 import { AncestrySelectionContext } from './AncestrySelectionContext';
 import { ContentDetailPane } from '@pf2-companion/ui-selection';
-import type { AncestryContent } from '@pf2-companion/character-builder/types';
+import type { AncestryContent } from '@pf2-companion/types/character-builder';
 
 export const AncestryDetailPane = () => {
   const { selection } = useContext(AncestrySelectionContext);

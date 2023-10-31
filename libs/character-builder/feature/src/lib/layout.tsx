@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 
 import { Outlet } from '@remix-run/react';
-
 import { CharacterCreationStepper } from './CharacterCreationStepper';
-import { CharacterCreationContextProvider } from '@pf2-companion/character-builder-temp';
+import { CharacterCreationContextProvider } from './CharacterCreationContextProvider';
+import { PropsWithChildren } from 'react';
 
 export const Layout = () => (
   <CharacterCreationContextProvider>

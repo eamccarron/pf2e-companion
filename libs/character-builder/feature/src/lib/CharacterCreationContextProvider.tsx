@@ -51,11 +51,13 @@ export const CharacterCreationContextProvider = ({
 
   const handleNext = () => {
     setActiveStep(activeStep === totalSteps ? totalSteps : activeStep + 1);
+    console.log('next');
     // navigate(steps[activeStep + 1].route);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep === 0 ? 0 : activeStep - 1);
+    console.log('back');
     // navigate(steps[activeStep - 1].route);
   };
 

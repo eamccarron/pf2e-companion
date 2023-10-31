@@ -7,3 +7,5 @@ export { BackgroundSelectionContext } from './lib/background/BackgroundSelection
 export { AbilityScoreSelection } from './lib/ability-scores/AbilityScoreSelection';
 
 export { ClassSelectionContext } from './lib/character-class/ClassSelectionContext';
+export { ClassDetailPane } from './lib/character-class/ClassDetailPane';
+export { ClassList } from './lib/character-class/ClassList';

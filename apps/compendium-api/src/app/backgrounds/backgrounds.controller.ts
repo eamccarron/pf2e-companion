@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { BackgroundsService } from './backgrounds.service';
 
-import type { Background } from '@pf2-companion/data-access-compendium';
+import type { Background } from '@pf2-companion/compendium-models';
 
 @Controller('backgrounds')
 export class BackgroundsController {

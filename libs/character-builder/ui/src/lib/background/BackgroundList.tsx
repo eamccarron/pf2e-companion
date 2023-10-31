@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { BackgroundSelectionContext } from './BackgroundSelectionContext';
 import { ContentList } from '@pf2-companion/ui-selection';
 
-import type { BackgroundContent } from '@pf2-companion/character-builder/types';
+import type { BackgroundContent } from '@pf2-companion/types/character-builder';
 import type { Selection } from '@pf2-companion/ui-selection/types';
 
 export const BackgroundList = ({

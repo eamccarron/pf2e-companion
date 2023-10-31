@@ -1,5 +1,5 @@
-import type { BackgroundContent } from '@pf2-companion/character-builder/types';
-import type { Background } from '@pf2-companion/data-access-compendium/types';
+import type { BackgroundContent } from '@pf2-companion/types/character-builder';
+import type { Background } from '@pf2-companion/types/compendium';
 
 export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
   backgrounds.map(

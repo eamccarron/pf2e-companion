@@ -11,7 +11,7 @@ export function RarityFilter<T extends { rarity: string }>({
   setContent: React.Dispatch<React.SetStateAction<Selection<T>[]>>;
 }) {
   return (
-    <ContentListFilter
+    <ContentListFilter<Selection<T>>
       filterMode="any"
       filters={[
         {

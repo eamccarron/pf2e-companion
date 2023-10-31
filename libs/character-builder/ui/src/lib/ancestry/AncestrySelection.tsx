@@ -9,7 +9,10 @@ import { AncestryList, AncestryDetailPane } from '.';
 
 import { RarityFilter } from '../RarityFilter';
 
-import type { AncestrySelectionContent as Content } from '.';
+import type { AncestryContent } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/ui-selection/types';
+
+type Content = Selection<AncestryContent>[];
 
 export const AncestrySelection = ({ content }: { content: Content }) => {
   const [listContent, setListContent] = useState<Content>([]);

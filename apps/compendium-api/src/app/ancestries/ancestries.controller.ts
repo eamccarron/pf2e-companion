@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AncestriesService } from './ancestries.service';
 
-import type { Ancestry } from '@pf2-companion/data-access-compendium';
+import type { Ancestry } from '@pf2-companion/compendium-models';
 
 @Controller('ancestries')
 export class AncestriesController {

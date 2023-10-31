@@ -4,14 +4,12 @@ import { Box } from '@mui/material';
 import { AncestrySelectionContext } from './AncestrySelectionContext';
 import { ContentList } from '@pf2-companion/ui-selection';
 
-import type { AncestrySelectionContent } from './types/AncestrySelectionContent';
-import type { AncestryContent } from './types/AncestrySelectionContent';
+import type { AncestryContent } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/ui-selection/types';
 
-export const AncestryList = ({
-  content,
-}: {
-  content: AncestrySelectionContent;
-}) => {
+type ListContent = Selection<AncestryContent>[];
+
+export const AncestryList = ({ content }: { content: ListContent }) => {
   const { selection, setSelection } = useContext(AncestrySelectionContext);
 
   return (

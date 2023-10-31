@@ -9,15 +9,15 @@ import { Box, Stack, Checkbox, Chip } from '@mui/material';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export type ContentListFilterProps<T> = {
+export type ContentListFilterProps<T extends Selection<unknown>> = {
   filterMode: 'any' | 'all';
   filters: Array<Filter<T>>;
-  content: Array<Selection<T>>;
-  setContent: React.Dispatch<React.SetStateAction<Array<Selection<T>>>>;
-  initialContent: Array<Selection<T>>;
+  content: Array<T>;
+  setContent: React.Dispatch<React.SetStateAction<Array<T>>>;
+  initialContent: Array<T>;
 };
 
-export function ContentListFilter<T>({
+export function ContentListFilter<T extends Selection<unknown>>({
   filterMode,
   filters,
   content,
@@ -29,7 +29,7 @@ export function ContentListFilter<T>({
   const updateFilter = useCallback(() => {
     if (!initialContent) return;
 
-    let filteredContent: Selection<T>[] = [];
+    let filteredContent: Array<T> = [];
     const activeFilters =
       filters.filter((f) => selectedFilters.includes(f.label)) ?? [];
 
@@ -50,18 +50,11 @@ export function ContentListFilter<T>({
     }
 
     const filteredContentIDs = new Set(filteredContent.map((c) => c.id));
-    filteredContent = initialContent.filter((c: Selection<T>) =>
+    filteredContent = initialContent.filter((c: T) =>
       filteredContentIDs.has(c.id)
     );
     setContent(filteredContent);
-  }, [
-    content,
-    selectedFilters,
-    setContent,
-    filters,
-    filterMode,
-    initialContent,
-  ]);
+  }, [selectedFilters, setContent, filters, filterMode, initialContent]);
 
   useEffect(() => {
     console.log(selectedFilters);

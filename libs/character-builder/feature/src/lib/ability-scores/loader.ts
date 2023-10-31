@@ -1,15 +1,16 @@
-import { fetchCompendium } from "../fetchCompendium";
+import { fetchCompendium } from '../fetchCompendium';
 
-import { formatAncestryJSON } from '@pf2-companion/character-builder/data-access'
-import { formatBackgroundJSON } from '@pf2-companion/character-builder/data-access'
+import { formatAncestryJSON } from '@pf2-companion/character-builder/data-access';
+import { formatBackgroundJSON } from '@pf2-companion/character-builder/data-access';
 
-import type { AncestryContent } from "@pf2-companion/character-builder/types";
-import type { BackgroundContent } from "@pf2-companion/character-builder/types";
+import type {
+  AncestryContent,
+  BackgroundContent,
+} from '@pf2-companion/types/character-builder';
 
-import type { Ancestry } from '@pf2-companion/data-access-compendium/types';
-import type { Background } from '@pf2-companion/data-access-compendium/types';
+import type { Ancestry, Background } from '@pf2-companion/types/compendium';
 
-import type { Selection } from '@pf2-companion/ui-selection';
+import type { Selection } from '@pf2-companion/ui-selection/types';
 
 export const loader = async (): Promise<{
   ancestries: Selection<AncestryContent>[];

@@ -9,8 +9,10 @@ import { BackgroundList, BackgroundDetailPane } from '.';
 
 import { RarityFilter } from '../RarityFilter';
 
-import type { BackgroundSelectionContent as Content } from '.';
+import type { BackgroundContent } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/ui-selection/types';
 
+type Content = Selection<BackgroundContent>[];
 export const BackgroundSelection = ({ content }: { content: Content }) => {
   const [listContent, setListContent] = useState<Content>([]);
   const [initialContent, setInitialContent] = useState<Content>([]);

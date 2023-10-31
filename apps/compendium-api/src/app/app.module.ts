@@ -7,7 +7,7 @@ import { AncestriesModule } from './ancestries/ancestries.module';
 import { BackgroundsModule } from './backgrounds/backgrounds.module';
 
 // Data model
-import { Ancestry, Background } from '@pf2-companion/data-access-compendium';
+import { Ancestry, Background } from '@pf2-companion/compendium-models';
 import { ClassesController } from './character-classes/classes.controller';
 
 @Module({

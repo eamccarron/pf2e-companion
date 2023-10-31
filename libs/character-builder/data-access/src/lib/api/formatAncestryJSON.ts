@@ -1,7 +1,6 @@
-import type {
-  Ancestry,
-  AncestrySystem,
-} from '@pf2-companion/data-access-compendium';
+import type { Ancestry } from '@pf2-companion/types/compendium';
+
+type AncestrySystem = Ancestry["system"];
 
 export const formatAncestryJSON = (ancestries: Array<Ancestry>) =>
   ancestries.map(

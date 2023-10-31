@@ -1,0 +1,29 @@
+{
+  "name": "types/compendium",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "types/compendium/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/types/compendium",
+        "main": "types/compendium/src/index.ts",
+        "tsConfig": "types/compendium/tsconfig.lib.json",
+        "assets": ["types/compendium/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "types/compendium/**/*.ts",
+          "types/compendium/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

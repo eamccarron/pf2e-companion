@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 
 import classDescriptions from './class-descriptions.json';
-import type { ClassDescription } from './class-description.type';
+import type { ClassDescription } from '@pf2-companion/types/character-builder';
 
 import type { Jsonify } from '../../../types/Jsonify';
 
