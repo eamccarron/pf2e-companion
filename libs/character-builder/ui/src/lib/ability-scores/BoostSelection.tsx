@@ -7,7 +7,7 @@ import type {
   BoostSelection as BoostState,
   BoostAction,
 } from './AbilityScoreSelectionContext';
-import { Checkbox, Stack, Typography } from '@mui/material';
+import { Badge, Box, Checkbox, Stack, Typography } from '@mui/material';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -70,13 +70,23 @@ export const BoostSelection = ({
   return (
     <Stack
       direction="row"
-      spacing={2}
-      justifyContent="space-between"
+      justifyContent="flex-end"
+      alignItems="center"
+      spacing={13}
     >
-      <Typography>{label}</Typography>
+      <Box ml={4}>
+        <Badge
+          color="secondary"
+          invisible={freeBoostsAvailable === 0}
+          badgeContent={freeBoostsAvailable}
+        >
+          <Typography align="right">{label}</Typography>
+        </Badge>
+      </Box>
       {(['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
         (ability) => (
           <Checkbox
+            key={ability}
             checked={boosts[ability] ?? false}
             disabled={
               fixed?.includes(ability) ||
@@ -85,6 +95,7 @@ export const BoostSelection = ({
             onChange={() => handleBoostSelection(ability)}
             icon={<AddCircleOutlineIcon />}
             checkedIcon={<AddCircleIcon />}
+            sx={{ pr: 2 }}
           />
         )
       )}

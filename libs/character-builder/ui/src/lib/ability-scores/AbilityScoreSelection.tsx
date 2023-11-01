@@ -108,17 +108,10 @@ export const AbilityScoreSelection = () => {
       alignItems={'stretch'}
       // mb={2}
     >
-      <Badge
-        color="secondary"
-        invisible={freeAncestryBoostsAvailable === 0}
-        badgeContent={freeAncestryBoostsAvailable}
-      >
-        {/* <Typography sx={{ pr: 1 }}>Ancestry Boosts</Typography> */}
-      </Badge>
-
       <Stack
         direction="row"
         justifyContent="space-between"
+        alignItems="center"
       >
         {/* HP */}
         <Box
@@ -130,9 +123,7 @@ export const AbilityScoreSelection = () => {
             bgcolor: 'surfaceVariant.main',
             color: 'onSurfaceVariant.main',
             borderRadius: '8px',
-            p: 2,
-            mr: 2,
-            ml: 4,
+            p: 4,
           }}
         >
           <Typography variant="h4">{hp}</Typography>
@@ -175,11 +166,32 @@ export const AbilityScoreSelection = () => {
       </Stack>
 
       <BoostSelection
+        selection={ancestrySelection}
+        boosts={ancestryBoosts}
+        boostDispatch={backgroundBoostDispatch}
+        label="Ancestry boosts"
+      />
+
+      <BoostSelection
         selection={backgroundSelection}
         boosts={backgroundBoosts}
         boostDispatch={backgroundBoostDispatch}
         label="Background boosts"
       />
+
+      {/* <BoostSelection
+        selection={backgroundSelection}
+        boosts={backgroundBoosts}
+        boostDispatch={backgroundBoostDispatch}
+        label="Class boosts"
+      />
+
+      <BoostSelection
+        selection={backgroundSelection}
+        boosts={backgroundBoosts}
+        boostDispatch={backgroundBoostDispatch}
+        label="Free boosts"
+      /> */}
     </Stack>
   );
 };

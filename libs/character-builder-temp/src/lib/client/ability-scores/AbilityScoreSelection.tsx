@@ -157,9 +157,6 @@ export const AbilityScoreSelection = () => {
           >
             <Typography sx={{ pr: 1 }}>Ancestry Boosts</Typography>
           </Badge>
-
-          <Typography>Background Boosts</Typography>
-          <Typography>Free Boosts</Typography>
         </Stack>
       </Stack>
       {abilityScores.map(({ abilityScore, ability }) => (
