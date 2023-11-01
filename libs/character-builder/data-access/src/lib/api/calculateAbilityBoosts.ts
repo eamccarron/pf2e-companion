@@ -5,7 +5,7 @@ type AncestrySystem = Ancestry['system'];
 export const calculateAbilityBoosts = (boosts: AncestrySystem['boosts']) => ({
   free: Object.values(boosts)
     .map(({ value }) => value)
-    .filter((value) => value.length === 6),
+    .filter((value) => value.length === 6).length,
   fixed: Object.values(boosts)
     .map(({ value }) => value)
     .filter((value) => value.length === 1)
@@ -13,5 +13,5 @@ export const calculateAbilityBoosts = (boosts: AncestrySystem['boosts']) => ({
   restricted: Object.values(boosts)
     .map(({ value }) => value)
     .filter((value) => value.length > 1 && value.length < 6)
-    .flat()
+    .flat(),
 });

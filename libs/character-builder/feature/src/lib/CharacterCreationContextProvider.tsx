@@ -5,8 +5,11 @@ import {
   ClassSelectionContext,
   AncestrySelectionContext,
   BackgroundSelectionContext,
+  AbilityScoreSelectionContextProvider,
+  BackgroundAbilityScoreContext,
 } from '@pf2-companion/character-builder/ui';
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
+import { Background } from '@pf2-companion/compendium-models';
 
 export const steps = [
   { title: 'Select class', route: '/character-builder/class' },
@@ -74,7 +77,11 @@ export const CharacterCreationContextProvider = ({
       <SelectionContextProvider Context={ClassSelectionContext}>
         <SelectionContextProvider Context={AncestrySelectionContext}>
           <SelectionContextProvider Context={BackgroundSelectionContext}>
-            {children}
+            <AbilityScoreSelectionContextProvider
+              context={BackgroundAbilityScoreContext}
+            >
+              {children}
+            </AbilityScoreSelectionContextProvider>
           </SelectionContextProvider>
         </SelectionContextProvider>
       </SelectionContextProvider>

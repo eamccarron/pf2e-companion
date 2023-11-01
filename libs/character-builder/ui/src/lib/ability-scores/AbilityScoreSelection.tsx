@@ -5,7 +5,9 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { AncestrySelectionContext } from '../ancestry/AncestrySelectionContext';
 import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
+import { BackgroundAbilityScoreContext } from './AbilityScoreSelectionContext';
 import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
+import { BoostSelection } from './BoostSelection';
 
 import type { AbilityScore } from './types';
 import { ancestryBoostReducer } from './ancestryBoost';
@@ -13,6 +15,14 @@ import { ancestryBoostReducer } from './ancestryBoost';
 export const AbilityScoreSelection = () => {
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
   const { selection: classSelection } = useContext(ClassSelectionContext);
+  const { selection: backgroundSelection } = useContext(
+    BackgroundSelectionContext
+  );
+
+  const {
+    boostState: backgroundBoosts,
+    boostDispatch: backgroundBoostDispatch,
+  } = useContext(BackgroundAbilityScoreContext);
 
   const fixedAncestryBoosts = useMemo(
     () => ancestrySelection?.content.boosts?.fixed,
@@ -20,7 +30,7 @@ export const AbilityScoreSelection = () => {
   );
 
   const freeAncestryBoostOptions = useMemo(
-    () => ancestrySelection?.content.boosts?.free ?? [],
+    () => ancestrySelection?.content.boosts?.free ?? 0,
     [ancestrySelection]
   );
 
@@ -84,7 +94,7 @@ export const AbilityScoreSelection = () => {
 
   useEffect(() => {
     console.log('free:', freeAncestryBoostOptions);
-    setFreeAncestryBoostsAvailable(freeAncestryBoostOptions.length);
+    setFreeAncestryBoostsAvailable(freeAncestryBoostOptions);
   }, [freeAncestryBoostOptions]);
 
   useEffect(() => {
@@ -93,17 +103,24 @@ export const AbilityScoreSelection = () => {
 
   return (
     <Stack
-      direction="row"
-      spacing={2}
-      justifyContent={'space-evenly'}
-      alignContent={'center'}
+      direction="column"
+      spacing={1}
+      alignItems={'stretch'}
+      // mb={2}
     >
-      <Stack
-        direction="column"
-        spacing={1}
-        alignItems={'center'}
-        // mb={2}
+      <Badge
+        color="secondary"
+        invisible={freeAncestryBoostsAvailable === 0}
+        badgeContent={freeAncestryBoostsAvailable}
       >
+        {/* <Typography sx={{ pr: 1 }}>Ancestry Boosts</Typography> */}
+      </Badge>
+
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+      >
+        {/* HP */}
         <Box
           sx={{
             display: 'flex',
@@ -114,87 +131,55 @@ export const AbilityScoreSelection = () => {
             color: 'onSurfaceVariant.main',
             borderRadius: '8px',
             p: 2,
+            mr: 2,
+            ml: 4,
           }}
         >
           <Typography variant="h4">{hp}</Typography>
           <Typography variant="subtitle1">HP</Typography>
         </Box>
 
-        <Stack
-          direction="column"
-          spacing={3.5}
-          alignItems={'flex-start'}
-          justifyContent={'space-evenly'}
-        >
-          <Typography sx={{ mt: 2 }}>Class Boost</Typography>
+        {abilityScores.map(({ abilityScore, ability }) => (
+          <Box key={ability}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                bgcolor: 'surfaceVariant.main',
+                color: 'onSurfaceVariant.main',
+                borderRadius: '8px',
+                p: 2,
+              }}
+            >
+              <Typography variant="h4">{abilityScore}</Typography>
+              <Typography variant="subtitle1">{ability}</Typography>
+            </Box>
 
-          <Badge
-            color="secondary"
-            invisible={freeAncestryBoostsAvailable === 0}
-            badgeContent={freeAncestryBoostsAvailable}
-          >
-            <Typography sx={{ pr: 1 }}>Ancestry Boosts</Typography>
-          </Badge>
-
-          <Typography>Background Boosts</Typography>
-          <Typography>Free Boosts</Typography>
-        </Stack>
-      </Stack>
-      {abilityScores.map(({ abilityScore, ability }) => (
-        <Stack
-          direction="column"
-          spacing={1}
-          alignItems={'center'}
-          key={ability}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              bgcolor: 'surfaceVariant.main',
-              color: 'onSurfaceVariant.main',
-              borderRadius: '8px',
-              p: 2,
-            }}
-          >
-            <Typography variant="h4">{abilityScore}</Typography>
-            <Typography variant="subtitle1">{ability}</Typography>
+            {/* <Checkbox
+              checked={ancestryBoosts[ability as AbilityScore] ?? false}
+              disabled={
+                fixedAncestryBoosts?.includes(ability as AbilityScore) ||
+                (!freeAncestryBoostsAvailable &&
+                  !ancestryBoosts[ability as AbilityScore])
+              }
+              onChange={() =>
+                handleAncestryBoostSelection(ability as AbilityScore)
+              }
+              icon={<AddCircleOutlineIcon />}
+              checkedIcon={<AddCircleIcon />}
+            /> */}
           </Box>
+        ))}
+      </Stack>
 
-          {/* Class Boost */}
-          <Checkbox
-            icon={<AddCircleOutlineIcon />}
-            checkedIcon={<AddCircleIcon />}
-          />
-
-          {/* Ancestry Boost */}
-          <Checkbox
-            checked={ancestryBoosts[ability as AbilityScore] ?? false}
-            disabled={
-              fixedAncestryBoosts?.includes(ability as AbilityScore) ||
-              (!freeAncestryBoostsAvailable &&
-                !ancestryBoosts[ability as AbilityScore])
-            }
-            onChange={() => handleAncestryBoostSelection(ability as AbilityScore)}
-            icon={<AddCircleOutlineIcon />}
-            checkedIcon={<AddCircleIcon />}
-          />
-
-          {/* Background Boost */}
-          <Checkbox
-            icon={<AddCircleOutlineIcon />}
-            checkedIcon={<AddCircleIcon />}
-          />
-
-          {/* Free Boost */}
-          <Checkbox
-            icon={<AddCircleOutlineIcon />}
-            checkedIcon={<AddCircleIcon />}
-          />
-        </Stack>
-      ))}
+      <BoostSelection
+        selection={backgroundSelection}
+        boosts={backgroundBoosts}
+        boostDispatch={backgroundBoostDispatch}
+        label="Background boosts"
+      />
     </Stack>
   );
 };

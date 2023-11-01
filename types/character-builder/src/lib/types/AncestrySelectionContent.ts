@@ -3,6 +3,6 @@ export type AncestryContent = {
   hp: number;
   boosts: {
     fixed: string[];
-    free: string[];
+    free: number;
   };
 };

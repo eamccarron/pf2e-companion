@@ -5,6 +5,10 @@ export { BackgroundSelection } from './lib/background/BackgroundSelection';
 export { BackgroundSelectionContext } from './lib/background/BackgroundSelectionContext';
 
 export { AbilityScoreSelection } from './lib/ability-scores/AbilityScoreSelection';
+export {
+  BackgroundAbilityScoreContext,
+  AbilityScoreSelectionContextProvider,
+} from './lib/ability-scores/AbilityScoreSelectionContext';
 
 export { ClassSelectionContext } from './lib/character-class/ClassSelectionContext';
 export { ClassDetailPane } from './lib/character-class/ClassDetailPane';
