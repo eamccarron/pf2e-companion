@@ -2,12 +2,16 @@ import type { Ancestry } from '@pf2-companion/types/compendium';
 
 type AncestrySystem = Ancestry['system'];
 
-const calculateAbilityBoosts = (boosts: AncestrySystem['boosts']) => ({
+export const calculateAbilityBoosts = (boosts: AncestrySystem['boosts']) => ({
   free: Object.values(boosts)
     .map(({ value }) => value)
     .filter((value) => value.length === 6),
   fixed: Object.values(boosts)
     .map(({ value }) => value)
-    .filter((value) => value.length !== 6)
+    .filter((value) => value.length === 1)
     .flat(),
+  restricted: Object.values(boosts)
+    .map(({ value }) => value)
+    .filter((value) => value.length > 1 && value.length < 6)
+    .flat()
 });
