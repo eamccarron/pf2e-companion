@@ -70,17 +70,18 @@ export const BoostSelection = ({
   return (
     <Stack
       direction="row"
-      justifyContent="flex-end"
+      justifyContent="space-around"
       alignItems="center"
-      spacing={13}
+      spacing={{ md: 8 }}
+      // spacing={{ sm: 8, lg: 10 }}
     >
-      <Box ml={4}>
+      <Box ml={4} width="10%">
         <Badge
           color="secondary"
           invisible={freeBoostsAvailable === 0}
           badgeContent={freeBoostsAvailable}
         >
-          <Typography align="right">{label}</Typography>
+          <Typography align="left">{label}</Typography>
         </Badge>
       </Box>
       {(['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
@@ -99,6 +100,7 @@ export const BoostSelection = ({
           />
         )
       )}
+
     </Stack>
   );
 };

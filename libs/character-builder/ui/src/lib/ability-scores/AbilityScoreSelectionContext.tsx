@@ -79,3 +79,6 @@ export const AbilityScoreSelectionContextProvider = ({
 
 export const BackgroundAbilityScoreContext =
   createAbilityScoreSelectionContext();
+
+export const AncestryAbilityScoreContext =
+  createAbilityScoreSelectionContext();

@@ -76,7 +76,6 @@ export const NavBar = ({ children }: PropsWithChildren<any>) => {
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
         }}
       >
         <Toolbar>

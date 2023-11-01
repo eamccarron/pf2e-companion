@@ -7,6 +7,8 @@ import {
   BackgroundSelectionContext,
   AbilityScoreSelectionContextProvider,
   BackgroundAbilityScoreContext,
+  AbilityScoreSelection,
+  AncestryAbilityScoreContext,
 } from '@pf2-companion/character-builder/ui';
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 import { Background } from '@pf2-companion/compendium-models';
@@ -80,7 +82,11 @@ export const CharacterCreationContextProvider = ({
             <AbilityScoreSelectionContextProvider
               context={BackgroundAbilityScoreContext}
             >
-              {children}
+              <AbilityScoreSelectionContextProvider
+                context={AncestryAbilityScoreContext}
+              >
+                {children}
+              </AbilityScoreSelectionContextProvider>
             </AbilityScoreSelectionContextProvider>
           </SelectionContextProvider>
         </SelectionContextProvider>

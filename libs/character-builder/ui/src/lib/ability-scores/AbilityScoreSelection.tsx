@@ -5,7 +5,10 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { AncestrySelectionContext } from '../ancestry/AncestrySelectionContext';
 import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
-import { BackgroundAbilityScoreContext } from './AbilityScoreSelectionContext';
+import {
+  BackgroundAbilityScoreContext,
+  AncestryAbilityScoreContext,
+} from './AbilityScoreSelectionContext';
 import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
 import { BoostSelection } from './BoostSelection';
 
@@ -24,30 +27,33 @@ export const AbilityScoreSelection = () => {
     boostDispatch: backgroundBoostDispatch,
   } = useContext(BackgroundAbilityScoreContext);
 
-  const fixedAncestryBoosts = useMemo(
-    () => ancestrySelection?.content.boosts?.fixed,
-    [ancestrySelection]
-  );
+  const { boostState: ancestryBoosts, boostDispatch: ancestryBoostDispatch } =
+    useContext(AncestryAbilityScoreContext);
 
-  const freeAncestryBoostOptions = useMemo(
-    () => ancestrySelection?.content.boosts?.free ?? 0,
-    [ancestrySelection]
-  );
+  // const fixedAncestryBoosts = useMemo(
+  //   () => ancestrySelection?.content.boosts?.fixed,
+  //   [ancestrySelection]
+  // );
 
-  const [freeAncestryBoostsAvailable, setFreeAncestryBoostsAvailable] =
-    useState<number>(0);
+  // const freeAncestryBoostOptions = useMemo(
+  //   () => ancestrySelection?.content.boosts?.free ?? 0,
+  //   [ancestrySelection]
+  // );
 
-  const [ancestryBoosts, ancestryBoostDispatch] = useReducer(
-    ancestryBoostReducer,
-    {
-      str: false,
-      dex: false,
-      con: false,
-      int: false,
-      wis: false,
-      cha: false,
-    }
-  );
+  // const [freeAncestryBoostsAvailable, setFreeAncestryBoostsAvailable] =
+  //   useState<number>(0);
+
+  // const [ancestryBoosts, ancestryBoostDispatch] = useReducer(
+  //   ancestryBoostReducer,
+  //   {
+  //     str: false,
+  //     dex: false,
+  //     con: false,
+  //     int: false,
+  //     wis: false,
+  //     cha: false,
+  //   }
+  // );
 
   const hp = useMemo(
     () =>
@@ -61,57 +67,57 @@ export const AbilityScoreSelection = () => {
       (['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
         (ability) => ({
           ability,
-          abilityScore: 10 + (ancestryBoosts[ability] ? 2 : 0),
+          abilityScore:
+            10 +
+            (ancestryBoosts[ability] ? 2 : 0) +
+            (backgroundBoosts[ability] ? 2 : 0),
         })
       ),
-    [ancestryBoosts]
+    [ancestryBoosts, backgroundBoosts]
   );
 
-  const handleAncestryBoostSelection = (ability: AbilityScore) => {
-    if (fixedAncestryBoosts?.includes(ability)) {
-      return;
-    } else {
-      ancestryBoostDispatch({
-        type: ancestryBoosts[ability] ? 'REMOVE' : 'ADD',
-        target: ability,
-      });
-    }
+  // const handleAncestryBoostSelection = (ability: AbilityScore) => {
+  //   if (fixedAncestryBoosts?.includes(ability)) {
+  //     return;
+  //   } else {
+  //     ancestryBoostDispatch({
+  //       type: ancestryBoosts[ability] ? 'REMOVE' : 'ADD',
+  //       target: ability,
+  //     });
+  //   }
 
-    if (ancestryBoosts[ability]) {
-      setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable + 1);
-    } else {
-      setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable - 1);
-    }
-  };
+  //   if (ancestryBoosts[ability]) {
+  //     setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable + 1);
+  //   } else {
+  //     setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable - 1);
+  //   }
+  // };
 
-  useEffect(() => {
-    console.log(fixedAncestryBoosts);
-    ancestryBoostDispatch({
-      type: 'SET_FIXED',
-      target: fixedAncestryBoosts as Array<AbilityScore>,
-    });
-  }, [fixedAncestryBoosts]);
+  // useEffect(() => {
+  //   console.log(fixedAncestryBoosts);
+  //   ancestryBoostDispatch({
+  //     type: 'SET_FIXED',
+  //     target: fixedAncestryBoosts as Array<AbilityScore>,
+  //   });
+  // }, [fixedAncestryBoosts]);
 
-  useEffect(() => {
-    console.log('free:', freeAncestryBoostOptions);
-    setFreeAncestryBoostsAvailable(freeAncestryBoostOptions);
-  }, [freeAncestryBoostOptions]);
+  // useEffect(() => {
+  //   console.log('free:', freeAncestryBoostOptions);
+  //   setFreeAncestryBoostsAvailable(freeAncestryBoostOptions);
+  // }, [freeAncestryBoostOptions]);
 
   useEffect(() => {
     console.log(hp);
   }, [hp]);
 
   return (
-    <Stack
-      direction="column"
-      spacing={1}
-      alignItems={'stretch'}
-      // mb={2}
-    >
+    <Box>
       <Stack
         direction="row"
-        justifyContent="space-between"
+        justifyContent="space-around"
         alignItems="center"
+        spacing={{ md: 5 }}
+        // spacing={{ sm: 5, lg: 7 }}
       >
         {/* HP */}
         <Box
@@ -123,6 +129,7 @@ export const AbilityScoreSelection = () => {
             bgcolor: 'surfaceVariant.main',
             color: 'onSurfaceVariant.main',
             borderRadius: '8px',
+            width: '10%',
             p: 4,
           }}
         >
@@ -168,7 +175,7 @@ export const AbilityScoreSelection = () => {
       <BoostSelection
         selection={ancestrySelection}
         boosts={ancestryBoosts}
-        boostDispatch={backgroundBoostDispatch}
+        boostDispatch={ancestryBoostDispatch}
         label="Ancestry boosts"
       />
 
@@ -192,6 +199,6 @@ export const AbilityScoreSelection = () => {
         boostDispatch={backgroundBoostDispatch}
         label="Free boosts"
       /> */}
-    </Stack>
+    </Box>
   );
 };
