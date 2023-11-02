@@ -168,6 +168,7 @@ export const BoostSelection = ({
       <Box
         ml={4}
         width="10%"
+        mt={1}
       >
         <Badge
           color="secondary"
@@ -178,7 +179,11 @@ export const BoostSelection = ({
         </Badge>
 
         {restricted.map((options, i) => (
-          <Box key={options.reduce((acc, curr) => acc + curr, '')}>
+          <Box
+            key={options.reduce((acc, curr) => acc + curr, '')}
+            mt={1}
+            mb={1}
+          >
             <Fade in={Boolean(restricted?.length)}>
               <ToggleButtonGroup
                 value={restrictedBoosts[i]}
@@ -207,6 +212,7 @@ export const BoostSelection = ({
           </Box>
         ))}
       </Box>
+
       {(['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
         (ability) => (
           <Checkbox
