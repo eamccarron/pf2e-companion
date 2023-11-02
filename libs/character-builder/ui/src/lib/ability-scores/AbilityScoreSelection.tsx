@@ -30,31 +30,6 @@ export const AbilityScoreSelection = () => {
   const { boostState: ancestryBoosts, boostDispatch: ancestryBoostDispatch } =
     useContext(AncestryAbilityScoreContext);
 
-  // const fixedAncestryBoosts = useMemo(
-  //   () => ancestrySelection?.content.boosts?.fixed,
-  //   [ancestrySelection]
-  // );
-
-  // const freeAncestryBoostOptions = useMemo(
-  //   () => ancestrySelection?.content.boosts?.free ?? 0,
-  //   [ancestrySelection]
-  // );
-
-  // const [freeAncestryBoostsAvailable, setFreeAncestryBoostsAvailable] =
-  //   useState<number>(0);
-
-  // const [ancestryBoosts, ancestryBoostDispatch] = useReducer(
-  //   ancestryBoostReducer,
-  //   {
-  //     str: false,
-  //     dex: false,
-  //     con: false,
-  //     int: false,
-  //     wis: false,
-  //     cha: false,
-  //   }
-  // );
-
   const hp = useMemo(
     () =>
       Number(classSelection?.content.hp ?? 0) +
@@ -76,40 +51,6 @@ export const AbilityScoreSelection = () => {
     [ancestryBoosts, backgroundBoosts]
   );
 
-  // const handleAncestryBoostSelection = (ability: AbilityScore) => {
-  //   if (fixedAncestryBoosts?.includes(ability)) {
-  //     return;
-  //   } else {
-  //     ancestryBoostDispatch({
-  //       type: ancestryBoosts[ability] ? 'REMOVE' : 'ADD',
-  //       target: ability,
-  //     });
-  //   }
-
-  //   if (ancestryBoosts[ability]) {
-  //     setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable + 1);
-  //   } else {
-  //     setFreeAncestryBoostsAvailable(freeAncestryBoostsAvailable - 1);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log(fixedAncestryBoosts);
-  //   ancestryBoostDispatch({
-  //     type: 'SET_FIXED',
-  //     target: fixedAncestryBoosts as Array<AbilityScore>,
-  //   });
-  // }, [fixedAncestryBoosts]);
-
-  // useEffect(() => {
-  //   console.log('free:', freeAncestryBoostOptions);
-  //   setFreeAncestryBoostsAvailable(freeAncestryBoostOptions);
-  // }, [freeAncestryBoostOptions]);
-
-  useEffect(() => {
-    console.log(hp);
-  }, [hp]);
-
   return (
     <Box>
       <Stack
@@ -117,7 +58,6 @@ export const AbilityScoreSelection = () => {
         justifyContent="space-around"
         alignItems="center"
         spacing={{ md: 5 }}
-        // spacing={{ sm: 5, lg: 7 }}
       >
         {/* HP */}
         <Box
@@ -154,20 +94,6 @@ export const AbilityScoreSelection = () => {
               <Typography variant="h4">{abilityScore}</Typography>
               <Typography variant="subtitle1">{ability}</Typography>
             </Box>
-
-            {/* <Checkbox
-              checked={ancestryBoosts[ability as AbilityScore] ?? false}
-              disabled={
-                fixedAncestryBoosts?.includes(ability as AbilityScore) ||
-                (!freeAncestryBoostsAvailable &&
-                  !ancestryBoosts[ability as AbilityScore])
-              }
-              onChange={() =>
-                handleAncestryBoostSelection(ability as AbilityScore)
-              }
-              icon={<AddCircleOutlineIcon />}
-              checkedIcon={<AddCircleIcon />}
-            /> */}
           </Box>
         ))}
       </Stack>

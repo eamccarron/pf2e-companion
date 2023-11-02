@@ -12,6 +12,5 @@ export const calculateAbilityBoosts = (boosts: AncestrySystem['boosts']) => ({
     .flat(),
   restricted: Object.values(boosts)
     .map(({ value }) => value)
-    .filter((value) => value.length > 1 && value.length < 6)
-    .flat(),
+    .filter((value) => value.length > 1 && value.length < 6),
 });

@@ -10,6 +10,10 @@ export type BoostAction =
   | {
       type: 'SET_FIXED';
       target: Array<AbilityScore>;
+    }
+  | {
+      type: 'RESET';
+      target: [];
     };
 
 export type BoostSelection = Partial<{
@@ -44,6 +48,12 @@ export const boostReducer: BoostReducer = (state, action) => {
       return { ...state, [action.target]: true };
     case 'REMOVE':
       return { ...state, [action.target]: false };
+    case 'RESET':
+      return {
+        ...Object.fromEntries(
+          Object.entries(state).map(([key]) => [key, false])
+        ),
+      };
     default:
       return state;
   }
@@ -80,5 +90,4 @@ export const AbilityScoreSelectionContextProvider = ({
 export const BackgroundAbilityScoreContext =
   createAbilityScoreSelectionContext();
 
-export const AncestryAbilityScoreContext =
-  createAbilityScoreSelectionContext();
+export const AncestryAbilityScoreContext = createAbilityScoreSelectionContext();
