@@ -1,12 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from 'react';
-
-import type { Dispatch } from 'react';
-import type { AbilityScore, BoostContent } from './types';
-
-import type {
-  BoostSelection as BoostState,
-  BoostAction,
-} from './AbilityScoreSelectionContext';
+import { useMemo, useEffect } from 'react';
 import {
   Badge,
   Box,
@@ -21,73 +13,38 @@ import {
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-interface AttributeSelection {
-  content: {
-    boosts: BoostContent;
-  };
-}
+import type { SetStateAction, Dispatch } from 'react';
+import type { AbilityScore } from './types';
+
+import type {
+  BoostSelection as BoostState,
+  RestrictedBoostAction,
+  BoostAction,
+} from './AbilityScoreSelectionContext';
 
 export type BoostSelectionProps = {
-  selection: AttributeSelection | null;
-  boosts: BoostState;
   boostDispatch: Dispatch<BoostAction>;
+  boosts: BoostState;
+  fixedBoosts: Array<AbilityScore>;
+  restrictedBoosts: Array<AbilityScore | ''>;
+  restrictedOptions: Array<AbilityScore[]>;
+  freeBoostsAvailable: number;
+  setFreeBoostsAvailable: Dispatch<SetStateAction<number>>;
+  restrictedBoostDispatch: Dispatch<RestrictedBoostAction>;
   label: string;
 };
 
-type RestrictedBoostAction = {
-  type: AbilityScore | 'initialize';
-  target: number;
-};
-
-type RestrictedBoostReducer = (
-  state: Array<AbilityScore | null>,
-  action: RestrictedBoostAction
-) => Array<AbilityScore | null>;
-
 export const BoostSelection = ({
-  selection,
   boosts,
+  fixedBoosts: fixed,
+  restrictedBoosts,
+  restrictedOptions: restricted,
+  freeBoostsAvailable,
+  setFreeBoostsAvailable,
   boostDispatch,
+  restrictedBoostDispatch,
   label,
 }: BoostSelectionProps) => {
-  // const fixed = useMemo(() => selection?.content.boosts?.fixed, [selection]);
-  // const free = useMemo(() => selection?.content.boosts?.free ?? 0, [selection]);
-  // const restricted = useMemo(
-  //   () => selection?.content.boosts?.restricted,
-  //   [selection]
-  // );
-
-  const restrictedBoostReducer: RestrictedBoostReducer = (state, action) => {
-    if (action.type === 'initialize') {
-      return new Array(action.target).fill('');
-    }
-
-    if (state[action.target] !== null) {
-      boostDispatch({
-        type: 'REMOVE',
-        target: state[action.target] as AbilityScore,
-      });
-    }
-
-    boostDispatch({
-      type: 'ADD',
-      target: action.type as AbilityScore,
-    });
-
-    return state.map((value, index) =>
-      index === action.target ? action.type : value
-    );
-
-    // return ['test'];
-  };
-
-  const [fixed, setFixed] = useState<Array<AbilityScore>>([]);
-  const [restricted, setRestricted] = useState<Array<AbilityScore[]>>([]);
-
-  const [freeBoostsAvailable, setFreeBoostsAvailable] = useState<number>(0);
-  const [restrictedBoosts, restrictedBoostDispatch] =
-    useReducer<RestrictedBoostReducer>(restrictedBoostReducer, [null, null]);
-
   const handleBoostSelection = (ability: AbilityScore) => {
     if (fixed?.includes(ability)) {
       return;
@@ -119,43 +76,17 @@ export const BoostSelection = ({
     return false;
   };
 
-  useEffect(() => {
-    console.log('Selection changed: ', selection);
-    setFixed(selection?.content.boosts?.fixed ?? []);
-    setRestricted(selection?.content.boosts?.restricted ?? []);
-    setFreeBoostsAvailable(selection?.content.boosts?.free ?? 0);
-    boostDispatch({ type: 'RESET', target: [] });
-    restrictedBoostDispatch({
-      type: 'initialize',
-      target: selection?.content.boosts?.restricted?.length ?? 0,
-    });
-  }, [selection, boostDispatch, restrictedBoostDispatch]);
+  const boostsAvailable = useMemo(
+    () =>
+      freeBoostsAvailable +
+      restrictedBoosts.filter((boost) => boost === '').length,
+    [freeBoostsAvailable, restrictedBoosts]
+  );
 
   useEffect(() => {
-    console.log(restrictedBoosts);
-  }, [restrictedBoosts]);
-
-  useEffect(() => {
-    console.log(fixed);
-    boostDispatch({
-      type: 'SET_FIXED',
-      target: fixed as Array<AbilityScore>,
-    });
-  }, [fixed, boostDispatch]);
-
-  // useEffect(() => {
-  //   console.log('free:', free);
-  //   setFreeBoostsAvailable(free);
-  // }, [free, boostDispatch]);
-
-  useEffect(() => {
-    console.log('freeBoostsAvailable', freeBoostsAvailable);
-  }, [freeBoostsAvailable]);
-
-  // useEffect(() => {
-  //   console.log('restricted:', restricted);
-  //   setRestrictedBoostsAvailable(restricted?.length ?? 0);
-  // }, [restricted, boostDispatch]);
+    console.log('restricted length: ', restricted.length);
+    console.log('restricted boosts length: ', restrictedBoosts.length);
+  }, [restricted.length, restrictedBoosts.length]);
 
   return (
     <Stack
@@ -163,7 +94,6 @@ export const BoostSelection = ({
       justifyContent="space-around"
       alignItems="center"
       spacing={{ md: 8 }}
-      // spacing={{ sm: 8, lg: 10 }}
     >
       <Box
         ml={4}
@@ -172,8 +102,8 @@ export const BoostSelection = ({
       >
         <Badge
           color="secondary"
-          invisible={freeBoostsAvailable === 0}
-          badgeContent={freeBoostsAvailable}
+          invisible={boostsAvailable === 0}
+          badgeContent={boostsAvailable}
         >
           <Typography align="left">{label}</Typography>
         </Badge>
@@ -219,11 +149,6 @@ export const BoostSelection = ({
             key={ability}
             checked={boosts[ability] ?? false}
             disabled={isBoostDisabled(ability)}
-            // disabled={
-            //   fixed?.includes(ability) ||
-            //   (!freeBoostsAvailable && !restricted?.includes(ability)) ||
-            //   (!freeBoostsAvailable && !boosts[ability])
-            // }
             onChange={() => handleBoostSelection(ability)}
             icon={<AddCircleOutlineIcon />}
             checkedIcon={<AddCircleIcon />}

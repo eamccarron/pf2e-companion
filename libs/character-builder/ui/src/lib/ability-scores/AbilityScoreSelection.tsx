@@ -3,12 +3,14 @@ import { Stack, Box, Typography, Checkbox, Badge } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-import { AncestrySelectionContext } from '../ancestry/AncestrySelectionContext';
-import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
 import {
-  BackgroundAbilityScoreContext,
-  AncestryAbilityScoreContext,
-} from './AbilityScoreSelectionContext';
+  AncestrySelectionContext,
+  AncestryAbilityScoreSelectionContext,
+} from '../ancestry/AncestrySelectionContext';
+import {
+  BackgroundSelectionContext,
+  BackgroundAbilityScoreSelectionContext,
+} from '../background/BackgroundSelectionContext';
 import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
 import { BoostSelection } from './BoostSelection';
 
@@ -22,13 +24,11 @@ export const AbilityScoreSelection = () => {
     BackgroundSelectionContext
   );
 
-  const {
-    boostState: backgroundBoosts,
-    boostDispatch: backgroundBoostDispatch,
-  } = useContext(BackgroundAbilityScoreContext);
+  const { boostState: backgroundBoosts, ...backgroundAbilitySelection } =
+    useContext(BackgroundAbilityScoreSelectionContext);
 
-  const { boostState: ancestryBoosts, boostDispatch: ancestryBoostDispatch } =
-    useContext(AncestryAbilityScoreContext);
+  const { boostState: ancestryBoosts, ...ancestryAbilitySelection } =
+    useContext(AncestryAbilityScoreSelectionContext);
 
   const hp = useMemo(
     () =>
@@ -99,17 +99,21 @@ export const AbilityScoreSelection = () => {
       </Stack>
 
       <BoostSelection
-        selection={ancestrySelection}
-        boosts={ancestryBoosts}
-        boostDispatch={ancestryBoostDispatch}
-        label="Ancestry boosts"
+        {...{
+          selection: ancestrySelection,
+          boosts: ancestryBoosts,
+          ...ancestryAbilitySelection,
+          label: 'Ancestry boosts',
+        }}
       />
 
       <BoostSelection
-        selection={backgroundSelection}
-        boosts={backgroundBoosts}
-        boostDispatch={backgroundBoostDispatch}
-        label="Background boosts"
+        {...{
+          selection: backgroundSelection,
+          boosts: backgroundBoosts,
+          ...backgroundAbilitySelection,
+          label: 'Background boosts',
+        }}
       />
 
       {/* <BoostSelection

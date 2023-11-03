@@ -3,15 +3,14 @@ import { useNavigate } from '@remix-run/react';
 
 import {
   ClassSelectionContext,
-  AncestrySelectionContext,
-  BackgroundSelectionContext,
+  AncestrySelectionContextProvider,
+  BackgroundSelectionContextProvider,
   AbilityScoreSelectionContextProvider,
   BackgroundAbilityScoreContext,
   AbilityScoreSelection,
   AncestryAbilityScoreContext,
 } from '@pf2-companion/character-builder/ui';
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
-import { Background } from '@pf2-companion/compendium-models';
 
 export const steps = [
   { title: 'Select class', route: '/character-builder/class' },
@@ -77,20 +76,12 @@ export const CharacterCreationContextProvider = ({
       }}
     >
       <SelectionContextProvider Context={ClassSelectionContext}>
-        <SelectionContextProvider Context={AncestrySelectionContext}>
-          <SelectionContextProvider Context={BackgroundSelectionContext}>
-            <AbilityScoreSelectionContextProvider
-              context={BackgroundAbilityScoreContext}
-            >
-              <AbilityScoreSelectionContextProvider
-                context={AncestryAbilityScoreContext}
-              >
-                {children}
-              </AbilityScoreSelectionContextProvider>
-            </AbilityScoreSelectionContextProvider>
-          </SelectionContextProvider>
+          <BackgroundSelectionContextProvider>
+            <AncestrySelectionContextProvider>
+              {children}
+            </AncestrySelectionContextProvider>
+          </BackgroundSelectionContextProvider>
         </SelectionContextProvider>
-      </SelectionContextProvider>
     </CharacterCreationContext.Provider>
   );
 };
