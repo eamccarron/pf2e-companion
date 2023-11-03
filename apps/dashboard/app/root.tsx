@@ -91,9 +91,7 @@ export default function App() {
   return (
     <Document>
       <NavBar>
-        <Suspense fallback={<CircularProgress />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </NavBar>
     </Document>
   );

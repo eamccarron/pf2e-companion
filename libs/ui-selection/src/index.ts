@@ -1,3 +1,4 @@
-export { ContentDetailPane } from './lib/ContentDetailPane';
-export * from './lib/SelectionContextProvider';
-export * from './lib/ContentList';
+export { ContentDetailPane } from './components/ContentDetailPane';
+export { ContentListFilter } from './components/ContentListFilter';
+export * from './components/SelectionContextProvider';
+export * from './components/ContentList';

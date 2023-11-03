@@ -1,0 +1,11 @@
+systemLog:
+   destination: file
+   path: "/var/log/mongodb/mongod.log"
+   logAppend: true
+processManagement:
+   fork: true
+net:
+   bindIp: 127.0.0.1
+   port: 26017
+setParameter:
+   enableLocalhostAuthBypass: true

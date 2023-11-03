@@ -6,8 +6,8 @@ export default defineConfig({
     ...nxE2EPreset(__dirname),
     experimentalRunAllSpecs: true,
     retries: {
-      runMode: 3,
+      runMode: 2,
       openMode: 0,
-    }
+    },
   },
 });

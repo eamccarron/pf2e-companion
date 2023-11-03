@@ -1,0 +1,29 @@
+{
+  "name": "types/character-builder",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "types/character-builder/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/types/character-builder",
+        "main": "types/character-builder/src/index.ts",
+        "tsConfig": "types/character-builder/tsconfig.lib.json",
+        "assets": ["types/character-builder/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "types/character-builder/**/*.ts",
+          "types/character-builder/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

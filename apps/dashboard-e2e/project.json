@@ -6,12 +6,13 @@
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
-      "dependsOn": ["test-db:up"],
+      "dependsOn": ["test-db:up", "compendium-api:e2e"],
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
         "baseUrl": "http://localhost:4200",
-        "devServerTarget": "dashboard:serve",
-        "testingType": "e2e"
+        "devServerTarget": "dashboard:serve:e2e",
+        "testingType": "e2e",
+        "quiet": true
       }
     },
     "test-db:up": {
