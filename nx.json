@@ -12,7 +12,10 @@
       "options": {
         "main": "{projectRoot}/src/index.ts",
         "outputPath": "{projectRoot}/dist",
-        "tsConfig": "{projectRoot}/tsconfig.json"
+        "tsConfig": "{projectRoot}/tsconfig.json",
+        "generatePackageJson": true,
+        "generateLockfile": true,
+        "includeDevDependenciesInPackageJson": false
       }
     },
     "lint": {

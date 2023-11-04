@@ -80,6 +80,7 @@ export const AbilityScoreSelection = () => {
         {abilityScores.map(({ abilityScore, ability }) => (
           <Box key={ability}>
             <Box
+              data-cy={`ability-score-${ability}`}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',

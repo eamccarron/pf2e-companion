@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Box } from '@mui/material';
+import { Suspense, useContext } from 'react';
+import { Box, CircularProgress } from '@mui/material';
 
 import { BackgroundSelectionContext } from './BackgroundSelectionContext';
 import { ContentList } from '@pf2-companion/ui-selection';
@@ -15,10 +15,10 @@ export const BackgroundList = ({
   const { selection, setSelection } = useContext(BackgroundSelectionContext);
 
   return (
-    <ContentList<BackgroundContent>
-      selection={selection}
-      setSelection={setSelection}
-      content={content}
-    />
+      <ContentList<BackgroundContent>
+        selection={selection}
+        setSelection={setSelection}
+        content={content}
+      />
   );
 };

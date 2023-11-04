@@ -6,10 +6,21 @@
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
-      "dependsOn": ["test-db:up", "compendium-api:e2e"],
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "test-db:up",
+          "params": "ignore"
+        },
+        {
+          "projects": "self",
+          "target": "compendium-api:up",
+          "params": "ignore"
+        }
+      ],
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
-        "baseUrl": "http://localhost:4200",
+        "baseUrl": "http://localhost:3000",
         "devServerTarget": "dashboard:serve:e2e",
         "testingType": "e2e",
         "quiet": true
@@ -21,6 +32,17 @@
         "commands": [
           {
             "command": "docker compose up --detach test-db"
+          }
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
+    "compendium-api:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker compose up --detach compendium-api"
           }
         ],
         "cwd": "{projectRoot}"

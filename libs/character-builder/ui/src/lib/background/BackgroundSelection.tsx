@@ -1,8 +1,8 @@
 // Server
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 // Client
-import { Box, Stack } from '@mui/material';
+import { Box, CircularProgress, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
 import { BackgroundList, BackgroundDetailPane } from '.';
@@ -23,7 +23,7 @@ export const BackgroundSelection = ({ content }: { content: Content }) => {
   }, [content]);
 
   return (
-    <>
+    <Suspense fallback={<CircularProgress />}>
       <RarityFilter
         content={listContent}
         setContent={setListContent}
@@ -41,6 +41,6 @@ export const BackgroundSelection = ({ content }: { content: Content }) => {
           <BackgroundDetailPane />
         </Box>
       </Stack>
-    </>
+    </Suspense>
   );
 };

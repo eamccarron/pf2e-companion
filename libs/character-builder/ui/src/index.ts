@@ -6,8 +6,6 @@ export { BackgroundSelectionContextProvider } from './lib/background/BackgroundS
 
 export { AbilityScoreSelection } from './lib/ability-scores/AbilityScoreSelection';
 export {
-  BackgroundAbilityScoreContext,
-  AncestryAbilityScoreContext,
   AbilityScoreSelectionContextProvider,
 } from './lib/ability-scores/AbilityScoreSelectionContext';
 

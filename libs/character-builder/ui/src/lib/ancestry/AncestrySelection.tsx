@@ -1,8 +1,8 @@
 // Server
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 
 // Client
-import { Box, Stack } from '@mui/material';
+import { Box, CircularProgress, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
 import { AncestryList, AncestryDetailPane } from '.';
@@ -24,7 +24,7 @@ export const AncestrySelection = ({ content }: { content: Content }) => {
   }, [content]);
 
   return (
-    <>
+    <Suspense fallback={<CircularProgress />}>
       <RarityFilter
         content={listContent}
         setContent={setListContent}
@@ -39,6 +39,6 @@ export const AncestrySelection = ({ content }: { content: Content }) => {
         </Box>
         <AncestryDetailPane />
       </Stack>
-    </>
+    </Suspense>
   );
 };

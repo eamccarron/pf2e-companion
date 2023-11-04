@@ -16,12 +16,21 @@
         "tsConfig": "apps/compendium-api/tsconfig.app.json",
         "assets": ["apps/compendium-api/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/compendium-api/webpack.config.js"
+        "webpackConfig": "apps/compendium-api/webpack.config.js",
+        "thirdParty": false
       },
       "configurations": {
         "development": {},
         "production": {}
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/compendium-api/Dockerfile . -t \"${CONTAINER_REGISTRY_URL}/compendium-api\""
+    },
+    "docker-push": {
+      "dependsOn": ["docker-build"],
+      "command": "docker push \"${CONTAINER_REGISTRY_URL}\"/compendium-api:latest"
     },
     "serve": {
       "executor": "@nx/js:node",

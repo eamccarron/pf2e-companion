@@ -5,10 +5,8 @@
 # Feats
 
 cd /fixtures/compendium || exit
-mongoimport --db compendium --collection feats --file "./feats.json"
+packs=("classes" "ancestries" "backgrounds" "spells" "heritages" "equipment" "feats")
 
-# Classes
-mongoimport --db compendium --collection classes --file "./classes.json"
-
-# Ancestries
-mongoimport --db compendium --collection ancestries --file "./ancestries.json"
+for pack in "${packs[@]}"; do
+  mongoimport --db compendium --collection "${pack}" --file "./${pack}.json"
+done

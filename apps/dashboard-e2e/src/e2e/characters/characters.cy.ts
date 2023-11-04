@@ -10,7 +10,7 @@ describe('Characters Page', () => {
 
   it('should display a list of characters', () => {
     cy.getBySel('content-list').each((listItem) => {
-      expect(listItem.text()).to.not.be.empty;
+      expect(listItem.text()).to.exist;
       expect(listItem).to.be.visible;
     });
   });

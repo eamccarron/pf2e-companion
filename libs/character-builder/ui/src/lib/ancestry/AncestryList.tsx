@@ -17,6 +17,7 @@ export const AncestryList = ({ content }: { content: ListContent }) => {
       selection={selection}
       setSelection={setSelection}
       content={content}
+      data-cy="ancestry-list"
     />
   );
 };

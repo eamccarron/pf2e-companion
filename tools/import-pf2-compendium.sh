@@ -12,13 +12,18 @@ fi
 # Create a temporary working directory for the compendium import
 cd "$(mktemp -d -t pf2-compendium-import-XXXXXX)" || exit
 
-# Sparse checkout of the pf2 compendium
+# Compendium packs needed for our compendium data model
+packs=("classes" "ancestries" "backgrounds" "spells" "heritages" "equipment" "feats")
+
+# Sparse checkout of the required compendium packs from the pf2e foundry module repo
+checkout_targets=""
+
+for target in "${packs[@]}"; do
+  checkout_targets="${checkout_targets} packs/${target}"
+done
+
 git clone -n --depth=1 --filter=tree:0 "${PF2_COMPENDIUM_REPO}" .
-git sparse-checkout set --no-cone \
-  packs/feats \
-  packs/classes \
-  packs/ancestries \
-  packs/backgrounds 
+git sparse-checkout set --no-cone "${checkout_targets}"
 git checkout
 
 # Drop current compendium to ensure a clean copy is imported
@@ -28,26 +33,11 @@ mongosh compendium --eval "db.dropDatabase()"
 
 echo 'Importing compendium into local mongo database...'
 
-# Feats
-for file in packs/feats/*; do
-  mongoimport --db compendium --collection feats --file "$file" > /dev/null 2>&1
-done
-echo 'Finished importing feats'
 
-# Classes
-for file in packs/classes/*; do
-  mongoimport --db compendium --collection classes --file "$file" > /dev/null 2>&1
+for pack in "${packs[@]}"; do
+  echo "Importing ${pack}..."
+  for file in packs/"${pack}"/*; do
+    mongoimport --db compendium --collection "${pack}" --file "$file" > /dev/null 2>&1
+  done
+  echo "Finished importing ${pack}"
 done
-echo 'Finished importing classes'
-
-# Ancestries
-for file in packs/ancestries/*; do
-  mongoimport --db compendium --collection ancestries --file "$file" > /dev/null 2>&1
-done
-echo 'Finished importing classes'
-
-# Backgrounds
-for file in packs/backgrounds/*; do
-  mongoimport --db compendium --collection backgrounds --file "$file" > /dev/null 2>&1
-done
-echo 'Finished importing backgrounds'
