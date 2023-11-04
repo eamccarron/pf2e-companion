@@ -116,6 +116,7 @@ export const BoostSelection = ({
           >
             <Fade in={Boolean(restricted?.length)}>
               <ToggleButtonGroup
+                data-cy="restricted-boosts"
                 value={restrictedBoosts[i]}
                 onChange={(event, newSelection) => {
                   console.log(newSelection, i);
@@ -129,6 +130,7 @@ export const BoostSelection = ({
               >
                 {options.map((ability) => (
                   <ToggleButton
+                    data-cy={`restricted-boost-${ability}`}
                     key={ability}
                     value={ability}
                     disabled={boosts[ability]}
@@ -146,6 +148,7 @@ export const BoostSelection = ({
       {(['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
         (ability) => (
           <Checkbox
+            data-cy={`ability-boost-${ability}`}
             key={ability}
             checked={boosts[ability] ?? false}
             disabled={isBoostDisabled(ability)}

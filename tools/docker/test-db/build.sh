@@ -5,10 +5,12 @@
 # Create a fixture dataset from live development database
 [[ -d './fixtures' ]] && rm -rf ./fixtures
 
-mongoexport --db compendium --collection feats --out ./fixtures/compendium/feats.json
-mongoexport --db compendium --collection ancestries --out ./fixtures/compendium/ancestries.json
-mongoexport --db compendium --collection backgrounds --out ./fixtures/compendium/backgrounds.json
-mongoexport --db compendium --collection classes --out ./fixtures/compendium/classes.json
+packs=("classes" "ancestries" "backgrounds" "spells" "heritages" "equipment" "feats")
+
+for pack in "${packs[@]}"; do
+  mkdir -p "./fixtures/compendium/${pack}"
+  mongoexport --db compendium --collection "${pack}" --out "./fixtures/compendium/${pack}.json"
+done
 
 # Build image
 docker build -t registry.gitlab.com/mccarronea/pf2e-companion/test-db:latest .

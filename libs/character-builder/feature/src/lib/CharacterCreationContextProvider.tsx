@@ -1,15 +1,12 @@
 import { PropsWithChildren, createContext, useEffect, useState } from 'react';
-import { useNavigate } from '@remix-run/react';
+import { useLocation, useNavigate } from '@remix-run/react';
 
 import {
   ClassSelectionContext,
   AncestrySelectionContextProvider,
   BackgroundSelectionContextProvider,
-  AbilityScoreSelectionContextProvider,
-  BackgroundAbilityScoreContext,
-  AbilityScoreSelection,
-  AncestryAbilityScoreContext,
 } from '@pf2-companion/character-builder/ui';
+
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
 export const steps = [
@@ -46,23 +43,20 @@ export const CharacterCreationContextProvider = ({
   const [completed, setCompleted] = useState(new Set<number>());
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const totalSteps = steps.length - 1;
-
-  useEffect(() => {
-    navigate(steps[activeStep].route);
-  }, [activeStep, navigate]);
 
   const handleNext = () => {
     setActiveStep(activeStep === totalSteps ? totalSteps : activeStep + 1);
     console.log('next');
-    // navigate(steps[activeStep + 1].route);
+    navigate(steps[activeStep + 1].route);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep === 0 ? 0 : activeStep - 1);
     console.log('back');
-    // navigate(steps[activeStep - 1].route);
+    navigate(steps[activeStep - 1].route);
   };
 
   return (
@@ -76,12 +70,12 @@ export const CharacterCreationContextProvider = ({
       }}
     >
       <SelectionContextProvider Context={ClassSelectionContext}>
-          <BackgroundSelectionContextProvider>
-            <AncestrySelectionContextProvider>
-              {children}
-            </AncestrySelectionContextProvider>
-          </BackgroundSelectionContextProvider>
-        </SelectionContextProvider>
+        <BackgroundSelectionContextProvider>
+          <AncestrySelectionContextProvider>
+            {children}
+          </AncestrySelectionContextProvider>
+        </BackgroundSelectionContextProvider>
+      </SelectionContextProvider>
     </CharacterCreationContext.Provider>
   );
 };

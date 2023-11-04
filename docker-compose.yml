@@ -3,3 +3,17 @@ services:
     image: registry.gitlab.com/mccarronea/pf2e-companion/test-db:latest
     ports:
       - 26017:27017
+  compendium-api:
+    image: registry.gitlab.com/mccarronea/pf2e-companion/compendium-api:latest
+    command: ['node', 'main.js']
+    ports:
+      - 4001:4000
+    environment:
+      - PORT=4000
+      - DB_HOST=test-db
+      - DB_PORT=27017
+  dashboard:
+    image: registry.gitlab.com/mccarronea/pf2e-companion/dashboard:latest
+    command: ['npm', 'run', 'start']
+    ports:
+      - 3001:3000

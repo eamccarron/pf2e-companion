@@ -7,7 +7,7 @@ import {
   Divider,
 } from '@mui/material';
 import { useLoaderData } from '@remix-run/react';
-import { Suspense, useState } from 'react';
+import { Suspense, useContext, useState } from 'react';
 
 import {
   AncestrySelection,
@@ -21,6 +21,7 @@ import type {
   AncestryContent,
   BackgroundContent,
 } from '@pf2-companion/character-builder/types';
+import { CharacterCreationContext } from '../CharacterCreationContextProvider';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,7 +42,7 @@ const TabPanel = (props: TabPanelProps) => {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -63,7 +64,7 @@ export const Page = () => {
   };
 
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <>
       <AbilityScoreSelection />
 
       <Divider />
@@ -72,8 +73,8 @@ export const Page = () => {
         value={section}
         onChange={handleSectionChange}
       >
-        <Tab label="Ancestry" />
-        <Tab label="Background" />
+        <Tab label="Ancestry" data-cy="ancestry-tab"/>
+        <Tab label="Background" data-cy="background-tab"/>
       </Tabs>
 
       <TabPanel
@@ -89,6 +90,6 @@ export const Page = () => {
       >
         <BackgroundSelection content={backgrounds} />
       </TabPanel>
-    </Suspense>
+    </>
   );
 };

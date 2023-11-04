@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "patch-package",
     "dev": "nx serve dashboard -c 'node ./server.js'",
+    "docker:auth": "docker login registry.gitlab.com -u mccarronea -p \"$(cat ~/.pki/git-lab-container-registry-token)\"",
     "docker:build:test-db": "cd ./tools/docker/test-db && ./build.sh",
     "docker:push:test-db": "cd ./tools/docker/test-db && ./push.sh",
     "test-db:up": "docker compose up --detach test-db",
@@ -16,7 +17,6 @@
     "@babel/preset-react": "^7.14.5",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
-    "@nestjs/typeorm": "^10.0.0",
     "@nx/cypress": "17.0.1",
     "@nx/eslint": "17.0.1",
     "@nx/eslint-plugin": "17.0.1",
@@ -83,6 +83,7 @@
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
+    "@nestjs/typeorm": "^10.0.0",
     "@nx/devkit": "17.0.2",
     "@remix-run/node": "^2.0.0",
     "@remix-run/react": "^2.0.0",

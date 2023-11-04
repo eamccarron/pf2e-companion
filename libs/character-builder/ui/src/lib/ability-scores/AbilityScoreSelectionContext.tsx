@@ -86,7 +86,7 @@ export type AbilityScoreSelectionContextProps = {
   boostDispatch: Dispatch<BoostAction>;
   boostState: BoostSelection;
   fixedBoosts: Array<AbilityScore>;
-  restrictedBoosts: Array<AbilityScore | null>;
+  restrictedBoosts: Array<AbilityScore | ''>;
   restrictedOptions: Array<AbilityScore[]>;
   freeBoostsAvailable: number;
   setFreeBoostsAvailable: Dispatch<SetStateAction<number>>;
@@ -151,7 +151,7 @@ export const AbilityScoreSelectionContextProvider = ({
 
   const [freeBoostsAvailable, setFreeBoostsAvailable] = useState<number>(0);
   const [restrictedBoosts, restrictedBoostDispatch] =
-    useReducer<RestrictedBoostReducer>(restrictedBoostReducer, [null, null]);
+    useReducer<RestrictedBoostReducer>(restrictedBoostReducer, ['', '']);
 
   useEffect(() => {
     console.log('Selection changed: ', selection);

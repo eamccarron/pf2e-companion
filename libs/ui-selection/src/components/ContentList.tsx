@@ -33,7 +33,10 @@ export function ContentList<T>({
 
   const ContentListItem = ({ content }: { content: ListItem }) => {
     return (
-      <ListItem key={content.id}>
+      <ListItem
+        key={content.id}
+        data-cy="content-list-item"
+      >
         <Box
           sx={{
             borderRadius: 6,
@@ -47,7 +50,6 @@ export function ContentList<T>({
             onClick={() => handleSelection(content)}
             data-cy="content-list-button"
           >
-
             <ListItemText
               primary={content.primary}
               secondary={

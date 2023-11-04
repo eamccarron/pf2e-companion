@@ -9,9 +9,16 @@
       "executor": "@nx/remix:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "command": "serve build/index.js",
         "outputPath": "dist/apps/dashboard"
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/dashboard/Dockerfile . -t \"${CONTAINER_REGISTRY_URL}/dashboard\""
+    },
+    "docker-push": {
+      "dependsOn": ["docker-build"],
+      "command": "docker push registry.gitlab.com/mccarronea/pf2e-companion/dashboard:latest"
     },
     "serve": {
       "executor": "@nx/remix:serve",
@@ -33,7 +40,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx remix dev --port 4200 -c 'remix-serve build/index.js'"
+          "npx remix dev --port 3000 -c 'remix-serve build/index.js'"
         ],
         "cwd": "{projectRoot}"
       }
