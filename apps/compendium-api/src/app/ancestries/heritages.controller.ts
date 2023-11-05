@@ -9,6 +9,8 @@ export class HeritagesController {
 
   @Get(':id')
   async getHeritages(@Param('id') id: string): Promise<Heritage[]> {
-    return this.ancestriesService.findHeritagesByAncestryId(id);
+    const heritages = await this.ancestriesService.findHeritagesByAncestryId(id);
+    console.log(heritages);
+    return heritages;
   }
 }

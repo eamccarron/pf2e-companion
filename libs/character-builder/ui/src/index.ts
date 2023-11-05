@@ -1,5 +1,6 @@
 export { AncestrySelection } from './lib/ancestry/AncestrySelection';
 export { AncestrySelectionContextProvider } from './lib/ancestry/AncestrySelectionContext';
+export { AncestrySelectionContext } from './lib/ancestry/AncestrySelectionContext';
 
 export { BackgroundSelection } from './lib/background/BackgroundSelection';
 export { BackgroundSelectionContextProvider } from './lib/background/BackgroundSelectionContext';
