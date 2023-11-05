@@ -3,10 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AncestriesService } from './ancestries.service';
 import { AncestriesController } from './ancestries.controller';
 
-import { Ancestry } from '@pf2-companion/compendium-models';
+import { Ancestry, Heritage } from '@pf2-companion/compendium-models';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Ancestry])],
+  imports: [
+    TypeOrmModule.forFeature([Ancestry]),
+    TypeOrmModule.forFeature([Heritage]),
+  ],
   providers: [AncestriesService],
   controllers: [AncestriesController],
 })

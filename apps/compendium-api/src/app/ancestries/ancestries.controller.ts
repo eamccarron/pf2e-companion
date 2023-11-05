@@ -1,7 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AncestriesService } from './ancestries.service';
 
-import type { Ancestry } from '@pf2-companion/compendium-models';
+import type { Ancestry, Heritage } from '@pf2-companion/compendium-models';
 
 @Controller('ancestries')
 export class AncestriesController {
@@ -10,5 +10,10 @@ export class AncestriesController {
   @Get()
   async get(): Promise<Ancestry[]> {
     return await this.ancestriesService.findAll();
+  }
+
+  @Get('heritages/:id')
+  async getHeritages(@Param('id') id: string): Promise<Heritage[]> {
+    return this.ancestriesService.findHeritagesByAncestryId(id);
   }
 }

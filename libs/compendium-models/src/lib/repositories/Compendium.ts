@@ -9,5 +9,6 @@ export abstract class CompendiumRepository<T extends ObjectLiteral> {
   constructor(private repository: MongoRepository<T>) {}
 
   public findAll = async () => this.repository.find();
-  public findById = async (id: string) => this.repository.findOneBy({ id });
+  public findById = async (id: string) =>
+    this.repository.findOneBy({ _id: id });
 }
