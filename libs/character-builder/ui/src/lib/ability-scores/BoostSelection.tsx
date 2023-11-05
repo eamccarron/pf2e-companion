@@ -84,10 +84,49 @@ export const BoostSelection = ({
   );
 
   useEffect(() => {
-    console.log('restricted length: ', restricted.length);
-    console.log('restricted boosts length: ', restrictedBoosts.length);
-  }, [restricted.length, restrictedBoosts.length]);
+    console.log('freeBosts', freeBoostsAvailable);
+  }, [freeBoostsAvailable]);
 
+  const RestrictedBoosts = () => {
+    return restricted?.length ? (
+      restricted.map((options, i) => (
+        <Box
+          key={options.reduce((acc, curr) => acc + curr, '')}
+          mt={1}
+          mb={1}
+        >
+          <Fade in={Boolean(restricted?.length)}>
+            <ToggleButtonGroup
+              data-cy="restricted-boosts"
+              value={restrictedBoosts[i]}
+              onChange={(event, newSelection) => {
+                restrictedBoostDispatch({
+                  type: newSelection,
+                  target: i,
+                });
+              }}
+              size="small"
+              exclusive
+            >
+              {options.map((ability) => (
+                <ToggleButton
+                  data-cy={`restricted-boost-${ability}`}
+                  key={ability}
+                  value={ability}
+                  disabled={boosts[ability]}
+                  sx={{ pr: 2 }}
+                >
+                  {ability}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </Fade>
+        </Box>
+      ))
+    ) : (
+      <></>
+    );
+  };
   return (
     <Stack
       direction="row"
@@ -107,42 +146,7 @@ export const BoostSelection = ({
         >
           <Typography align="left">{label}</Typography>
         </Badge>
-
-        {restricted.map((options, i) => (
-          <Box
-            key={options.reduce((acc, curr) => acc + curr, '')}
-            mt={1}
-            mb={1}
-          >
-            <Fade in={Boolean(restricted?.length)}>
-              <ToggleButtonGroup
-                data-cy="restricted-boosts"
-                value={restrictedBoosts[i]}
-                onChange={(event, newSelection) => {
-                  console.log(newSelection, i);
-                  restrictedBoostDispatch({
-                    type: newSelection,
-                    target: i,
-                  });
-                }}
-                size="small"
-                exclusive
-              >
-                {options.map((ability) => (
-                  <ToggleButton
-                    data-cy={`restricted-boost-${ability}`}
-                    key={ability}
-                    value={ability}
-                    disabled={boosts[ability]}
-                    sx={{ pr: 2 }}
-                  >
-                    {ability}
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
-            </Fade>
-          </Box>
-        ))}
+        <RestrictedBoosts />
       </Box>
 
       {(['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(

@@ -11,11 +11,16 @@ import {
   BackgroundSelectionContext,
   BackgroundAbilityScoreSelectionContext,
 } from '../background/BackgroundSelectionContext';
-import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
+import {
+  ClassSelectionContext,
+  ClassAbilityScoreSelectionContext,
+} from '../character-class/ClassSelectionContext';
+
 import { BoostSelection } from './BoostSelection';
 
 import type { AbilityScore } from './types';
 import { ancestryBoostReducer } from './ancestryBoost';
+import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
 
 export const AbilityScoreSelection = () => {
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
@@ -29,6 +34,14 @@ export const AbilityScoreSelection = () => {
 
   const { boostState: ancestryBoosts, ...ancestryAbilitySelection } =
     useContext(AncestryAbilityScoreSelectionContext);
+
+  const { boostState: classBoosts, ...classAbilitySelection } = useContext(
+    ClassAbilityScoreSelectionContext
+  );
+
+  const { boostState: freeBoosts, ...freeAbilitySelection } = useContext(
+    FreeAbilityScoreSelectionContext
+  );
 
   const hp = useMemo(
     () =>
@@ -45,10 +58,12 @@ export const AbilityScoreSelection = () => {
           abilityScore:
             10 +
             (ancestryBoosts[ability] ? 2 : 0) +
-            (backgroundBoosts[ability] ? 2 : 0),
+            (backgroundBoosts[ability] ? 2 : 0) +
+            (classBoosts[ability] ? 2 : 0) +
+            (freeBoosts[ability] ? 2 : 0),
         })
       ),
-    [ancestryBoosts, backgroundBoosts]
+    [ancestryBoosts, backgroundBoosts, classBoosts, freeBoosts]
   );
 
   return (
@@ -117,19 +132,23 @@ export const AbilityScoreSelection = () => {
         }}
       />
 
-      {/* <BoostSelection
-        selection={backgroundSelection}
-        boosts={backgroundBoosts}
-        boostDispatch={backgroundBoostDispatch}
-        label="Class boosts"
+      <BoostSelection
+        {...{
+          selection: classSelection,
+          boosts: classBoosts,
+          ...classAbilitySelection,
+          label: 'Class boosts',
+        }}
       />
 
       <BoostSelection
-        selection={backgroundSelection}
-        boosts={backgroundBoosts}
-        boostDispatch={backgroundBoostDispatch}
-        label="Free boosts"
-      /> */}
+        {...{
+          selection: { content: { boosts: { free: 4 } } },
+          boosts: freeBoosts,
+          ...freeAbilitySelection,
+          label: 'Free ability boosts',
+        }}
+      />
     </Box>
   );
 };

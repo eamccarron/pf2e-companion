@@ -10,7 +10,6 @@ export class BackgroundsController {
   @Get()
   async get(): Promise<Background[]> {
     const backgrounds = await this.backgroundsService.findAll();
-    console.log(backgrounds[0].system.traits);
     return backgrounds;
   }
 }

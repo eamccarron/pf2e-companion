@@ -2,9 +2,10 @@ import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from '@remix-run/react';
 
 import {
-  ClassSelectionContext,
+  ClassSelectionContextProvider,
   AncestrySelectionContextProvider,
   BackgroundSelectionContextProvider,
+  FreeAbilityScoreSelectionContextProvider,
 } from '@pf2-companion/character-builder/ui';
 
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
@@ -69,13 +70,15 @@ export const CharacterCreationContextProvider = ({
         completed,
       }}
     >
-      <SelectionContextProvider Context={ClassSelectionContext}>
+      <ClassSelectionContextProvider>
         <BackgroundSelectionContextProvider>
           <AncestrySelectionContextProvider>
-            {children}
+            <FreeAbilityScoreSelectionContextProvider>
+              {children}
+            </FreeAbilityScoreSelectionContextProvider>
           </AncestrySelectionContextProvider>
         </BackgroundSelectionContextProvider>
-      </SelectionContextProvider>
+      </ClassSelectionContextProvider>
     </CharacterCreationContext.Provider>
   );
 };
