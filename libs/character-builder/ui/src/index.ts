@@ -12,3 +12,5 @@ export { ClassDetailPane } from './lib/character-class/ClassDetailPane';
 export { ClassList } from './lib/character-class/ClassList';
 
 export { FreeAbilityScoreSelectionContextProvider } from './lib/ability-scores/FreeAbilityScoreSelectionContext';
+
+export { HeritageSelection } from './lib/heritage/HeritageSelection';

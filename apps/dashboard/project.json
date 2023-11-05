@@ -20,6 +20,10 @@
       "dependsOn": ["docker-build"],
       "command": "docker push registry.gitlab.com/mccarronea/pf2e-companion/dashboard:latest"
     },
+    "serve:test": {
+      "executor": "@nx/remix:serve",
+      "options": {}
+    },
     "serve": {
       "executor": "@nx/remix:serve",
       "options": {
@@ -40,7 +44,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "npx remix dev --port 3000 -c 'remix-serve build/index.js'"
+          "npx remix dev -c \"node server.mjs\""
         ],
         "cwd": "{projectRoot}"
       }

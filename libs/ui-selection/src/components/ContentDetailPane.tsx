@@ -37,9 +37,9 @@ export function ContentDetailPane<T>({
           />
           <CardContent data-cy="detail-pane-content">
             <>
-              {children}
               {selectionDetail(selection)}
               <Typography variant="body2">{selection?.description}</Typography>
+              {children}
             </>
           </CardContent>
         </Card>

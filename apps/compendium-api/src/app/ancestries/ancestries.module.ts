@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AncestriesService } from './ancestries.service';
 import { AncestriesController } from './ancestries.controller';
+import { HeritagesController } from './heritages.controller';
 
 import { Ancestry, Heritage } from '@pf2-companion/compendium-models';
 
@@ -11,6 +12,6 @@ import { Ancestry, Heritage } from '@pf2-companion/compendium-models';
     TypeOrmModule.forFeature([Heritage]),
   ],
   providers: [AncestriesService],
-  controllers: [AncestriesController],
+  controllers: [AncestriesController, HeritagesController],
 })
 export class AncestriesModule {}
