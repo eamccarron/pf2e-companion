@@ -20,6 +20,7 @@ import { BoostSelection } from './BoostSelection';
 
 import type { AbilityScore } from './types';
 import { ancestryBoostReducer } from './ancestryBoost';
+import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
 
 export const AbilityScoreSelection = () => {
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
@@ -38,6 +39,10 @@ export const AbilityScoreSelection = () => {
     ClassAbilityScoreSelectionContext
   );
 
+  const { boostState: freeBoosts, ...freeAbilitySelection } = useContext(
+    FreeAbilityScoreSelectionContext
+  );
+
   const hp = useMemo(
     () =>
       Number(classSelection?.content.hp ?? 0) +
@@ -54,10 +59,11 @@ export const AbilityScoreSelection = () => {
             10 +
             (ancestryBoosts[ability] ? 2 : 0) +
             (backgroundBoosts[ability] ? 2 : 0) +
-            (classBoosts[ability] ? 2 : 0),
+            (classBoosts[ability] ? 2 : 0) +
+            (freeBoosts[ability] ? 2 : 0),
         })
       ),
-    [ancestryBoosts, backgroundBoosts, classBoosts]
+    [ancestryBoosts, backgroundBoosts, classBoosts, freeBoosts]
   );
 
   return (
@@ -132,6 +138,15 @@ export const AbilityScoreSelection = () => {
           boosts: classBoosts,
           ...classAbilitySelection,
           label: 'Class boosts',
+        }}
+      />
+
+      <BoostSelection
+        {...{
+          selection: { content: { boosts: { free: 4 } } },
+          boosts: freeBoosts,
+          ...freeAbilitySelection,
+          label: 'Free ability boosts',
         }}
       />
     </Box>

@@ -10,3 +10,5 @@ export { AbilityScoreSelectionContextProvider } from './lib/ability-scores/Abili
 export { ClassSelectionContextProvider } from './lib/character-class/ClassSelectionContext';
 export { ClassDetailPane } from './lib/character-class/ClassDetailPane';
 export { ClassList } from './lib/character-class/ClassList';
+
+export { FreeAbilityScoreSelectionContextProvider } from './lib/ability-scores/FreeAbilityScoreSelectionContext';

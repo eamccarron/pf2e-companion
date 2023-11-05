@@ -154,6 +154,7 @@ export const AbilityScoreSelectionContextProvider = ({
     useReducer<RestrictedBoostReducer>(restrictedBoostReducer, ['', '']);
 
   useEffect(() => {
+    console.log('selection', selection);
     setFixed(selection?.content.boosts?.fixed ?? []);
     setRestrictedOptions(selection?.content.boosts?.restricted ?? []);
     setFreeBoostsAvailable(selection?.content.boosts?.free ?? 0);
