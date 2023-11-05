@@ -22,6 +22,88 @@ export type SkillIdentifier =
 
 export type Rarity = 'common' | 'uncommon' | 'rare';
 
+export class KeyAbility {
+  @Column()
+  value: Array<AbilityIdentifier>;
+
+  constructor(value: Array<AbilityIdentifier>) {
+    this.value = value;
+  }
+}
+
+export class SavingThrowProficiencies {
+  @Column()
+  fortitude: number;
+  @Column()
+  reflex: number;
+  @Column()
+  will: number;
+
+  constructor(fortitude: number, reflex: number, will: number) {
+    this.fortitude = fortitude;
+    this.reflex = reflex;
+    this.will = will;
+  }
+}
+
+export class ArmorProficiencies {
+  @Column()
+  heavy: number;
+  @Column()
+  light: number;
+  @Column()
+  medium: number;
+  @Column()
+  unarmored: number;
+
+  constructor(heavy: number, light: number, medium: number, unarmored: number) {
+    this.heavy = heavy;
+    this.light = light;
+    this.medium = medium;
+    this.unarmored = unarmored;
+  }
+}
+
+export class AttackProficiencies {
+  @Column()
+  advanced: number;
+
+  @Column()
+  martial: number;
+
+  @Column()
+  other: { name: string; rank: number };
+
+  @Column()
+  simple: number;
+
+  @Column()
+  unarmed: number;
+
+  constructor(
+    advanced: number,
+    martial: number,
+    other: { name: string; rank: number },
+    simple: number,
+    unarmed: number
+  ) {
+    this.advanced = advanced;
+    this.martial = martial;
+    this.other = other;
+    this.simple = simple;
+    this.unarmed = unarmed;
+  }
+}
+
+export class Levels {
+  @Column()
+  value: Array<number>;
+
+  constructor(value: Array<number>) {
+    this.value = value;
+  }
+}
+
 export class Description {
   @Column()
   value: string;
@@ -70,10 +152,14 @@ export class AdditionalLanguages {
 
 export class TrainedSkills {
   @Column()
+  additional: number;
+
+  @Column()
   value: SkillIdentifier[];
 
-  constructor(value: SkillIdentifier[]) {
+  constructor(additional: number, value: SkillIdentifier[]) {
     this.value = value;
+    this.additional = additional;
   }
 }
 

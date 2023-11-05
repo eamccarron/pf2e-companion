@@ -1,6 +1,7 @@
 import { fetchCompendium } from '../fetchCompendium';
+import { formatClassJSON } from '@pf2-companion/character-builder/data-access';
 
 export const loader = async () => {
-  const classDescriptions = await fetchCompendium('classes/class-descriptions');
-  return classDescriptions.json();
+  const classDescriptions = await fetchCompendium('classes/classes');
+  return formatClassJSON(await classDescriptions.json());
 };

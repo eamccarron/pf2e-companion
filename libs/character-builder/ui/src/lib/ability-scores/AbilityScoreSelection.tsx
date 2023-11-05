@@ -11,7 +11,11 @@ import {
   BackgroundSelectionContext,
   BackgroundAbilityScoreSelectionContext,
 } from '../background/BackgroundSelectionContext';
-import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
+import {
+  ClassSelectionContext,
+  ClassAbilityScoreSelectionContext,
+} from '../character-class/ClassSelectionContext';
+
 import { BoostSelection } from './BoostSelection';
 
 import type { AbilityScore } from './types';
@@ -30,6 +34,10 @@ export const AbilityScoreSelection = () => {
   const { boostState: ancestryBoosts, ...ancestryAbilitySelection } =
     useContext(AncestryAbilityScoreSelectionContext);
 
+  const { boostState: classBoosts, ...classAbilitySelection } = useContext(
+    ClassAbilityScoreSelectionContext
+  );
+
   const hp = useMemo(
     () =>
       Number(classSelection?.content.hp ?? 0) +
@@ -45,10 +53,11 @@ export const AbilityScoreSelection = () => {
           abilityScore:
             10 +
             (ancestryBoosts[ability] ? 2 : 0) +
-            (backgroundBoosts[ability] ? 2 : 0),
+            (backgroundBoosts[ability] ? 2 : 0) +
+            (classBoosts[ability] ? 2 : 0),
         })
       ),
-    [ancestryBoosts, backgroundBoosts]
+    [ancestryBoosts, backgroundBoosts, classBoosts]
   );
 
   return (
@@ -117,19 +126,14 @@ export const AbilityScoreSelection = () => {
         }}
       />
 
-      {/* <BoostSelection
-        selection={backgroundSelection}
-        boosts={backgroundBoosts}
-        boostDispatch={backgroundBoostDispatch}
-        label="Class boosts"
-      />
-
       <BoostSelection
-        selection={backgroundSelection}
-        boosts={backgroundBoosts}
-        boostDispatch={backgroundBoostDispatch}
-        label="Free boosts"
-      /> */}
+        {...{
+          selection: classSelection,
+          boosts: classBoosts,
+          ...classAbilitySelection,
+          label: 'Class boosts',
+        }}
+      />
     </Box>
   );
 };

@@ -154,7 +154,6 @@ export const AbilityScoreSelectionContextProvider = ({
     useReducer<RestrictedBoostReducer>(restrictedBoostReducer, ['', '']);
 
   useEffect(() => {
-    console.log('Selection changed: ', selection);
     setFixed(selection?.content.boosts?.fixed ?? []);
     setRestrictedOptions(selection?.content.boosts?.restricted ?? []);
     setFreeBoostsAvailable(selection?.content.boosts?.free ?? 0);
@@ -166,20 +165,11 @@ export const AbilityScoreSelectionContextProvider = ({
   }, [selection, boostDispatch, restrictedBoostDispatch]);
 
   useEffect(() => {
-    console.log(fixed);
     boostDispatch({
       type: 'SET_FIXED',
       target: fixed as Array<AbilityScore>,
     });
   }, [fixed, boostDispatch]);
-
-  useEffect(() => {
-    console.log(restrictedBoosts);
-  }, [restrictedBoosts]);
-
-  useEffect(() => {
-    console.log('freeBoostsAvailable', freeBoostsAvailable);
-  }, [freeBoostsAvailable]);
 
   return (
     <AbilityScoreContext.Provider
