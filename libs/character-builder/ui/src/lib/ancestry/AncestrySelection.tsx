@@ -37,9 +37,11 @@ export const AncestrySelection = ({ content, children }: PropsWithChildren<{ con
         <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
           <AncestryList content={listContent} />
         </Box>
-        <AncestryDetailPane >
-          {children}
-        </AncestryDetailPane>
+        <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
+          <AncestryDetailPane >
+            {children}
+          </AncestryDetailPane>
+        </Box>
       </Stack>
     </Suspense>
   );

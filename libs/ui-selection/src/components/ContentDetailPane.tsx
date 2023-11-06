@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 
 import { Selection } from './SelectionContextProvider';
+import { HTMLContent } from '@pf2-companion/ui-general';
 
 interface ContentDetailPaneProps<T> {
   selection: Selection<T> | null;
-  selectionDetail?: (selection: Selection<T> | null) => React.ReactNode;
   slide: boolean;
   slideDirection: 'up' | 'left' | 'right' | 'down';
 }
@@ -20,7 +20,6 @@ interface ContentDetailPaneProps<T> {
 export function ContentDetailPane<T>({
   children,
   selection,
-  selectionDetail = () => undefined,
   ...slideProps
 }: PropsWithChildren<ContentDetailPaneProps<T>>) {
   return (
@@ -31,16 +30,18 @@ export function ContentDetailPane<T>({
       >
         <Card>
           <CardHeader
-            title={selection?.primary}
-            subheader={(selection?.secondary ?? [])[0] ?? ''}
             data-cy="detail-pane-header"
+            title={selection?.primary}
+            subheader={selection?.secondary}
+            sx={{
+              whiteSpace: 'pre-line',
+            }}
           />
           <CardContent data-cy="detail-pane-content">
-            <>
-              {selectionDetail(selection)}
-              <Typography variant="body2">{selection?.description}</Typography>
-              {children}
-            </>
+            {selection?.description && (
+              <HTMLContent content={selection.description} />
+            )}
+            {children}
           </CardContent>
         </Card>
       </Slide>

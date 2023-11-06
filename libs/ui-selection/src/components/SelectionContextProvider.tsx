@@ -7,7 +7,7 @@ export type selectionID = string | number | null;
 export interface Selection<T> {
   primary: string;
   id: string | number;
-  secondary?: Array<string>;
+  secondary?: string;
   description?: string;
   content: T;
 }
