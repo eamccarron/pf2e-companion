@@ -1,6 +1,6 @@
 import { AncestrySelectionContext } from '@pf2-companion/character-builder/ui';
 import { HeritageView } from '@pf2-companion/character-builder/ui';
-import { useFetcher, Await } from '@remix-run/react';
+import { useFetcher, Await, useHref } from '@remix-run/react';
 import { Suspense, useCallback, useContext, useEffect } from 'react';
 import { fetchCompendium } from '../fetchCompendium';
 
@@ -13,17 +13,12 @@ import {
   Skeleton,
 } from '@mui/material';
 
-const useFetchHeritage = () => {
-  const fetcher = useFetcher();
-};
-
 export const HeritageSelection = ({ ancestryId }: { ancestryId: string }) => {
+  const fetchLocation = useHref(`../heritages/${ancestryId}`, { relative: "path" });
   const fetchHeritageOptions = useCallback(async () => {
     if (!ancestryId) return [];
 
-    const response = await fetch(
-      `http://localhost:4000/heritages/${ancestryId}`
-    );
+    const response = await fetch(fetchLocation);
 
     return await response.json();
   }, [ancestryId]);
