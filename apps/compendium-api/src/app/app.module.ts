@@ -7,7 +7,12 @@ import { AncestriesModule } from './ancestries/ancestries.module';
 import { BackgroundsModule } from './backgrounds/backgrounds.module';
 
 // Data model
-import { Ancestry, Background, Class } from '@pf2-companion/compendium-models';
+import {
+  Ancestry,
+  Background,
+  Class,
+  Heritage,
+} from '@pf2-companion/compendium-models';
 import { ClassesModule } from './character-classes/classes.module';
 
 @Module({
@@ -17,7 +22,7 @@ import { ClassesModule } from './character-classes/classes.module';
       host: process.env['DB_HOST'],
       port: Number(process.env['DB_PORT']),
       database: 'compendium',
-      entities: [Ancestry, Background, Class],
+      entities: [Ancestry, Background, Class, Heritage],
     }),
     // TypeOrmModule.forRootAsync({
     //   useFactory: () => ({

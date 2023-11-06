@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, Entity, ObjectIdColumn, OneToMany } from 'typeorm';
 
 import {
   AbilityScoreModifiers,
@@ -9,6 +9,8 @@ import {
   Publication,
   Traits,
 } from './System';
+
+import type { Heritage } from './Heritage';
 
 export class AncestrySystem {
   @Column((type) => AdditionalLanguages)
@@ -104,17 +106,22 @@ export class Ancestry {
   @Column()
   type: string;
 
+  @OneToMany('Heritage', (heritage: Heritage) => heritage.ancestry)
+  heritages: Heritage[];
+
   constructor(
     _id: string,
     img: string,
     name: string,
     system: AncestrySystem,
-    type: string
+    type: string,
+    heritages: Heritage[]
   ) {
     this._id = _id;
     this.img = img;
     this.name = name;
     this.system = system;
     this.type = type;
+    this.heritages = heritages;
   }
 }

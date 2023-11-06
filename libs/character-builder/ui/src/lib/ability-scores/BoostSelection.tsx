@@ -87,46 +87,46 @@ export const BoostSelection = ({
     console.log('freeBosts', freeBoostsAvailable);
   }, [freeBoostsAvailable]);
 
-  const RestrictedBoosts = () => {
-    return restricted?.length ? (
-      restricted.map((options, i) => (
-        <Box
-          key={options.reduce((acc, curr) => acc + curr, '')}
-          mt={1}
-          mb={1}
-        >
-          <Fade in={Boolean(restricted?.length)}>
-            <ToggleButtonGroup
-              data-cy="restricted-boosts"
-              value={restrictedBoosts[i]}
-              onChange={(event, newSelection) => {
-                restrictedBoostDispatch({
-                  type: newSelection,
-                  target: i,
-                });
-              }}
-              size="small"
-              exclusive
-            >
-              {options.map((ability) => (
-                <ToggleButton
-                  data-cy={`restricted-boost-${ability}`}
-                  key={ability}
-                  value={ability}
-                  disabled={boosts[ability]}
-                  sx={{ pr: 2 }}
-                >
-                  {ability}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </Fade>
-        </Box>
-      ))
-    ) : (
-      <></>
-    );
-  };
+  const RestrictedBoosts = useMemo(() => {
+    if (restricted?.length !== 0) {
+      return () =>
+        restricted.map((options, i) => (
+          <Box
+            key={options.reduce((acc, curr) => acc + curr, '')}
+            mt={1}
+            mb={1}
+          >
+            <Fade in={Boolean(restricted?.length)}>
+              <ToggleButtonGroup
+                data-cy="restricted-boosts"
+                value={restrictedBoosts[i]}
+                onChange={(event, newSelection) => {
+                  restrictedBoostDispatch({
+                    type: newSelection,
+                    target: i,
+                  });
+                }}
+                size="small"
+                exclusive
+              >
+                {options.map((ability) => (
+                  <ToggleButton
+                    data-cy={`restricted-boost-${ability}`}
+                    key={ability}
+                    value={ability}
+                    disabled={boosts[ability]}
+                    sx={{ pr: 2 }}
+                  >
+                    {ability}
+                  </ToggleButton>
+                ))}
+              </ToggleButtonGroup>
+            </Fade>
+          </Box>
+        ));
+    } else return () => <></>;
+  }, [boosts, restricted, restrictedBoostDispatch, restrictedBoosts]);
+
   return (
     <Stack
       direction="row"

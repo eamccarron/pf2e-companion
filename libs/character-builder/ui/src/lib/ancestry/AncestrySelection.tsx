@@ -1,5 +1,5 @@
 // Server
-import { useState, Suspense } from 'react';
+import { useState, Suspense, PropsWithChildren } from 'react';
 
 // Client
 import { Box, CircularProgress, Stack } from '@mui/material';
@@ -14,7 +14,7 @@ import type { Selection } from '@pf2-companion/ui-selection/types';
 
 type Content = Selection<AncestryContent>[];
 
-export const AncestrySelection = ({ content }: { content: Content }) => {
+export const AncestrySelection = ({ content, children }: PropsWithChildren<{ content: Content }>) => {
   const [listContent, setListContent] = useState<Content>([]);
   const [initialContent, setInitialContent] = useState<Content>([]);
 
@@ -37,7 +37,11 @@ export const AncestrySelection = ({ content }: { content: Content }) => {
         <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
           <AncestryList content={listContent} />
         </Box>
-        <AncestryDetailPane />
+        <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
+          <AncestryDetailPane >
+            {children}
+          </AncestryDetailPane>
+        </Box>
       </Stack>
     </Suspense>
   );

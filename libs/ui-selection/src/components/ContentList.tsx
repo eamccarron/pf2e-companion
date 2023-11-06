@@ -7,27 +7,50 @@ import {
   Box,
   ListItemText,
   Typography,
+  Card,
+  CardHeader,
+  CardContent,
+  IconButton,
 } from '@mui/material';
+
+import { styled } from '@mui/material/styles';
 
 import { SecondaryContent } from './SecondaryContent';
 import type { Selection } from './SelectionContextProvider';
 
 type ListItem = Selection<any>;
 
+type ListContentRenderer = ({ content }: { content: ListItem }) => JSX.Element;
+
 export type ContentListProps<T> = PropsWithChildren<{
   content: Selection<T>[];
   selection: Selection<T> | null;
   setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
-  secondaryContentLength?: number;
   maxHeight?: number | string;
+  renderListItem?: ListContentRenderer;
 }>;
+
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 export function ContentList<T>({
   content,
   selection,
   setSelection,
-  secondaryContentLength = 1,
   maxHeight = '100%',
+  renderListItem,
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
 
@@ -37,35 +60,33 @@ export function ContentList<T>({
         key={content.id}
         data-cy="content-list-item"
       >
-        <Box
-          sx={{
-            borderRadius: 6,
-            width: '100%',
-            backgroundColor: 'surface.main',
-          }}
-        >
-          <ListItemButton
-            selected={selection?.id === content.id}
-            sx={{ borderRadius: 6 }}
-            onClick={() => handleSelection(content)}
-            data-cy="content-list-button"
+        {renderListItem ? (
+          renderListItem({ content })
+        ) : (
+          <Box
+            sx={{
+              borderRadius: 6,
+              width: '100%',
+              backgroundColor: 'surface.main',
+            }}
           >
-            <ListItemText
-              primary={content.primary}
-              secondary={
-                <Typography component="span">
-                  <SecondaryContent
-                    secondary={content.secondary}
-                    secondaryContentLength={secondaryContentLength}
-                  />
-                </Typography>
-              }
-              sx={{
-                color: 'onSurface.main',
-              }}
-            />
-          </ListItemButton>
-        </Box>
+            <ListItemButton
+              selected={selection?.id === content.id}
+              sx={{ borderRadius: 6 }}
+              onClick={() => handleSelection(content)}
+              data-cy="content-list-button"
+            >
+              <ListItemText
+                primary={content.primary}
+                secondary={content.secondary}
+                sx={{
+                  color: 'onSurface.main',
+                  whiteSpace: 'pre-line',
+                }}
+              />
+            </ListItemButton>
+          </Box>
+        )}
       </ListItem>
     );
   };

@@ -13,15 +13,17 @@ import {
   AncestrySelection,
   BackgroundSelection,
   AbilityScoreSelection,
+  AncestrySelectionContext,
 } from '@pf2-companion/character-builder/ui';
 
 import type { Selection } from '@pf2-companion/ui-selection';
 
-import type {
+import {
   AncestryContent,
   BackgroundContent,
 } from '@pf2-companion/character-builder/types';
 import { CharacterCreationContext } from '../CharacterCreationContextProvider';
+import { HeritageSelection } from './HeritageSelection';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,11 +42,7 @@ const TabPanel = (props: TabPanelProps) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 };
@@ -63,6 +61,8 @@ export const Page = () => {
     setSection(newValue);
   };
 
+  const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
+
   return (
     <>
       <AbilityScoreSelection />
@@ -73,15 +73,23 @@ export const Page = () => {
         value={section}
         onChange={handleSectionChange}
       >
-        <Tab label="Ancestry" data-cy="ancestry-tab"/>
-        <Tab label="Background" data-cy="background-tab"/>
+        <Tab
+          label="Ancestry"
+          data-cy="ancestry-tab"
+        />
+        <Tab
+          label="Background"
+          data-cy="background-tab"
+        />
       </Tabs>
 
       <TabPanel
         value={section}
         index={0}
       >
-        <AncestrySelection content={ancestries} />
+        <AncestrySelection content={ancestries}>
+          <HeritageSelection ancestryId={ancestrySelection?.id} />
+        </AncestrySelection>
       </TabPanel>
 
       <TabPanel
