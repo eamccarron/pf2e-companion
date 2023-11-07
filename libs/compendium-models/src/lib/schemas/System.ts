@@ -1,4 +1,4 @@
-import { Column } from 'typeorm';
+import { Prop } from '@nestjs/mongoose';
 
 export type ActionType = {
   value: 'action' | 'reaction' | 'free' | 'passive';
@@ -39,7 +39,7 @@ export class Level {
 }
 
 export class Prerequisites {
-  @Column()
+  @Prop()
   value: Array<{ value: string }>;
 
   constructor(value: Array<{ value: string }>) {
@@ -48,13 +48,13 @@ export class Prerequisites {
 }
 
 export class Frequency {
-  @Column()
+  @Prop()
   max: number;
 
-  @Column()
+  @Prop()
   per: string;
 
-  @Column()
+  @Prop()
   value: number;
 
   constructor(max: number, per: string, value: number) {
@@ -65,10 +65,10 @@ export class Frequency {
 }
 
 export class Duration {
-  @Column()
+  @Prop()
   expiry: string;
 
-  @Column()
+  @Prop()
   sustained: boolean;
 
   constructor(expiry: string, sustained: boolean) {
@@ -78,7 +78,7 @@ export class Duration {
 }
 
 export class KeyAbility {
-  @Column()
+  @Prop()
   value: Array<AbilityIdentifier>;
 
   constructor(value: Array<AbilityIdentifier>) {
@@ -87,11 +87,11 @@ export class KeyAbility {
 }
 
 export class SavingThrowProficiencies {
-  @Column()
+  @Prop()
   fortitude: number;
-  @Column()
+  @Prop()
   reflex: number;
-  @Column()
+  @Prop()
   will: number;
 
   constructor(fortitude: number, reflex: number, will: number) {
@@ -102,13 +102,13 @@ export class SavingThrowProficiencies {
 }
 
 export class ArmorProficiencies {
-  @Column()
+  @Prop()
   heavy: number;
-  @Column()
+  @Prop()
   light: number;
-  @Column()
+  @Prop()
   medium: number;
-  @Column()
+  @Prop()
   unarmored: number;
 
   constructor(heavy: number, light: number, medium: number, unarmored: number) {
@@ -120,19 +120,19 @@ export class ArmorProficiencies {
 }
 
 export class AttackProficiencies {
-  @Column()
+  @Prop()
   advanced: number;
 
-  @Column()
+  @Prop()
   martial: number;
 
-  @Column()
+  @Prop()
   other: { name: string; rank: number };
 
-  @Column()
+  @Prop()
   simple: number;
 
-  @Column()
+  @Prop()
   unarmed: number;
 
   constructor(
@@ -151,7 +151,7 @@ export class AttackProficiencies {
 }
 
 export class Levels {
-  @Column()
+  @Prop()
   value: Array<number>;
 
   constructor(value: Array<number>) {
@@ -160,7 +160,7 @@ export class Levels {
 }
 
 export class Description {
-  @Column()
+  @Prop()
   value: string;
 
   constructor(value: string) {
@@ -169,7 +169,7 @@ export class Description {
 }
 
 export class AbilityScoreModifier {
-  @Column()
+  @Prop()
   value: AbilityIdentifier[];
 
   constructor(value: AbilityIdentifier[]) {
@@ -178,24 +178,24 @@ export class AbilityScoreModifier {
 }
 
 export class AbilityScoreModifiers {
-  @Column((type) => AbilityScoreModifier)
+  @Prop(AbilityScoreModifier)
   '0': AbilityScoreModifier;
 
-  @Column((type) => AbilityScoreModifier)
+  @Prop(AbilityScoreModifier)
   '1': AbilityScoreModifier;
 
-  @Column((type) => AbilityScoreModifier)
+  @Prop(AbilityScoreModifier)
   '2': AbilityScoreModifier;
 }
 
 export class AdditionalLanguages {
-  @Column()
+  @Prop()
   count: number;
 
-  @Column()
+  @Prop()
   custom: string;
 
-  @Column()
+  @Prop()
   value: string[];
 
   constructor(count: number, custom: string, value: string[]) {
@@ -206,10 +206,10 @@ export class AdditionalLanguages {
 }
 
 export class TrainedSkills {
-  @Column()
+  @Prop()
   additional: number;
 
-  @Column()
+  @Prop()
   value: SkillIdentifier[];
 
   constructor(additional: number, value: SkillIdentifier[]) {
@@ -219,10 +219,10 @@ export class TrainedSkills {
 }
 
 export class Languages {
-  @Column()
+  @Prop()
   custom: string;
 
-  @Column()
+  @Prop()
   value: string[];
 
   constructor(custom: string, value: string[]) {
@@ -232,16 +232,16 @@ export class Languages {
 }
 
 export class Item {
-  @Column()
+  @Prop()
   img: string;
 
-  @Column()
+  @Prop()
   level: number;
 
-  @Column()
+  @Prop()
   name: string;
 
-  @Column()
+  @Prop()
   uuid: string;
 
   constructor(img: string, level: number, name: string, uuid: string) {
@@ -253,13 +253,13 @@ export class Item {
 }
 
 export class Publication {
-  @Column()
+  @Prop()
   license: string;
 
-  @Column()
+  @Prop()
   remaster: boolean;
 
-  @Column()
+  @Prop()
   title: string;
 
   constructor(license: string, remaster: boolean, title: string) {
@@ -270,10 +270,10 @@ export class Publication {
 }
 
 export class Traits {
-  @Column()
+  @Prop()
   rarity: Rarity;
 
-  @Column()
+  @Prop()
   value: string[];
 
   constructor(rarity: Rarity, value: string[]) {

@@ -1,4 +1,7 @@
-import { Column, ObjectIdColumn, Entity } from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import type { HydratedDocument } from 'mongoose';
+
+export type FeatDocument = HydratedDocument<Feat>;
 
 import {
   Description,
@@ -13,34 +16,34 @@ import {
 import type { Actions, ActionType } from './System';
 
 export class FeatSystem {
-  @Column()
+  @Prop()
   actionType: ActionType;
 
-  @Column()
+  @Prop()
   actions: Actions;
 
-  @Column()
+  @Prop()
   category: 'class' | 'ancestry' | 'general' | 'skill' | 'bonus';
 
-  @Column(() => Duration)
+  @Prop(() => Duration)
   duration: Duration;
 
-  @Column(() => Description)
+  @Prop(() => Description)
   description: Description;
 
-  @Column(() => Frequency)
+  @Prop(() => Frequency)
   frequency: Frequency;
 
-  @Column(() => Level)
+  @Prop(() => Level)
   level: Level;
 
-  @Column(() => Prerequisites)
+  @Prop(() => Prerequisites)
   prerequisites: Prerequisites;
 
-  @Column(() => Publication)
+  @Prop(() => Publication)
   publication: Publication;
 
-  @Column(() => Traits)
+  @Prop(() => Traits)
   traits: Traits;
 
   constructor(
@@ -70,22 +73,20 @@ export class FeatSystem {
 
 @Entity('feats')
 export class Feat {
-  @ObjectIdColumn()
-  id: string;
-
-  @Column()
+  @Prop()
   name: string;
 
-  @Column()
+  @Prop()
   system: FeatSystem;
 
-  @Column()
+  @Prop()
   type: string;
 
-  constructor(id: string, name: string, system: FeatSystem, type: string) {
-    this.id = id;
+  constructor(name: string, system: FeatSystem, type: string) {
     this.name = name;
     this.system = system;
     this.type = type;
   }
 }
+
+export const FeatSchema = SchemaFactory.createForClass(Feat);

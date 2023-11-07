@@ -14,4 +14,10 @@ export class ClassesService extends CompendiumRepository<Class> {
   ) {
     super(classesRepository);
   }
+
+  public async findClassFeatsAvailable(level: number, className: string) {
+    return this.classesRepository.find({
+      where: {},
+    });
+  }
 }

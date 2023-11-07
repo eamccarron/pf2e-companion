@@ -1,16 +1,26 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { BackgroundsService } from './feats.service';
+import { FeatsService } from './feats.service';
+import { ClassesService } from '../character-classes/classes.service';
+
+import type { Feat } from '@pf2-companion/compendium-models';
 
 @Controller('builder/feats')
-export class BackgroundsController {
-  constructor(private featsService: BackgroundsService) {}
+export class FeatsController {
+  constructor(
+    private featsService: FeatsService,
+    private classesService: ClassesService
+  ) {}
 
   @Get('class')
   async get(
     @Query('level') level: number,
-    @Query('id') id: string
+    @Query('className') className: string
   ): Promise<Feat[]> {
-    const feats = await this.featsService.findAll();
-    return feats;
+    const classFeats = await this.featsService.findClassFeats(
+      Number(level),
+      className
+    );
+
+    const featsAvailable = await this.classesService.findFeatsAvailable(
   }
 }

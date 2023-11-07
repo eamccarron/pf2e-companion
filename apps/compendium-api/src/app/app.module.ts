@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AncestriesModule } from './ancestries/ancestries.module';
 import { BackgroundsModule } from './backgrounds/backgrounds.module';
+import { TemplatesModule } from './builder-templates/templates.module';
 
 // Data model
 import {
@@ -12,6 +13,7 @@ import {
   Background,
   Class,
   Heritage,
+  Feat,
 } from '@pf2-companion/compendium-models';
 import { ClassesModule } from './character-classes/classes.module';
 
@@ -22,7 +24,7 @@ import { ClassesModule } from './character-classes/classes.module';
       host: process.env['DB_HOST'],
       port: Number(process.env['DB_PORT']),
       database: 'compendium',
-      entities: [Ancestry, Background, Class, Heritage],
+      entities: [Ancestry, Background, Class, Heritage, Feat],
     }),
     // TypeOrmModule.forRootAsync({
     //   useFactory: () => ({
@@ -36,6 +38,7 @@ import { ClassesModule } from './character-classes/classes.module';
     AncestriesModule,
     BackgroundsModule,
     ClassesModule,
+    TemplatesModule,
   ],
   controllers: [],
   providers: [],
