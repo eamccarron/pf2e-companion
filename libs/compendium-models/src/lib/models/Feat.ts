@@ -1,4 +1,4 @@
-type FeatSystem = {
+class FeatSystem {
   actionType: {
     value: string;
   };
@@ -26,7 +26,7 @@ type FeatSystem = {
   };
 };
 
-export type Feat = {
+export class Feat {
   _id: string;
   name: string;
   system: FeatSystem;
