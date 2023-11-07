@@ -11,12 +11,13 @@ import {
   Traits,
   Frequency,
   Level,
+  ActionType,
 } from './System';
 
-import type { Actions, ActionType } from './System';
+import type { Actions } from './System';
 
 export class FeatSystem {
-  @Prop()
+  @Prop(ActionType)
   actionType: ActionType;
 
   @Prop()
@@ -71,7 +72,7 @@ export class FeatSystem {
   }
 }
 
-@Entity('feats')
+@Schema()
 export class Feat {
   @Prop()
   name: string;

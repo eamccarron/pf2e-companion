@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { TypeOrmModule, InjectRepository } from '@nestjs/typeorm';
+import { InjectModel } from '@nestjs/mongoose';
 
 import { Class } from '@pf2-companion/compendium-models';
 import { CompendiumRepository } from '@pf2-companion/compendium-models';
 
-import type { MongoRepository } from 'typeorm';
+import type { Model } from 'mongoose';
 
 @Injectable()
 export class ClassesService extends CompendiumRepository<Class> {
   constructor(
-    @InjectRepository(Class)
-    private classesRepository: MongoRepository<Class>
+    @InjectModel(Class.name)
+    private classesModel: Model<Class>
   ) {
-    super(classesRepository);
+    super(classesModel);
   }
 
   public async findClassFeatsAvailable(level: number, className: string) {
-    return this.classesRepository.find({
+    return this.classesModel.find({
       where: {},
     });
   }

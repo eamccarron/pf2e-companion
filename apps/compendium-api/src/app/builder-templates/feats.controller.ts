@@ -16,11 +16,6 @@ export class FeatsController {
     @Query('level') level: number,
     @Query('className') className: string
   ): Promise<Feat[]> {
-    const classFeats = await this.featsService.findClassFeats(
-      Number(level),
-      className
-    );
-
-    const featsAvailable = await this.classesService.findFeatsAvailable(
+    return this.featsService.findClassFeats(Number(level), className);
   }
 }

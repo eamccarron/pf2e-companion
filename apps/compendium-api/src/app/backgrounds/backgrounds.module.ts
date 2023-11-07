@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
 import { BackgroundsService } from './backgrounds.service';
 import { BackgroundsController } from './backgrounds.controller';
 
-import { Background } from '@pf2-companion/compendium-models';
+import { Background, BackgroundSchema } from '@pf2-companion/compendium-models';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Background])],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: Background.name,
+        schema: BackgroundSchema,
+      },
+    ]),
+  ],
   providers: [BackgroundsService],
   controllers: [BackgroundsController],
 })

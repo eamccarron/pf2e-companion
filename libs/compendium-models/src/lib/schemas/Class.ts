@@ -21,7 +21,7 @@ export class ClassSystem {
   @Prop(Levels)
   ancestryFeatLevels: Levels;
 
-  @Prop(AttackProficiencies)
+  @Prop({ type: AttackProficiencies })
   attacks: AttackProficiencies;
 
   @Prop(Levels)

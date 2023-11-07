@@ -1,8 +1,14 @@
 import { Prop } from '@nestjs/mongoose';
 
-export type ActionType = {
-  value: 'action' | 'reaction' | 'free' | 'passive';
-};
+export type ActionTypes = 'action' | 'reaction' | 'free' | 'passive';
+
+export class ActionType {
+  value: ActionTypes;
+
+  constructor(value: ActionTypes) {
+    this.value = value;
+  }
+}
 
 export type Actions = {
   value: 1 | 2 | 3;
@@ -119,6 +125,11 @@ export class ArmorProficiencies {
   }
 }
 
+class OtherAttackProficiency {
+  name: string;
+  rank: number;
+}
+
 export class AttackProficiencies {
   @Prop()
   advanced: number;
@@ -126,8 +137,8 @@ export class AttackProficiencies {
   @Prop()
   martial: number;
 
-  @Prop()
-  other: { name: string; rank: number };
+  @Prop(OtherAttackProficiency)
+  other: OtherAttackProficiency;
 
   @Prop()
   simple: number;
