@@ -1,13 +1,11 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 
 import { filterContent } from '../lib/filterContent';
 
 import type { Filter } from '../lib/filterContent';
 import type { Selection } from './SelectionContextProvider';
 import { Box, Stack, Checkbox, Chip } from '@mui/material';
-// import { Chip } from '@mui/material-next';
-
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { FilterChip } from '@pf2-companion/ui-general';
 
 export type ContentListFilterProps<T extends Selection<unknown>> = {
   filterMode: 'any' | 'all';
@@ -69,15 +67,6 @@ export function ContentListFilter<T extends Selection<unknown>>({
     }
   };
 
-  const FilterChip = ({ label }: { label: string }) => (
-    <Chip
-      clickable
-      label={label}
-      onClick={() => handleFilterSelection(label)}
-      icon={selectedFilters.includes(label) ? <CheckCircleIcon /> : undefined}
-    ></Chip>
-  );
-
   return (
     <Stack direction="row">
       {filters.map(({ label }) => (
@@ -85,7 +74,11 @@ export function ContentListFilter<T extends Selection<unknown>>({
           key={label}
           margin={1}
         >
-          <FilterChip label={label} />
+          <FilterChip
+            label={label}
+            handleSelection={handleFilterSelection}
+            selectedFilters={selectedFilters}
+          />
         </Box>
       ))}
     </Stack>

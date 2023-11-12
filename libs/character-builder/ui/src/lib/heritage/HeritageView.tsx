@@ -6,6 +6,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import { HTMLContent } from '@pf2-companion/ui-general';
 import { HeritageSelectionContext } from './HeritageSelectionContext';
+import { FilterChip } from '@pf2-companion/ui-general';
 
 export const HeritageView = ({
   content,
@@ -23,13 +24,13 @@ export const HeritageView = ({
   return (
     <Box>
       {content.map((heritage) => (
-        <Chip
+        <FilterChip
           key={heritage.id}
           label={heritage.primary}
-          onClick={() => setSelection(heritage)}
-          clickable
-          variant={isSelected(heritage) ? 'filled' : 'outlined'}
-          icon={isSelected(heritage) ? <CheckCircleIcon /> : undefined}
+          handleSelection={() => setSelection(heritage)}
+          selectedFilters={isSelected(heritage) ? [heritage.primary] : []}
+          // variant={isSelected(heritage) ? 'filled' : 'outlined'}
+          // icon={isSelected(heritage) ? <CheckCircleIcon /> : undefined}
           sx={{ mr: 1, mb: 1 }}
         />
       ))}

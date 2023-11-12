@@ -214,7 +214,7 @@ export function ExpandableNavigationRail({
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3 }}
+        sx={{ flexGrow: 1, p: 3, bgcolor: 'surface.main' }}
       >
         <DrawerHeader />
         {children}

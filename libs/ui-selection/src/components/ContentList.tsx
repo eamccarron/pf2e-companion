@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   List,
@@ -30,21 +30,6 @@ export type ContentListProps<T> = PropsWithChildren<{
   renderListItem?: ListContentRenderer;
 }>;
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
 export function ContentList<T>({
   content,
   selection,
@@ -53,6 +38,10 @@ export function ContentList<T>({
   renderListItem,
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
+  const isSelected = useCallback(
+    (id: string | number) => selection?.id === id,
+    [selection?.id]
+  );
 
   const ContentListItem = ({ content }: { content: ListItem }) => {
     return (
@@ -67,7 +56,12 @@ export function ContentList<T>({
             sx={{
               borderRadius: 6,
               width: '100%',
-              bgcolor: 'surface.main',
+              bgcolor: isSelected(content.id)
+                ? 'tertiaryContainer.main'
+                : 'surface.main',
+              color: isSelected(content.id)
+                ? 'onTertiaryContainer.main'
+                : 'onSurface.main',
             }}
           >
             <ListItemButton
@@ -80,7 +74,6 @@ export function ContentList<T>({
                 primary={content.primary}
                 secondary={content.secondary}
                 sx={{
-                  color: 'onSurface.main',
                   whiteSpace: 'pre-line',
                 }}
               />

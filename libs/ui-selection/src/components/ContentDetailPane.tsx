@@ -10,11 +10,13 @@ import {
 
 import { Selection } from './SelectionContextProvider';
 import { HTMLContent } from '@pf2-companion/ui-general';
+import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 
 interface ContentDetailPaneProps<T> {
   selection: Selection<T> | null;
   slide: boolean;
   slideDirection: 'up' | 'left' | 'right' | 'down';
+  raised?: boolean;
   color?: string;
   outlined?: boolean;
 }
@@ -22,8 +24,7 @@ interface ContentDetailPaneProps<T> {
 export function ContentDetailPane<T>({
   children,
   selection,
-  outlined = false,
-  color = 'secondary',
+  raised = false,
   ...slideProps
 }: PropsWithChildren<ContentDetailPaneProps<T>>) {
   return (
@@ -37,11 +38,14 @@ export function ContentDetailPane<T>({
         direction={slideProps.slideDirection}
       >
         <Card
-          variant={outlined ? 'outlined' : undefined}
+          raised={raised}
+          elevation={raised ? 4 : 0}
           sx={{
-            bgcolor: `${color}Container.main`,
+            borderRadius: 6,
+            bgcolor: `surfaceVariant.main`,
             // color: `on${color[0].toUpperCase()}${color.slice(1)}Container.main`,
-            color: 'onSecondaryContainer.main',
+            color: 'onSurfaceVariant.main',
+            p: 1,
           }}
         >
           <CardHeader
@@ -50,19 +54,19 @@ export function ContentDetailPane<T>({
             subheader={selection?.secondary}
             sx={{
               whiteSpace: 'pre-line',
-              color: `on${color[0].toUpperCase()}${color.slice(
-                1
-              )}Container.main`,
+              // color: `on${color[0].toUpperCase()}${color.slice(
+              //   1
+              // )}Container.main`,
             }}
           />
           <CardContent data-cy="detail-pane-content">
-            <Box sx={{ color: 'onSecondaryContainer.main' }}>
+            <Box sx={{ color: 'onSurfaceVariant.main' }}>
               {selection?.description && (
                 <HTMLContent
                   content={selection.description}
-                  styles={(theme) => ({
-                    body: { color: theme.palette.onSecondaryContainer.main },
-                  })}
+                  // styles={(theme) => ({
+                  //   body: { color: theme.palette.onSurfaceVariant.main },
+                  // })}
                 />
               )}
               {children}
