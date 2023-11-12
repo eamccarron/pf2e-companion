@@ -10,8 +10,12 @@ export class ActionType {
   }
 }
 
-export type Actions = {
+export class Actions {
   value: 1 | 2 | 3;
+
+  constructor(value: 1 | 2 | 3) {
+    this.value = value;
+  }
 };
 
 export type AbilityIdentifier = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';

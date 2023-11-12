@@ -3,12 +3,13 @@
 import { useContext } from 'react';
 import { Stepper, Step, StepLabel, Button, Stack } from '@mui/material';
 
-import {
-  steps,
-  CharacterCreationContext,
-} from './CharacterCreationContextProvider';
+import { CharacterCreationContext } from './CharacterCreationContextProvider';
 
-export const CharacterCreationStepper = () => {
+export const CharacterCreationStepper = ({
+  steps,
+}: {
+  steps: Array<{ title: string; route: string }>;
+}) => {
   const { activeStep, handleNext, handleBack, completed /*, setCompleted */ } =
     useContext(CharacterCreationContext);
 

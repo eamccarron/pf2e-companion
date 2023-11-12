@@ -12,15 +12,14 @@ import {
   Frequency,
   Level,
   ActionType,
+  Actions,
 } from './System';
-
-import type { Actions } from './System';
 
 export class FeatSystem {
   @Prop(ActionType)
   actionType: ActionType;
 
-  @Prop()
+  @Prop(Actions)
   actions: Actions;
 
   @Prop()
@@ -75,6 +74,9 @@ export class FeatSystem {
 @Schema()
 export class Feat {
   @Prop()
+  _id: string;
+
+  @Prop()
   name: string;
 
   @Prop()
@@ -83,7 +85,8 @@ export class Feat {
   @Prop()
   type: string;
 
-  constructor(name: string, system: FeatSystem, type: string) {
+  constructor(_id: string, name: string, system: FeatSystem, type: string) {
+    this._id = _id;
     this.name = name;
     this.system = system;
     this.type = type;

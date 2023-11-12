@@ -15,33 +15,58 @@ interface ContentDetailPaneProps<T> {
   selection: Selection<T> | null;
   slide: boolean;
   slideDirection: 'up' | 'left' | 'right' | 'down';
+  color?: string;
+  outlined?: boolean;
 }
 
 export function ContentDetailPane<T>({
   children,
   selection,
+  outlined = false,
+  color = 'secondary',
   ...slideProps
 }: PropsWithChildren<ContentDetailPaneProps<T>>) {
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       <Slide
         in={selection !== null}
         direction={slideProps.slideDirection}
       >
-        <Card>
+        <Card
+          variant={outlined ? 'outlined' : undefined}
+          sx={{
+            bgcolor: `${color}Container.main`,
+            // color: `on${color[0].toUpperCase()}${color.slice(1)}Container.main`,
+            color: 'onSecondaryContainer.main',
+          }}
+        >
           <CardHeader
             data-cy="detail-pane-header"
             title={selection?.primary}
             subheader={selection?.secondary}
             sx={{
               whiteSpace: 'pre-line',
+              color: `on${color[0].toUpperCase()}${color.slice(
+                1
+              )}Container.main`,
             }}
           />
           <CardContent data-cy="detail-pane-content">
-            {selection?.description && (
-              <HTMLContent content={selection.description} />
-            )}
-            {children}
+            <Box sx={{ color: 'onSecondaryContainer.main' }}>
+              {selection?.description && (
+                <HTMLContent
+                  content={selection.description}
+                  styles={(theme) => ({
+                    body: { color: theme.palette.onSecondaryContainer.main },
+                  })}
+                />
+              )}
+              {children}
+            </Box>
           </CardContent>
         </Card>
       </Slide>

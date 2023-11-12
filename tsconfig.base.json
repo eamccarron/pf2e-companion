@@ -52,6 +52,7 @@
         "types/character-builder/src/index.ts"
       ],
       "@pf2-companion/types/compendium": ["types/compendium/src/index.ts"],
+      "@pf2-companion/types/ui-selection": ["types/ui-selection/src/index.ts"],
       "@pf2-companion/ui-general": ["libs/ui-general/src/index.ts"],
       "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"],
       "@pf2-companion/ui-selection/types": ["libs/ui-selection/src/types.ts"]

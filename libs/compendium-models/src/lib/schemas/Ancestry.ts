@@ -92,6 +92,9 @@ export class AncestrySystem {
 @Schema()
 export class Ancestry {
   @Prop()
+  _id: string;
+
+  @Prop()
   img: string;
 
   @Prop()
@@ -110,6 +113,7 @@ export class Ancestry {
     system: AncestrySystem,
     type: string
   ) {
+    this._id = _id;
     this.img = img;
     this.name = name;
     this.system = system;

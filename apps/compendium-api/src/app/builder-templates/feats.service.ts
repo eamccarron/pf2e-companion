@@ -16,15 +16,12 @@ export class FeatsService extends CompendiumRepository<Feat> {
   }
 
   public async findClassFeats(level: number, className: string) {
-    return this.featsModel.find({
-      where: {
-        $and: [
-          { 'system.traits.value': { $eq: className } },
-          {
-            'system.level.value': { $lte: level },
-          },
-        ],
-      },
+    const classFeats = await this.featsModel.find({
+      'system.traits.value': { $eq: className },
+      'system.level.value': { $lte: level },
     });
+
+    console.log(classFeats[0].id);
+    return classFeats;
   }
 }

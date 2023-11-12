@@ -50,6 +50,9 @@ export class BackgroundSystem {
 @Schema()
 export class Background {
   @Prop()
+  _id: string;
+
+  @Prop()
   name: string;
 
   @Prop()
@@ -58,7 +61,13 @@ export class Background {
   @Prop(BackgroundSystem)
   system: BackgroundSystem;
 
-  constructor(name: string, system: BackgroundSystem, type: string) {
+  constructor(
+    _id: string,
+    name: string,
+    system: BackgroundSystem,
+    type: string
+  ) {
+    this._id = _id;
     this.name = name;
     this.system = system;
     this.type = type;

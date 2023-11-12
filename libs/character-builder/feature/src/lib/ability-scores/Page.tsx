@@ -1,103 +1,38 @@
-import {
-  CircularProgress,
-  Tabs,
-  Tab,
-  Box,
-  Typography,
-  Divider,
-} from '@mui/material';
-import { useLoaderData } from '@remix-run/react';
-import { Suspense, useContext, useState } from 'react';
+import { CircularProgress, Divider, Skeleton } from '@mui/material';
 
-import {
-  AncestrySelection,
-  BackgroundSelection,
-  AbilityScoreSelection,
-  AncestrySelectionContext,
-} from '@pf2-companion/character-builder/ui';
+import { AbilityScoreSelection } from '@pf2-companion/character-builder/ui';
+import { Suspense } from 'react';
 
 import type { Selection } from '@pf2-companion/ui-selection';
 
-import {
-  AncestryContent,
-  BackgroundContent,
-} from '@pf2-companion/character-builder/types';
-import { CharacterCreationContext } from '../CharacterCreationContextProvider';
-import { HeritageSelection } from './HeritageSelection';
+import { loader as abilityScoreSelectionLoader } from './loader';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+import { AbilityScoreView } from './View';
+import { HeritageSelection } from './heritage/HeritageSelection';
 
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
+import { loader } from './loader';
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-};
-
-export const Page = () => {
-  const { ancestries, backgrounds } = useLoaderData<{
-    ancestries: Selection<AncestryContent>[];
-    backgrounds: Selection<BackgroundContent>[];
-  }>();
-
-  const [section, setSection] = useState<number>(0);
-  const handleSectionChange = (
-    event: React.SyntheticEvent,
-    newValue: number
-  ) => {
-    setSection(newValue);
+export const Page = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    ancestryId: string;
   };
-
-  const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
-
+}) => {
+  const data = await loader();
+  const { ancestryId } = searchParams || {};
   return (
     <>
       <AbilityScoreSelection />
-
       <Divider />
-
-      <Tabs
-        value={section}
-        onChange={handleSectionChange}
-      >
-        <Tab
-          label="Ancestry"
-          data-cy="ancestry-tab"
-        />
-        <Tab
-          label="Background"
-          data-cy="background-tab"
-        />
-      </Tabs>
-
-      <TabPanel
-        value={section}
-        index={0}
-      >
-        <AncestrySelection content={ancestries}>
-          <HeritageSelection ancestryId={ancestrySelection?.id} />
-        </AncestrySelection>
-      </TabPanel>
-
-      <TabPanel
-        value={section}
-        index={1}
-      >
-        <BackgroundSelection content={backgrounds} />
-      </TabPanel>
+      <AbilityScoreView
+        data={data}
+        heritageSelection={
+          <Suspense key={ancestryId} fallback={<CircularProgress />}>
+            <HeritageSelection ancestryId={ancestryId} />
+          </Suspense>
+        }
+      />
     </>
   );
 };

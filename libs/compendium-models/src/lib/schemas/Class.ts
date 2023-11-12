@@ -111,6 +111,9 @@ export class ClassSystem {
 @Schema()
 export class Class {
   @Prop()
+  _id: string;
+
+  @Prop()
   name: string;
 
   @Prop()
@@ -119,7 +122,8 @@ export class Class {
   @Prop(ClassSystem)
   system: ClassSystem;
 
-  constructor(name: string, system: ClassSystem, type: string) {
+  constructor(_id: string, name: string, system: ClassSystem, type: string) {
+    this._id = _id;
     this.name = name;
     this.system = system;
     this.type = type;

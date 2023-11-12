@@ -1,18 +1,33 @@
-export { AncestrySelection } from './lib/ancestry/AncestrySelection';
-export { AncestrySelectionContextProvider } from './lib/ancestry/AncestrySelectionContext';
-export { AncestrySelectionContext } from './lib/ancestry/AncestrySelectionContext';
+'use client';
+export {
+  AncestrySelection,
+  AncestrySelectionContextProvider,
+  AncestrySelectionContext,
+} from './lib/ancestry';
 
-export { BackgroundSelection } from './lib/background/BackgroundSelection';
-export { BackgroundSelectionContextProvider } from './lib/background/BackgroundSelectionContext';
+export {
+  BackgroundSelection,
+  BackgroundSelectionContextProvider,
+} from './lib/background';
 
-export { AbilityScoreSelection } from './lib/ability-scores/AbilityScoreSelection';
-export { AbilityScoreSelectionContextProvider } from './lib/ability-scores/AbilityScoreSelectionContext';
+export {
+  AbilityScoreSelection,
+  AbilityScoreSelectionContextProvider,
+  FreeAbilityScoreSelectionContextProvider,
+} from './lib/ability-scores';
 
-export { ClassSelectionContextProvider } from './lib/character-class/ClassSelectionContext';
-export { ClassDetailPane } from './lib/character-class/ClassDetailPane';
-export { ClassList } from './lib/character-class/ClassList';
+export {
+  ClassSelectionContextProvider,
+  ClassDetailPane,
+  ClassList,
+} from './lib/character-class';
 
-export { FreeAbilityScoreSelectionContextProvider } from './lib/ability-scores/FreeAbilityScoreSelectionContext';
+export { HeritageSelectionContext, HeritageView } from './lib/heritage';
 
-export { HeritageView } from './lib/heritage/HeritageView';
-export { HeritageSelectionContext } from './lib/heritage/HeritageSelectionContext';
+export {
+  FeatSelectionPane,
+  FeatSelectionContextProvider,
+  FeatSelectionContext,
+  LevelSelection,
+  FeatOptions,
+} from './lib/feats';

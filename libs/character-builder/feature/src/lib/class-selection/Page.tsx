@@ -1,5 +1,4 @@
 import { Stack } from '@mui/material';
-import { useLoaderData } from '@remix-run/react';
 
 import {
   ClassList,
@@ -11,9 +10,11 @@ import type {
   ClassContent,
   ClassDescription,
 } from '@pf2-companion/types/character-builder';
+import type { Loader } from '../../types/Loader';
+import { loader as fetchClasses } from './loader';
 
-export const Page = () => {
-  const classDescriptions = useLoaderData<Selection<ClassContent>[]>();
+export const Page = async () => {
+  const classDescriptions = await fetchClasses();
 
   return (
     <Stack

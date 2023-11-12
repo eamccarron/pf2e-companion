@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
 import { AncestriesService } from './ancestries.service';
 
 import type { Heritage } from '@pf2-companion/compendium-models';
@@ -9,8 +9,17 @@ export class HeritagesController {
 
   @Get(':id')
   async getHeritages(@Param('id') id: string): Promise<Heritage[]> {
-    const heritages = await this.ancestriesService.findHeritagesByAncestryId(id);
-    console.log(heritages);
+    const heritages = await this.ancestriesService.findHeritagesByAncestryId(
+      id
+    );
+
+    if (!heritages || heritages.length === 0) {
+      throw new HttpException(
+        'Unable to find heritages for ancestry with id ' + id,
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
     return heritages;
   }
 }

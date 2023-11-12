@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useReducer, useState, useEffect } from 'react';
 import type {
   Context,

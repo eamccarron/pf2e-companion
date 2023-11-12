@@ -25,7 +25,7 @@ type ListContentRenderer = ({ content }: { content: ListItem }) => JSX.Element;
 export type ContentListProps<T> = PropsWithChildren<{
   content: Selection<T>[];
   selection: Selection<T> | null;
-  setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
+  setSelection: React.Dispatch<Selection<T> | null>;
   maxHeight?: number | string;
   renderListItem?: ListContentRenderer;
 }>;
@@ -67,7 +67,7 @@ export function ContentList<T>({
             sx={{
               borderRadius: 6,
               width: '100%',
-              backgroundColor: 'surface.main',
+              bgcolor: 'surface.main',
             }}
           >
             <ListItemButton
@@ -97,7 +97,6 @@ export function ContentList<T>({
         width: '100%',
         maxHeight: maxHeight,
         overflow: 'auto',
-        bgcolor: 'background.paper',
       }}
       data-cy="content-list"
     >

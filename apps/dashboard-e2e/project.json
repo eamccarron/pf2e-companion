@@ -1,51 +1,20 @@
 {
-  "name": "dashboard-e2e",
+  "name": "apps/dashboard-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/dashboard-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
-      "dependsOn": [
-        {
-          "projects": "self",
-          "target": "test-db:up",
-          "params": "ignore"
-        },
-        {
-          "projects": "self",
-          "target": "compendium-api:up",
-          "params": "ignore"
-        }
-      ],
       "options": {
         "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
-        "baseUrl": "http://localhost:3000",
-        "devServerTarget": "dashboard:serve:e2e",
-        "testingType": "e2e",
-        "quiet": true
-      }
-    },
-    "test-db:up": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "docker compose up --detach test-db"
-          }
-        ],
-        "cwd": "{projectRoot}"
-      }
-    },
-    "compendium-api:up": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "docker compose up --detach compendium-api"
-          }
-        ],
-        "cwd": "{projectRoot}"
+        "devServerTarget": "apps/dashboard:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "apps/dashboard:serve:production"
+        }
       }
     },
     "lint": {
@@ -57,5 +26,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["dashboard"]
+  "implicitDependencies": ["apps/dashboard"]
 }

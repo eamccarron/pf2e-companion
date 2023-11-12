@@ -23,7 +23,7 @@ export const formatClassJSON = (classes: Array<Class>): Array<ClassObject> =>
         keyAbility: { value: keyAbility },
         hp,
       },
-      id,
+      _id: id,
     }: Class) => ({
       primary: name,
       secondary: [`Starting HP: ${hp} \n Key Ability: ${keyAbility}`],

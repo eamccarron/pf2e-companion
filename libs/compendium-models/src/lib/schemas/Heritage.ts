@@ -59,6 +59,9 @@ export class HeritageSystem {
 @Schema()
 export class Heritage {
   @Prop()
+  _id: string;
+
+  @Prop()
   name: string;
 
   @Prop()
@@ -67,7 +70,8 @@ export class Heritage {
   @Prop(HeritageSystem)
   system: HeritageSystem;
 
-  constructor(name: string, slug: string, system: HeritageSystem) {
+  constructor(_id: string, name: string, slug: string, system: HeritageSystem) {
+    this._id = _id;
     this.name = name;
     this.slug = slug;
     this.system = system;

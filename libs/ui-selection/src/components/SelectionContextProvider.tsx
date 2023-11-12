@@ -1,16 +1,10 @@
 'use client';
 
 import React, { createContext, useState } from 'react';
+import type { Selection } from '@pf2-companion/types/ui-selection';
+export type { Selection };
 
 export type selectionID = string | number | null;
-
-export interface Selection<T> {
-  primary: string;
-  id: string | number;
-  secondary?: string;
-  description?: string;
-  content: T;
-}
 
 export type SelectionContext<T> = {
   selection: Selection<T> | null;

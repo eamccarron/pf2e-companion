@@ -1,3 +1,4 @@
+'use client';
 import { Box, Chip, Typography } from '@mui/material';
 import type { Selection } from '@pf2-companion/ui-selection';
 import { useContext, useEffect, useState } from 'react';
@@ -11,14 +12,14 @@ export const HeritageView = ({
 }: {
   content: Selection<unknown>[];
 }) => {
-  const {selection, setSelection} = useContext(HeritageSelectionContext);
+  const { selection, setSelection } = useContext(HeritageSelectionContext);
   const { secondary } = selection ?? {};
 
   const isSelected = (heritage: Selection<unknown>) =>
     heritage.id === selection?.id;
-  useEffect(() => {
-    console.log(selection);
-  }, [selection]);
+
+  useEffect(() => setSelection(null), [content]);
+  useEffect(() => console.log('heritage content changed'), [content]);
   return (
     <Box>
       {content.map((heritage) => (

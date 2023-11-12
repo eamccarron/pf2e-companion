@@ -1,0 +1,61 @@
+{
+  "name": "dashboard-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/remix-dashboard-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "test-db:up",
+          "params": "ignore"
+        },
+        {
+          "projects": "self",
+          "target": "compendium-api:up",
+          "params": "ignore"
+        }
+      ],
+      "options": {
+        "cypressConfig": "apps/remix-dashboard-e2e/cypress.config.ts",
+        "baseUrl": "http://localhost:3000",
+        "devServerTarget": "dashboard-remix:serve:e2e",
+        "testingType": "e2e",
+        "quiet": true
+      }
+    },
+    "test-db:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker compose up --detach test-db"
+          }
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
+    "compendium-api:up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker compose up --detach compendium-api"
+          }
+        ],
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/remix-dashboard-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["dashboard-remix"]
+}

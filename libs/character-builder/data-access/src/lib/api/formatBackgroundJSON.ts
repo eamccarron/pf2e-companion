@@ -12,7 +12,7 @@ export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
         traits: { rarity },
         boosts,
       },
-      id,
+      _id: id,
     }: Background) => ({
       primary: name,
       description,
