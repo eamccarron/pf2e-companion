@@ -7,15 +7,8 @@ import {
   Box,
   ListItemText,
   Typography,
-  Card,
-  CardHeader,
-  CardContent,
-  IconButton,
 } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-
-import { SecondaryContent } from './SecondaryContent';
 import type { Selection } from './SelectionContextProvider';
 
 type ListItem = Selection<any>;
@@ -28,6 +21,7 @@ export type ContentListProps<T> = PropsWithChildren<{
   setSelection: React.Dispatch<Selection<T> | null>;
   maxHeight?: number | string;
   renderListItem?: ListContentRenderer;
+  secondaryAction?: JSX.Element | null;
 }>;
 
 export function ContentList<T>({
@@ -36,6 +30,7 @@ export function ContentList<T>({
   setSelection,
   maxHeight = '100%',
   renderListItem,
+  secondaryAction = null,
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
   const isSelected = useCallback(
@@ -49,27 +44,27 @@ export function ContentList<T>({
         key={content.id}
         data-cy="content-list-item"
       >
-        {renderListItem ? (
-          renderListItem({ content })
-        ) : (
-          <Box
-            sx={{
-              borderRadius: 6,
-              width: '100%',
-              bgcolor: isSelected(content.id)
-                ? 'tertiaryContainer.main'
-                : 'surface.main',
-              color: isSelected(content.id)
-                ? 'onTertiaryContainer.main'
-                : 'onSurface.main',
-            }}
+        <Box
+          sx={{
+            borderRadius: 6,
+            width: '100%',
+            bgcolor: isSelected(content.id)
+              ? 'tertiaryContainer.main'
+              : 'surfaceContainer.main',
+            color: isSelected(content.id)
+              ? 'onTertiaryContainer.main'
+              : 'onSurface.main',
+          }}
+        >
+          <ListItemButton
+            selected={selection?.id === content.id}
+            sx={{ borderRadius: 6 }}
+            onClick={() => handleSelection(content)}
+            data-cy="content-list-button"
           >
-            <ListItemButton
-              selected={selection?.id === content.id}
-              sx={{ borderRadius: 6 }}
-              onClick={() => handleSelection(content)}
-              data-cy="content-list-button"
-            >
+            {renderListItem ? (
+              renderListItem({ content })
+            ) : (
               <ListItemText
                 primary={content.primary}
                 secondary={content.secondary}
@@ -77,9 +72,9 @@ export function ContentList<T>({
                   whiteSpace: 'pre-line',
                 }}
               />
-            </ListItemButton>
-          </Box>
-        )}
+            )}
+          </ListItemButton>
+        </Box>
       </ListItem>
     );
   };

@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { Feat, FeatSchema, Class, ClassSchema } from '@pf2-companion/compendium-models';
+import { Feat, FeatSchema } from '@pf2-companion/compendium-models';
+
 import { FeatsService } from './feats.service';
 import { FeatsController } from './feats.controller';
-import { ClassesService } from '../character-classes/classes.service';
+
+import { ClassesModule } from '../character-classes/classes.module';
+import { AncestriesModule } from '../ancestries/ancestries.module';
 
 @Module({
   imports: [
@@ -13,13 +16,11 @@ import { ClassesService } from '../character-classes/classes.service';
         name: Feat.name,
         schema: FeatSchema,
       },
-      {
-        name: Class.name,
-        schema: ClassSchema,
-      },
     ]),
+    ClassesModule,
+    AncestriesModule,
   ],
-  providers: [FeatsService, ClassesService],
+  providers: [FeatsService],
   controllers: [FeatsController],
 })
 export class TemplatesModule {}

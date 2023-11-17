@@ -15,18 +15,41 @@ export class ClassesService extends CompendiumRepository<Class> {
     super(classesModel);
   }
 
-  public async findClassFeatsAvailable(
+  public async findByClassName(className: string): Promise<Class> {
+    return await this.classesModel
+      .findOne({ name: className })
+      .collation({ locale: 'en', strength: 2 });
+  }
+
+  public async findClassFeatAvailable(
     level: number,
     className: string
-  ): Promise<any> {
+  ): Promise<boolean> {
+    const classes = await this.findByClassName(className);
+    if (!classes) return false;
+
     const {
       system: {
         classFeatLevels: { value: classFeatsAvailable },
       },
-    } = (await this.classesModel
-      .findOne({ name: className })
-      .collation({ locale: 'en', strength: 2 })) as Class;
+    } = classes;
 
-    return classFeatsAvailable[level];
+    return classFeatsAvailable?.includes(level);
+  }
+
+  public async findAncestryFeatAvailable(
+    level: number,
+    className: string
+  ): Promise<boolean> {
+    const classes = await this.findByClassName(className);
+    if (!classes) return false;
+
+    const {
+      system: {
+        ancestryFeatLevels: { value: ancestryFeatsAvailable },
+      },
+    } = classes;
+
+    return ancestryFeatsAvailable?.includes(level);
   }
 }

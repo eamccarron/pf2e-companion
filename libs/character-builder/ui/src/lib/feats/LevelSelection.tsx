@@ -8,8 +8,8 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import type { Dispatch } from 'react';
 
 export type LevelSelectionProps = {
-  selectedLevel: number | null;
-  setSelectedLevel: Dispatch<number | null>;
+  selectedLevel: number;
+  setSelectedLevel: Dispatch<number>;
 };
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);

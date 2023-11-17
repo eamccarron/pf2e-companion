@@ -13,10 +13,10 @@ import type { FeatContent } from '@pf2-companion/types/character-builder';
 export type FeatType = 'class' | 'ancestry' | 'skill' | 'general' | 'bonus';
 
 export type FeatAction = {
-  type: 'ADD_FEAT' | 'ADD_LEVEL';
+  type: 'ADD_FEAT' | 'ADD_LEVEL' | 'RESET';
   target: {
     level: number;
-    feat: Selection<FeatContent>;
+    feat?: Selection<FeatContent>;
     featType: FeatType;
   };
 };
@@ -37,9 +37,25 @@ export type FeatReducer = (
 export const featReducer: FeatReducer = (state, action) => {
   const targetIndex = action.target?.level - 1;
   switch (action.type) {
-    case 'ADD_FEAT':
+    case 'RESET':
       return state.map((value, index) => {
         if (index !== targetIndex) {
+          return value;
+        } else {
+          const newSelection = { ...value };
+
+          if (action.target.featType === 'bonus') {
+            newSelection.bonus = [];
+          } else {
+            newSelection[action.target.featType] = null;
+          }
+
+          return newSelection;
+        }
+      });
+    case 'ADD_FEAT':
+      return state.map((value, index) => {
+        if (!action.target.feat || index !== targetIndex) {
           return value;
         } else {
           if (action.target.featType === 'bonus') {

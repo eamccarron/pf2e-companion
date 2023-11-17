@@ -144,8 +144,17 @@ export const BoostSelection = ({
           color="secondary"
           invisible={boostsAvailable === 0}
           badgeContent={boostsAvailable}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
         >
-          <Typography align="left">{label}</Typography>
+          <Typography
+            align="left"
+            sx={{ pl: 1.5 }}
+          >
+            {label}
+          </Typography>
         </Badge>
         <RestrictedBoosts />
       </Box>

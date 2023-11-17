@@ -10,7 +10,6 @@ export class AncestriesController {
   @Get()
   async get(): Promise<Ancestry[]> {
     const ancestries = await this.ancestriesService.findAll();
-    console.log(ancestries);
     return ancestries;
   }
 }

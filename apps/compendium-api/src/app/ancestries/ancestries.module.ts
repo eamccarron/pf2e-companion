@@ -17,6 +17,7 @@ import { Ancestry, AncestrySchema, Heritage, HeritageSchema } from '@pf2-compani
     }]),
   ],
   providers: [AncestriesService],
+  exports: [AncestriesService],
   controllers: [AncestriesController, HeritagesController],
 })
 export class AncestriesModule {}

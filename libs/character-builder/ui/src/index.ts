@@ -18,6 +18,7 @@ export {
 
 export {
   ClassSelectionContextProvider,
+  ClassSelectionContext,
   ClassDetailPane,
   ClassList,
 } from './lib/character-class';

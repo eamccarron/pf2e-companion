@@ -1,17 +1,22 @@
 import { FeatSelectionView } from './View';
 import { Loader } from '../../types/Loader';
-import { classFeatsLoader as loadFeatOptions } from './loader';
+import { classFeatsLoader, ancestryFeatsLoader } from './loader';
+import { Suspense } from 'react';
+import { CircularProgress } from '@mui/material';
 
-export const FeatSelectionPage = async () => {
-  const featOptions = await loadFeatOptions('alchemist', 1);
-
-  console.log(featOptions);
-  const { classFeats } = featOptions;
+export const FeatSelectionPage = async ({ searchParams }) => {
+  const { className, level, ancestryId } = searchParams ?? {};
+  console.log(searchParams);
+  const classFeats = await classFeatsLoader(level ?? 1, className);
+  const ancestryFeats = await ancestryFeatsLoader(
+    level ?? 1,
+    className,
+    ancestryId ?? ''
+  );
 
   return (
-    <FeatSelectionView
-      level={1}
-      featOptions={featOptions}
-    />
+    <Suspense fallback={<CircularProgress />}>
+      <FeatSelectionView featOptions={{ classFeats, ancestryFeats }} />
+    </Suspense>
   );
 };

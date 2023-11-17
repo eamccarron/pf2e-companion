@@ -17,7 +17,7 @@ export type FeatSelectionPaneProps = {
   featType: FeatType;
   level: number;
   handleFeatSelection: Dispatch<SetStateAction<Selection<FeatContent> | null>>;
-  selection: FeatSelection;
+  selectedFeat: Selection<FeatContent>;
 };
 
 export const FeatSelectionPane = ({
@@ -25,13 +25,8 @@ export const FeatSelectionPane = ({
   featType,
   level,
   handleFeatSelection,
-  selection,
+  selectedFeat,
 }: FeatSelectionPaneProps) => {
-  const selectedFeat = useMemo(
-    () => (selection ? selection[level - 1][featType] : null),
-    [selection, featType, level]
-  );
-
   return (
     <Stack
       direction="row"
@@ -42,7 +37,7 @@ export const FeatSelectionPane = ({
           <ContentList<FeatContent>
             content={options}
             setSelection={handleFeatSelection}
-            selection={selectedFeat as Selection<FeatContent>}
+            selection={selectedFeat}
           />
           <ContentDetailPane<FeatContent>
             outlined

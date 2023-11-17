@@ -1,6 +1,5 @@
 'use client';
 import { Dispatch, SetStateAction, useContext } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
 import { Box } from '@mui/material';
 
 import { AncestrySelectionContext } from './AncestrySelectionContext';
@@ -13,18 +12,11 @@ type ListContent = Selection<AncestryContent>[];
 
 export const AncestryList = ({ content }: { content: ListContent }) => {
   const { selection, setSelection } = useContext(AncestrySelectionContext);
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const handleSelection = (selection: Selection<AncestryContent> | null) => {
-    setSelection(selection);
-    router.replace(`${pathname}?ancestryId=${selection?.id}`, { scroll: false });
-  };
 
   return (
     <ContentList<AncestryContent>
       selection={selection}
-      setSelection={handleSelection}
+      setSelection={setSelection}
       content={content}
       data-cy="ancestry-list"
     />

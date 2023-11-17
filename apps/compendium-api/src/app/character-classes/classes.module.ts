@@ -15,6 +15,7 @@ import { Class, ClassSchema } from '@pf2-companion/compendium-models';
     ]),
   ],
   providers: [ClassesService],
+  exports: [ClassesService],
   controllers: [ClassesController],
 })
 export class ClassesModule {}
