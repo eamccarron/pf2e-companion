@@ -13,14 +13,17 @@ import { useMemo, useState, useContext, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 import type { Selection } from '@pf2-companion/types/ui-selection';
-import { BuilderTemplate } from '@pf2-companion/types/character-builder';
-import { FeatType } from 'libs/character-builder/ui/src/lib/feats/FeatSelectionContext';
+import type {
+  BuilderTemplate,
+  FeatContent,
+  FeatType,
+} from '@pf2-companion/types/character-builder';
 
 const featTypes: {
   [k in keyof BuilderTemplate]: FeatType;
 } = {
   classFeats: 'class',
-  skillFeats: 'skill',
+  // skillFeats: 'skill',
   ancestryFeats: 'ancestry',
 };
 
@@ -43,10 +46,10 @@ export const FeatSelectionView = ({
   const { selection, updateFeatDispatch } = useContext(FeatSelectionContext);
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
 
-  const featType = useMemo(
-    () => featTypes[featOptionSelected?.content ?? ''],
-    [featOptionSelected]
-  );
+  const featType: FeatType | null = useMemo(() => {
+    const selectedOption = featOptionSelected?.content;
+    return selectedOption ? featTypes[selectedOption] : null;
+  }, [featOptionSelected]);
 
   const selectionsCompleted = useMemo(() => {
     console.log('updating selections completed: ', selection[level - 1], level);
@@ -59,17 +62,27 @@ export const FeatSelectionView = ({
   }, [selection, level]);
 
   const selectedFeat = useMemo(
-    () => (selection ? selection[level - 1][featType] : null),
+    () => (featType && selection ? selection[level - 1][featType] : null),
     [selection, featType, level]
   );
 
+  const selectionOptions = useMemo(() => {
+    const selectedOption = featOptionSelected?.content;
+    return selectedOption ? featOptions[selectedOption] : [];
+  }, [featOptions, featOptionSelected]);
+
   // Ideal case for the new useEffectEvent hook when it releases
   // For now, this seems like the best way to clear the ancestry feat if (and only if) the ancestry is changed
+
   useEffect(() => {
+    const levelSelection = selection[level - 1] ?? null;
+    if (!levelSelection) return;
+
     if (
       ancestrySelection &&
-      selection[level - 1]?.ancestry?.content?.traits &&
-      !selection[level - 1]?.ancestry.content.traits.includes(
+      selection &&
+      levelSelection.ancestry?.content?.traits &&
+      levelSelection.ancestry.content.traits.includes(
         ancestrySelection.primary.toLowerCase()
       )
     ) {
@@ -101,12 +114,14 @@ export const FeatSelectionView = ({
   };
 
   const handleFeatSelection = (feat: Selection<FeatContent> | null) =>
+    feat &&
+    featType &&
     updateFeatDispatch({
       type: 'ADD_FEAT',
       target: {
         feat,
         level,
-        featType,
+        featType: featType,
       },
     });
 
@@ -150,9 +165,7 @@ export const FeatSelectionView = ({
           }}
         >
           <FeatSelectionPane
-            options={featOptions[featOptionSelected?.content ?? ''] ?? []}
-            level={level}
-            featType={featType}
+            options={selectionOptions}
             selectedFeat={selectedFeat}
             handleFeatSelection={handleFeatSelection}
           />

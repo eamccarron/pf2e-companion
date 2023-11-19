@@ -4,19 +4,14 @@ import { Stack, Typography } from '@mui/material';
 
 import { CharacterDetailPane } from './CharacterDetailPane';
 import { CharacterList } from './CharacterList';
-import AddIcon from '@mui/icons-material/Add';
-
-import { FabLink } from '@pf2-companion/ui-general';
-
-export const loader = () => generateCharacters();
 
 export default async function Characters() {
-  const characters = await loader();
+  const characters = generateCharacters();
 
   const listContent = characters.map(
     ({ name: characterName, class: classType, level, ...content }, index) => ({
       primary: characterName ?? '',
-      secondary: `${classType} \n ${level}`,
+      secondary: `${classType} ${level}`,
       id: index,
       content,
     })

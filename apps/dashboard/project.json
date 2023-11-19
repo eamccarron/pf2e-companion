@@ -15,9 +15,11 @@
         "development": {
           "outputPath": "apps/dashboard"
         },
-        "production": {}
+        "production": {},
+        "e2e": {}
       }
     },
+    "type-check": {},
     "serve": {
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
@@ -33,6 +35,9 @@
         "production": {
           "buildTarget": "apps/dashboard:build:production",
           "dev": false
+        },
+        "e2e": {
+          "buildTarget": "apps/dashboard:build:production"
         }
       }
     },

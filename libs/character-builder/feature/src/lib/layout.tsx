@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 import { CharacterCreationStepper } from './CharacterCreationStepper';
 import { CharacterCreationContextProvider } from './CharacterCreationContextProvider';
-import React, { PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren, useMemo, useState } from 'react';
 
 export const steps = [
   { title: 'Select class', route: 'class' },
@@ -15,14 +15,21 @@ export const steps = [
   { title: 'Select starting equipment', route: 'equipment' },
 ];
 
-export const Layout = (props: {
-  children: React.ReactNode;
+export type CharacterBuilderLayoutProps = {
   class: React.ReactNode;
   abilityScores: React.ReactNode;
   feats: React.ReactNode;
   equipment: React.ReactNode;
-}) => {
+};
+
+export const Layout = (
+  props: PropsWithChildren<CharacterBuilderLayoutProps>
+) => {
   const [activeStep, setActiveStep] = useState<number>(0);
+  const activeRoute = useMemo(
+    () => steps[activeStep].route as keyof CharacterBuilderLayoutProps,
+    [activeStep]
+  );
 
   return (
     <CharacterCreationContextProvider
@@ -30,10 +37,10 @@ export const Layout = (props: {
       activeStep={activeStep}
       setActiveStep={setActiveStep}
     >
-      <Box sx={{ mb: 2 }}>
+      <Box sx={{ mb: 2 }}> 
         <CharacterCreationStepper steps={steps} />
       </Box>
-      {props[steps[activeStep].route]}
+      {props[activeRoute]}
       {props.children}
     </CharacterCreationContextProvider>
   );

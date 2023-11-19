@@ -12,11 +12,11 @@ import { ListItemIcon, ListItemText } from '@mui/material';
 
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { FeatType } from './FeatSelectionContext';
+import type { FeatType } from '@pf2-companion/types/character-builder';
 
 export type FeatOptionsProps = {
   featOptions: Array<keyof BuilderTemplate>;
-  selectedOption: Selection<keyof BuilderTemplate>;
+  selectedOption: Selection<keyof BuilderTemplate> | null;
   setSelectedOption: Dispatch<
     SetStateAction<Selection<keyof BuilderTemplate> | null>
   >;
@@ -28,7 +28,7 @@ const featOptionLabels: {
   [k in keyof BuilderTemplate]: string;
 } = {
   classFeats: 'Class Feat',
-  skillFeats: 'Skill Feat',
+  // skillFeats: 'Skill Feat',
   ancestryFeats: 'Ancestry Feat',
 };
 

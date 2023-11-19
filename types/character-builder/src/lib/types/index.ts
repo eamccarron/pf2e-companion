@@ -5,3 +5,4 @@ export type { ClassContent } from './ClassSelectionContent';
 export type { AbilityScore, AbilityBoostOptions } from './AbilityBoostOptions';
 export type { BuilderTemplate } from './BuilderTemplate';
 export type { FeatContent } from './FeatContent';
+export type { FeatType } from './FeatType';

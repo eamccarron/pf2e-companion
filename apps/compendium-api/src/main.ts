@@ -18,7 +18,7 @@ async function bootstrap() {
     new FastifyAdapter({ logger: true })
   );
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  await app.listen(port, process.env['ADDRESS'] ?? 'localhost');
   Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
 

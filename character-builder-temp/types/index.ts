@@ -1,1 +1,0 @@
-export { ClassDescription } from './ClassDescription';

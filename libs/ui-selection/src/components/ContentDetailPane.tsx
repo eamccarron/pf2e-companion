@@ -28,15 +28,11 @@ export function ContentDetailPane<T>({
   ...slideProps
 }: PropsWithChildren<ContentDetailPaneProps<T>>) {
   return (
-    <Box
-      sx={{
-        width: '100%',
-      }}
+    <Slide
+      in={selection !== null}
+      direction={slideProps.slideDirection}
     >
-      <Slide
-        in={selection !== null}
-        direction={slideProps.slideDirection}
-      >
+      <Box>
         <Card
           raised={raised}
           elevation={raised ? 4 : 0}
@@ -73,8 +69,8 @@ export function ContentDetailPane<T>({
             </Box>
           </CardContent>
         </Card>
-      </Slide>
-    </Box>
+      </Box>
+    </Slide>
   );
 }
 

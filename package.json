@@ -8,6 +8,7 @@
     "docker:auth": "docker login registry.gitlab.com -u mccarronea -p \"$(cat ~/.pki/git-lab-container-registry-token)\"",
     "docker:build:test-db": "cd ./tools/docker/test-db && ./build.sh",
     "docker:push:test-db": "cd ./tools/docker/test-db && ./push.sh",
+    "docker:rebuild": "docker compose stop && docker compose rm && docker compose pull && docker compose build --no-cache",
     "test-db:up": "docker compose up --detach test-db",
     "test-db:build": "docker compose pull && docker compose up --build --force-recreate -d test-db"
   },

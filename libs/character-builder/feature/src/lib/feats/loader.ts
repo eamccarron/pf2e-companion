@@ -1,29 +1,31 @@
 import { fetchCompendium } from '../fetchCompendium';
 import { formatFeatJSON } from '@pf2-companion/character-builder/data-access';
-import type {
-  BuilderTemplate,
-  Feat,
-} from '@pf2-companion/types/character-builder';
+import type { BuilderTemplate } from '@pf2-companion/types/character-builder';
+import type { Feat } from '@pf2-companion/types/compendium';
 
-export const classFeatsLoader = async (level: number, className: string) => {
+export const classFeatsLoader = async (level: string, className: string) => {
   const classFeatRes = await fetchCompendium('builder/feats/class', {
     className,
-    level: level.toString(),
+    level: level,
   });
-  const classFeats = (await classFeatRes.json()) as BuilderTemplate<Feat>;
+  const classFeats: Array<Feat> = await classFeatRes.json();
+
+  if (!classFeatRes.ok) {
+    return []
+  }
 
   return formatFeatJSON(classFeats ?? []);
 };
 
 export const ancestryFeatsLoader = async (
-  level: number,
+  level: string,
   className: string,
   ancestryId: string
 ) => {
   console.log('ancestry ID:', ancestryId);
   const ancestryFeatRes = await fetchCompendium('builder/feats/ancestry', {
     className,
-    level: level.toString(),
+    level: level,
     ancestryId,
   });
 
@@ -31,7 +33,7 @@ export const ancestryFeatsLoader = async (
     return [];
   }
 
-  const ancestryFeats = (await ancestryFeatRes.json()) as BuilderTemplate<Feat>;
+  const ancestryFeats: Array<Feat> = await ancestryFeatRes.json();
   console.log('ancestry feats:', ancestryFeats);
 
   return formatFeatJSON(ancestryFeats ?? []);

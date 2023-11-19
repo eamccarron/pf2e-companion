@@ -4,6 +4,7 @@
   "sourceRoot": "libs/character-builder/data-access/src",
   "projectType": "library",
   "targets": {
+    "type-check": {},
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],

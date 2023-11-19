@@ -10,7 +10,7 @@ export const FilterChip = ({
   label: string;
   handleSelection: (label: string) => void;
   selectedFilters: Array<string>;
-  sx: object;
+  sx?: object;
 }) => {
   const isSelected = selectedFilters.includes(label);
 

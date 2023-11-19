@@ -1,4 +1,7 @@
-export { Layout as CharacterBuilderLayout } from './lib/layout';
+export {
+  Layout as CharacterBuilderLayout,
+  type CharacterBuilderLayoutProps,
+} from './lib/layout';
 export { Page as AbilityScoreSelectionPage } from './lib/ability-scores/Page';
 export { FeatSelectionPage } from './lib/feats/Page';
 

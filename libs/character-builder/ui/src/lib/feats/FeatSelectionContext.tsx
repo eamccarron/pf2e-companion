@@ -8,9 +8,10 @@ import type {
 } from 'react';
 
 import type { Selection } from '@pf2-companion/ui-selection/types';
-import type { FeatContent } from '@pf2-companion/types/character-builder';
-
-export type FeatType = 'class' | 'ancestry' | 'skill' | 'general' | 'bonus';
+import type {
+  FeatContent,
+  FeatType,
+} from '@pf2-companion/types/character-builder';
 
 export type FeatAction = {
   type: 'ADD_FEAT' | 'ADD_LEVEL' | 'RESET';
@@ -26,7 +27,6 @@ export type FeatSelection = Array<{
   ancestry: Selection<FeatContent> | null;
   skill: Selection<FeatContent> | null;
   general: Selection<FeatContent> | null;
-  bonus: Selection<FeatContent>[] | [];
 }>;
 
 export type FeatReducer = (
@@ -43,12 +43,7 @@ export const featReducer: FeatReducer = (state, action) => {
           return value;
         } else {
           const newSelection = { ...value };
-
-          if (action.target.featType === 'bonus') {
-            newSelection.bonus = [];
-          } else {
-            newSelection[action.target.featType] = null;
-          }
+          newSelection[action.target.featType] = null;
 
           return newSelection;
         }
@@ -58,16 +53,9 @@ export const featReducer: FeatReducer = (state, action) => {
         if (!action.target.feat || index !== targetIndex) {
           return value;
         } else {
-          if (action.target.featType === 'bonus') {
-            return {
-              ...value,
-              bonus: [...value.bonus, action.target.feat],
-            };
-          } else {
-            const newSelection = { ...value };
-            newSelection[action.target.featType] = action.target.feat;
-            return newSelection;
-          }
+          const newSelection = { ...value };
+          newSelection[action.target.featType] = action.target.feat;
+          return newSelection;
         }
       });
     case 'ADD_LEVEL':
@@ -78,7 +66,6 @@ export const featReducer: FeatReducer = (state, action) => {
           ancestry: null,
           skill: null,
           general: null,
-          bonus: [],
         },
       ];
     default:
@@ -106,7 +93,6 @@ export const FeatSelectionContextProvider = ({
       ancestry: null,
       skill: null,
       general: null,
-      bonus: [],
     }))
   );
 

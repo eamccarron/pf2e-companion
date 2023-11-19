@@ -22,23 +22,25 @@ export const CharacterCreationStepper = ({
   const { activeStep, handleNext, handleBack, completed /*, setCompleted */ } =
     useContext(CharacterCreationContext);
 
-  const searchParams = useMemo(() => {
+  const searchParams: Record<string, string> = useMemo(() => {
     switch (activeStep) {
       case 0:
         return {
-          className: url.get('className') ?? undefined,
-        };
+          className: url.get('className') ?? '',
+        } as Record<string, string>;
       case 1:
         return {
-          className: url.get('className') ?? undefined,
+          className: url.get('className') ?? '',
           ancestryId: url.get('ancestryId') ?? '',
-        };
+        } as Record<string, string>;
       case 2:
         return {
-          ancestryId: url.get('ancestryId') ?? undefined,
-          className: url.get('className') ?? undefined,
+          ancestryId: url.get('ancestryId') ?? '',
+          className: url.get('className') ?? '',
           level: url.get('level') ?? '1',
-        };
+        } as Record<string, string>;
+      default:
+        return {} as Record<string, string>;
     }
   }, [url, activeStep]);
 
@@ -46,17 +48,6 @@ export const CharacterCreationStepper = ({
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
 
   const onNextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { className } = searchParams;
-
-    if (classSelection && !className) {
-      router.replace(
-        `${pathname}?${new URLSearchParams({
-          ...searchParams,
-          className: classSelection.primary.toLowerCase(),
-        })}`
-      );
-    }
-
     handleNext();
   };
 
@@ -66,7 +57,7 @@ export const CharacterCreationStepper = ({
       router.replace(
         `${pathname}?${new URLSearchParams({
           ...searchParams,
-          ancestryId: ancestrySelection?.id.toString(),
+          ancestryId: ancestrySelection?.id.toString() ?? '',
         })}`
       );
     }
@@ -78,7 +69,7 @@ export const CharacterCreationStepper = ({
       router.replace(
         `${pathname}?${new URLSearchParams({
           ...searchParams,
-          className: classSelection.primary.toLowerCase(),
+          className: classSelection.primary.toLowerCase() ?? '',
         })}`
       );
     }

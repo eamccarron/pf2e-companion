@@ -1,1 +1,1 @@
-export { Selection } from './lib/types/Selection';
+export type { Selection } from './lib/types/Selection';

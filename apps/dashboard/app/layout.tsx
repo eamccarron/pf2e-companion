@@ -5,6 +5,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import PetsIcon from '@mui/icons-material/Pets';
 import { ExpandableNavigationRail } from '@pf2-companion/ui-general';
 import NextLink from 'next/link';
+import { PropsWithChildren } from 'react';
 
 let revalidation: number | undefined;
 if (process.env.NODE_ENV === 'development') {
@@ -19,7 +20,7 @@ const navigationEntries: Array<NavigationEntry> = [
   { text: 'Creatures', icon: <PetsIcon />, href: '/creatures' },
 ];
 
-export default function RootLayout(props) {
+export default function RootLayout(props: PropsWithChildren<void>) {
   const { children } = props;
   return (
     <html lang="en">

@@ -4,6 +4,7 @@
   "sourceRoot": "apps/compendium-api/src",
   "projectType": "application",
   "targets": {
+    "type-check": {},
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
@@ -43,6 +44,9 @@
           "buildTarget": "compendium-api:build:development"
         },
         "production": {
+          "buildTarget": "compendium-api:build:production"
+        },
+        "e2e": {
           "buildTarget": "compendium-api:build:production"
         }
       }

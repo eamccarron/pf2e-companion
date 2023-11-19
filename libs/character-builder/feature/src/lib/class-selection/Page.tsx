@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
 import {
   ClassList,
@@ -21,8 +21,19 @@ export const Page = async () => {
       direction="row"
       spacing={2}
     >
-      <ClassList content={classDescriptions} />
-      <ClassDetailPane />
+      <Box
+        sx={{
+          maxHeight: 600,
+          overFlow: 'auto',
+          minWidth: '20%',
+        }}
+      >
+        <ClassList content={classDescriptions} />
+      </Box>
+
+      <Box sx={{ maxWidth: '80%', flexGrow: 1 }}>
+        <ClassDetailPane />
+      </Box>
     </Stack>
   );
 };

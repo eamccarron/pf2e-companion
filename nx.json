@@ -5,6 +5,14 @@
     "libsDir": "libs"
   },
   "targetDefaults": {
+    "type-check": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^type-check"],
+      "options": {
+        "command": "tsc -p tsconfig.json --noEmit",
+        "cwd": "{projectRoot}"
+      }
+    },
     "build": {
       "cache": true,
       "dependsOn": ["^build"],

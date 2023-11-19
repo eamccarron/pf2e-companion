@@ -11,7 +11,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env['DB_URI'] || 'mongodb://localhost:27017/compendium'),
+    MongooseModule.forRoot(
+      `mongodb://${process.env['DB_HOST']}:${process.env['DB_PORT']}/compendium`
+    ),
     AncestriesModule,
     BackgroundsModule,
     ClassesModule,

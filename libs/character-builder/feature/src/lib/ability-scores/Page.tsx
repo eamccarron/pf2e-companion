@@ -15,12 +15,12 @@ import { loader } from './loader';
 export const Page = async ({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams: {
     ancestryId: string;
   };
 }) => {
   const data = await loader();
-  const { ancestryId } = searchParams || {};
+  const { ancestryId } = searchParams;
   return (
     <>
       <AbilityScoreSelection />
@@ -28,7 +28,10 @@ export const Page = async ({
       <AbilityScoreView
         data={data}
         heritageSelection={
-          <Suspense key={ancestryId} fallback={<CircularProgress />}>
+          <Suspense
+            key={ancestryId}
+            fallback={<CircularProgress />}
+          >
             <HeritageSelection ancestryId={ancestryId} />
           </Suspense>
         }
