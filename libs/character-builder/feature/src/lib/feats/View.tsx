@@ -8,6 +8,8 @@ import {
   AncestrySelection,
   AncestrySelectionContext,
 } from '@pf2-companion/character-builder/ui';
+
+import { CharacterView } from '../CharacterView';
 import { Box, Stack } from '@mui/material';
 import { useMemo, useState, useContext, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
@@ -182,6 +184,9 @@ export const FeatSelectionView = ({
           />
         </Box>
       </Stack>
+      <Box mt={2}>
+        <CharacterView />
+      </Box>
     </Box>
   );
 };

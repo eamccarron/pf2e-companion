@@ -2,7 +2,7 @@ import type {
   ClassContent,
   AbilityScore,
 } from '@pf2-companion/types/character-builder';
-import type { Class } from '@pf2-companion/types/compendium';
+import type { Class } from '@pf2-companion/compendium-models';
 import type { Selection } from '@pf2-companion/types/ui-selection';
 
 const calculateClassBoosts = (keyAbility: Array<string>) => {

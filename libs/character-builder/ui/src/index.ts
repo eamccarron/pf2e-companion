@@ -32,3 +32,5 @@ export {
   LevelSelection,
   FeatOptions,
 } from './lib/feats';
+
+export * from './lib/character-view';

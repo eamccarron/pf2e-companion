@@ -8,7 +8,7 @@ import type {
   BackgroundContent,
 } from '@pf2-companion/types/character-builder';
 
-import type { Ancestry, Background } from '@pf2-companion/types/compendium';
+import type { Ancestry, Background } from '@pf2-companion/compendium-models';
 
 import type { Selection } from '@pf2-companion/ui-selection/types';
 

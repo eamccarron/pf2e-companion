@@ -21,6 +21,7 @@ import { BoostSelection } from './BoostSelection';
 import type { AbilityScore } from './types';
 import { ancestryBoostReducer } from './ancestryBoost';
 import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
+import { AbilityScores, HPBox } from '../character-view';
 
 export const AbilityScoreSelection = () => {
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
@@ -76,43 +77,8 @@ export const AbilityScoreSelection = () => {
         mb={1}
       >
         {/* HP */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            bgcolor: 'surfaceVariant.main',
-            color: 'onSurfaceVariant.main',
-            borderRadius: '8px',
-            width: '10%',
-            p: 4,
-          }}
-        >
-          <Typography variant="h4">{hp}</Typography>
-          <Typography variant="subtitle1">HP</Typography>
-        </Box>
-
-        {abilityScores.map(({ abilityScore, ability }) => (
-          <Box key={ability}>
-            <Box
-              data-cy={`ability-score-${ability}`}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                bgcolor: 'surfaceVariant.main',
-                color: 'onSurfaceVariant.main',
-                borderRadius: '8px',
-                p: 2,
-              }}
-            >
-              <Typography variant="h4">{abilityScore}</Typography>
-              <Typography variant="subtitle1">{ability}</Typography>
-            </Box>
-          </Box>
-        ))}
+        <HPBox hp={hp} />
+        <AbilityScores abilityScores={abilityScores} />
       </Stack>
 
       <BoostSelection

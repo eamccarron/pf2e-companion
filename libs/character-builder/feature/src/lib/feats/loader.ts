@@ -1,7 +1,7 @@
 import { fetchCompendium } from '../fetchCompendium';
 import { formatFeatJSON } from '@pf2-companion/character-builder/data-access';
 import type { BuilderTemplate } from '@pf2-companion/types/character-builder';
-import type { Feat } from '@pf2-companion/types/compendium';
+import type { Feat } from '@pf2-companion/compendium-models';
 
 export const classFeatsLoader = async (level: string, className: string) => {
   const classFeatRes = await fetchCompendium('builder/feats/class', {

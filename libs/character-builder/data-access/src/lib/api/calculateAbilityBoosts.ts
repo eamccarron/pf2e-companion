@@ -1,4 +1,4 @@
-import type { Ancestry } from '@pf2-companion/types/compendium';
+import type { Ancestry } from '@pf2-companion/compendium-models';
 
 type AncestrySystem = Ancestry['system'];
 

@@ -1,4 +1,4 @@
-import type { Ancestry } from '@pf2-companion/types/compendium';
+import type { Ancestry } from '@pf2-companion/compendium-models';
 import type { Selection } from '@pf2-companion/types/ui-selection';
 import { AncestryContent } from '@pf2-companion/types/character-builder';
 
