@@ -15,10 +15,11 @@ export const BackgroundList = ({
   const { selection, setSelection } = useContext(BackgroundSelectionContext);
 
   return (
-      <ContentList<BackgroundContent>
-        selection={selection}
-        setSelection={setSelection}
-        content={content}
-      />
+    <ContentList<BackgroundContent>
+      data-cy="background-list"
+      selection={selection}
+      setSelection={setSelection}
+      content={content}
+    />
   );
 };

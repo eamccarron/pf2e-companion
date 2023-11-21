@@ -15,10 +15,10 @@ export const AncestryList = ({ content }: { content: ListContent }) => {
 
   return (
     <ContentList<AncestryContent>
+      data-cy="ancestry-list"
       selection={selection}
       setSelection={setSelection}
       content={content}
-      data-cy="ancestry-list"
     />
   );
 };

@@ -22,6 +22,9 @@ export const CharacterCreationStepper = ({
   const { activeStep, handleNext, handleBack, completed /*, setCompleted */ } =
     useContext(CharacterCreationContext);
 
+  const { selection: classSelection } = useContext(ClassSelectionContext);
+  const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
+
   const searchParams: Record<string, string> = useMemo(() => {
     switch (activeStep) {
       case 0:
@@ -31,37 +34,22 @@ export const CharacterCreationStepper = ({
       case 1:
         return {
           className: url.get('className') ?? '',
-          ancestryId: url.get('ancestryId') ?? '',
+          ancestryId: ancestrySelection?.id ?? url.get('ancestryId') ?? '',
         } as Record<string, string>;
       case 2:
         return {
-          ancestryId: url.get('ancestryId') ?? '',
           className: url.get('className') ?? '',
+          ancestryId: ancestrySelection?.id ?? url.get('ancestryId') ?? '',
           level: url.get('level') ?? '1',
         } as Record<string, string>;
       default:
         return {} as Record<string, string>;
     }
-  }, [url, activeStep]);
-
-  const { selection: classSelection } = useContext(ClassSelectionContext);
-  const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
+  }, [url, activeStep, ancestrySelection]);
 
   const onNextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     handleNext();
   };
-
-  // Update params when ancestry selection is changed
-  useEffect(() => {
-    if (ancestrySelection?.id) {
-      router.replace(
-        `${pathname}?${new URLSearchParams({
-          ...searchParams,
-          ancestryId: ancestrySelection?.id.toString() ?? '',
-        })}`
-      );
-    }
-  }, [router, ancestrySelection, searchParams, pathname]);
 
   // Update params when class selection is changed
   useEffect(() => {

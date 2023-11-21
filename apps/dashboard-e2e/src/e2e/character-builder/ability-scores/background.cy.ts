@@ -1,21 +1,22 @@
 import { features } from '../../../features';
 
 beforeEach(() => {
-  cy.navigateToFeature(features.characterBuilder.abilityScores);
+  cy.navigateToFeature(features.characterBuilder.abilityScores, {
+    characterBuilder: { className: 'Wizard' },
+  });
 
   cy.getBySel('content-list-item').as('listContent');
-  cy.getBySel('content-list').as('list');
+  cy.getBySel('ancestry-list').as('ancestryList');
+
   cy.getBySel('background-tab').as('backgroundTab');
+  cy.get('@backgroundTab').click();
+  cy.getBySel('background-list').as('backgroundList');
 });
 
 describe('Backgrounds', () => {
-  beforeEach(() => {
-    cy.get('@backgroundTab').click();
-  });
-
   it('should show list of backgrounds when background tab is clicked', () => {
-    cy.getBySel('ancestry-list').should('not.exist');
-    cy.get('@list').should('be.visible');
+    cy.get('@ancestryList').should('not.exist');
+    cy.get('@backgroundList').should('be.visible');
     cy.get('@listContent').should('have.length', 389);
     cy.getBySel('content-list-item').each((listItem) => {
       expect(listItem.text()).to.not.be.empty;

@@ -56,9 +56,9 @@ export const FeatOptions = ({
         <>
           <ListItemIcon>
             {featsSelected[featType] ? (
-              <CheckCircleIcon />
+              <CheckCircleIcon data-cy="feat-selected-icon" />
             ) : (
-              <RadioButtonUncheckedIcon />
+              <RadioButtonUncheckedIcon data-cy="feat-unselected-icon" />
             )}
           </ListItemIcon>
 

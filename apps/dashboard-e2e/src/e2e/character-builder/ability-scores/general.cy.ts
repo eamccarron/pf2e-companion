@@ -4,7 +4,6 @@ beforeEach(() => {
   cy.navigateToFeature(features.characterBuilder.abilityScores);
 
   cy.getBySel('content-list-item').as('listContent');
-  cy.getBySel('content-list').as('list');
   cy.getBySel('background-tab').as('backgroundTab');
 });
 

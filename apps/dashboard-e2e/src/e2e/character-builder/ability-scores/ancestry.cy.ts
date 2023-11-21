@@ -1,10 +1,12 @@
 import { features } from '../../../features';
 
 beforeEach(() => {
-  cy.navigateToFeature(features.characterBuilder.abilityScores);
+  cy.navigateToFeature(features.characterBuilder.abilityScores, {
+    characterBuilder: { className: 'Wizard' },
+  });
 
   cy.getBySel('content-list-item').as('listContent');
-  cy.getBySel('content-list').as('list');
+  cy.getBySel('ancestry-list').as('list');
 });
 
 describe('Ancestries', () => {

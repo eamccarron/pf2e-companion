@@ -71,9 +71,16 @@ export const FeatSelectionView = ({
     return selectedOption ? featOptions[selectedOption] : [];
   }, [featOptions, featOptionSelected]);
 
+  const availableFeatOptions = useMemo(
+    () =>
+      Object.entries(featOptions)
+        .filter(([, v]) => v.length > 0)
+        .map(([k]: Array<keyof BuilderTemplate>) => k),
+    [featOptions]
+  );
+
   // Ideal case for the new useEffectEvent hook when it releases
   // For now, this seems like the best way to clear the ancestry feat if (and only if) the ancestry is changed
-
   useEffect(() => {
     const levelSelection = selection[level - 1] ?? null;
     if (!levelSelection) return;
@@ -82,7 +89,7 @@ export const FeatSelectionView = ({
       ancestrySelection &&
       selection &&
       levelSelection.ancestry?.content?.traits &&
-      levelSelection.ancestry.content.traits.includes(
+      !levelSelection.ancestry.content.traits.includes(
         ancestrySelection.primary.toLowerCase()
       )
     ) {
@@ -102,6 +109,12 @@ export const FeatSelectionView = ({
   );
 
   useEffect(() => console.log('selection: ', selection), [selection]);
+
+  useEffect(() => console.log('featOptions: ', featOptions), [featOptions]);
+  useEffect(
+    () => console.log('featOptionsAvailable: ', availableFeatOptions),
+    [availableFeatOptions]
+  );
 
   const handleLevelSelection = (level: number) => {
     router.replace(
@@ -146,9 +159,7 @@ export const FeatSelectionView = ({
           }}
         >
           <FeatOptions
-            featOptions={
-              Object.keys(featOptions) as Array<keyof BuilderTemplate>
-            }
+            featOptions={availableFeatOptions}
             selectedOption={featOptionSelected}
             setSelectedOption={setFeatOptionSelected}
             featsSelected={selectionsCompleted}

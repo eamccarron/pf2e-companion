@@ -1,4 +1,6 @@
 import { features } from '../../../features';
+import muiSelectors from '../../../support/muiSelectors';
+import { featSelection } from './featSelection';
 
 beforeEach(() => {
   cy.navigateToFeature(features.characterBuilder.feats);
@@ -6,11 +8,11 @@ beforeEach(() => {
 
   cy.get('@listContent').contains('Ancestry').click();
   cy.getBySel('feat-list').as('featList');
+
+  cy.get('@featList')
+    .children()
+    .filter(muiSelectors.listItem)
+    .as('featListContent');
 });
 
-describe('Ancestry feats', () => {
-  it('Should display ancestry feat options in a list', () => {
-    cy.get('@featList').should('have.length.gt', 1);
-    cy.get('@featList').each((listItem) => expect(listItem).to.be.visible);
-  });
-});
+describe('Ancestry feats', featSelection);

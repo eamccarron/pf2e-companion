@@ -16,6 +16,7 @@ type ListItem = Selection<any>;
 type ListContentRenderer = ({ content }: { content: ListItem }) => JSX.Element;
 
 export type ContentListProps<T> = PropsWithChildren<{
+  'data-cy'?: string;
   content: Selection<T>[];
   selection: Selection<T> | null;
   setSelection: React.Dispatch<Selection<T> | null>;
@@ -31,6 +32,7 @@ export function ContentList<T>({
   maxHeight = '100%',
   renderListItem,
   secondaryAction = null,
+  ...props
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
   const isSelected = useCallback(
@@ -81,12 +83,12 @@ export function ContentList<T>({
 
   return (
     <List
+      data-cy={props['data-cy'] ?? "content-list"}
       sx={{
         width: '100%',
         maxHeight: maxHeight,
         overflow: 'auto',
       }}
-      data-cy="content-list"
     >
       {content.map((content) => (
         <ContentListItem
