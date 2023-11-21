@@ -1,6 +1,8 @@
+import { features } from '../../../features';
+
 describe('Free ability boosts', () => {
   beforeEach(() => {
-    cy.visit('/character-builder/ability-scores');
+    cy.navigateToFeature(features.characterBuilder.abilityScores);
 
     cy.getBySel('content-list-item').as('listContent');
     cy.getBySel('ability-score-dex');

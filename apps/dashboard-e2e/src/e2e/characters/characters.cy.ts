@@ -31,7 +31,8 @@ describe('Characters Page', () => {
     cy.getBySel('detail-pane-content').should('be.visible');
   });
 
-  it('Should navigate to character creation when FAB is clicked', () => {
+  // Temporarily removed FAB link until a better spot is found for it.
+  it.skip('Should navigate to character creation when FAB is clicked', () => {
     cy.getBySel('fab-link').click();
     cy.url().should('include', 'character-builder');
   });

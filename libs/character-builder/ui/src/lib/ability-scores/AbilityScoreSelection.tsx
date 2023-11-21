@@ -73,6 +73,7 @@ export const AbilityScoreSelection = () => {
         justifyContent="space-around"
         alignItems="center"
         spacing={{ md: 5 }}
+        mb={1}
       >
         {/* HP */}
         <Box

@@ -1,22 +1,67 @@
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { Stepper, Step, StepLabel, Button, Stack } from '@mui/material';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
+import { CharacterCreationContext } from './CharacterCreationContextProvider';
 import {
-  steps,
-  CharacterCreationContext,
-} from './CharacterCreationContextProvider';
+  AncestrySelectionContext,
+  ClassSelectionContext,
+} from '@pf2-companion/character-builder/ui';
 
-export const CharacterCreationStepper = () => {
+export const CharacterCreationStepper = ({
+  steps,
+}: {
+  steps: Array<{ title: string; route: string }>;
+}) => {
+  const router = useRouter();
+  const url = useSearchParams();
+  const pathname = usePathname();
+
   const { activeStep, handleNext, handleBack, completed /*, setCompleted */ } =
     useContext(CharacterCreationContext);
 
-  // const handleStep = (step: number) => () => {
-  //   setCompleted(
-  //     new Set(Array.from(completed.values()).filter((x) => x < step))
-  //   );
-  // };
+  const { selection: classSelection } = useContext(ClassSelectionContext);
+  const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
+
+  const searchParams: Record<string, string> = useMemo(() => {
+    switch (activeStep) {
+      case 0:
+        return {
+          className: url.get('className') ?? '',
+        } as Record<string, string>;
+      case 1:
+        return {
+          className: url.get('className') ?? '',
+          ancestryId: ancestrySelection?.id ?? url.get('ancestryId') ?? '',
+        } as Record<string, string>;
+      case 2:
+        return {
+          className: url.get('className') ?? '',
+          ancestryId: ancestrySelection?.id ?? url.get('ancestryId') ?? '',
+          level: url.get('level') ?? '1',
+        } as Record<string, string>;
+      default:
+        return {} as Record<string, string>;
+    }
+  }, [url, activeStep, ancestrySelection]);
+
+  const onNextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+    handleNext();
+  };
+
+  // Update params when class selection is changed
+  useEffect(() => {
+    if (classSelection) {
+      router.replace(
+        `${pathname}?${new URLSearchParams({
+          ...searchParams,
+          className: classSelection.primary.toLowerCase() ?? '',
+        })}`
+      );
+    }
+  }, [router, classSelection, searchParams, pathname]);
 
   return (
     <Stepper
@@ -57,7 +102,7 @@ export const CharacterCreationStepper = () => {
         </Button>
         <Button
           variant="contained"
-          onClick={handleNext}
+          onClick={onNextStep}
           data-cy="character-creation-next"
         >
           {activeStep === steps.length - 1 ? 'Finish' : 'Next'}

@@ -1,0 +1,29 @@
+{
+  "name": "types/ui-selection",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "types/ui-selection/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/types/ui-selection",
+        "main": "types/ui-selection/src/index.ts",
+        "tsConfig": "types/ui-selection/tsconfig.lib.json",
+        "assets": ["types/ui-selection/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "types/ui-selection/**/*.ts",
+          "types/ui-selection/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

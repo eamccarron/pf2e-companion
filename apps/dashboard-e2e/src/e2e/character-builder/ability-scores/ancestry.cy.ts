@@ -1,8 +1,12 @@
+import { features } from '../../../features';
+
 beforeEach(() => {
-  cy.visit('/character-builder/ability-scores');
+  cy.navigateToFeature(features.characterBuilder.abilityScores, {
+    characterBuilder: { className: 'Wizard' },
+  });
 
   cy.getBySel('content-list-item').as('listContent');
-  cy.getBySel('content-list').as('list');
+  cy.getBySel('ancestry-list').as('list');
 });
 
 describe('Ancestries', () => {
@@ -69,12 +73,15 @@ describe('Ancestries', () => {
     cy.getBySel('ability-score-int').as('intelligence');
 
     cy.get('@dexterity').should('contain.text', '10');
-    cy.get('@intelligence').should('contain.text', '10');
+    // 10 + 2 from Wizard class
+    cy.get('@intelligence').should('contain.text', '12');
 
     cy.get('@listContent').contains('Elf').click();
 
+    // 10 + 2 from Elf ancestry
     cy.get('@dexterity').should('contain.text', '12');
-    cy.get('@intelligence').should('contain.text', '12');
+    // 10 + 2 from Wizard class + 2 from Elf ancestry
+    cy.get('@intelligence').should('contain.text', '14');
   });
 
   it('should disable ability score boosts after all free boosts have been selected', () => {

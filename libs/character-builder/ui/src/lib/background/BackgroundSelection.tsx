@@ -1,3 +1,4 @@
+'use client';
 // Server
 import { Suspense, useState } from 'react';
 
@@ -23,7 +24,7 @@ export const BackgroundSelection = ({ content }: { content: Content }) => {
   }, [content]);
 
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <>
       <RarityFilter
         content={listContent}
         setContent={setListContent}
@@ -41,6 +42,6 @@ export const BackgroundSelection = ({ content }: { content: Content }) => {
           <BackgroundDetailPane />
         </Box>
       </Stack>
-    </Suspense>
+    </>
   );
 };

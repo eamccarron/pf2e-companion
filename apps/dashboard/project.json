@@ -1,66 +1,73 @@
 {
-  "name": "dashboard",
+  "name": "apps/dashboard",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/dashboard",
   "projectType": "application",
-  "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/remix:build",
+      "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/dashboard"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/dashboard"
+        },
+        "production": {},
+        "e2e": {}
       }
     },
-    "docker-build": {
-      "dependsOn": ["build"],
-      "command": "docker build -f apps/dashboard/Dockerfile . -t \"${CONTAINER_REGISTRY_URL}/dashboard\""
-    },
-    "docker-push": {
-      "dependsOn": ["docker-build"],
-      "command": "docker push registry.gitlab.com/mccarronea/pf2e-companion/dashboard:latest"
-    },
-    "serve:test": {
-      "executor": "@nx/remix:serve",
-      "options": {}
-    },
+    "type-check": {},
     "serve": {
-      "executor": "@nx/remix:serve",
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
       "options": {
-        "port": 3000,
-        "command": "npx remix-serve build/index.js",
-        "cwd": "{projectRoot}"
+        "buildTarget": "apps/dashboard:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "apps/dashboard:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "apps/dashboard:build:production",
+          "dev": false
+        },
+        "e2e": {
+          "buildTarget": "apps/dashboard:build:production"
+        }
       }
     },
-    "serve:e2e": {
-      "executor": "@nx/remix:serve",
+    "export": {
+      "executor": "@nx/next:export",
       "options": {
-        "port": 3000,
-        "command": "npx remix-serve build/index.js > /dev/null",
-        "cwd": "{projectRoot}"
+        "buildTarget": "apps/dashboard:build:production"
       }
     },
-    "serve:dev": {
-      "executor": "nx:run-commands",
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "commands": [
-          "npx remix dev -c \"node server.mjs\""
-        ],
-        "cwd": "{projectRoot}"
+        "jestConfig": "apps/dashboard/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     },
-    "start": {
-      "dependsOn": ["build"],
-      "command": "remix-serve build",
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "cwd": "apps/dashboard"
-      }
-    },
-    "typecheck": {
-      "command": "tsc",
-      "options": {
-        "cwd": "apps/dashboard"
+        "lintFilePatterns": ["apps/dashboard/**/*.{ts,tsx,js,jsx}"]
       }
     }
-  }
+  },
+  "tags": []
 }

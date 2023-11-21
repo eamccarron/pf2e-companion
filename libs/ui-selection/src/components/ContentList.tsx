@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   List,
@@ -7,15 +7,8 @@ import {
   Box,
   ListItemText,
   Typography,
-  Card,
-  CardHeader,
-  CardContent,
-  IconButton,
 } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-
-import { SecondaryContent } from './SecondaryContent';
 import type { Selection } from './SelectionContextProvider';
 
 type ListItem = Selection<any>;
@@ -23,27 +16,14 @@ type ListItem = Selection<any>;
 type ListContentRenderer = ({ content }: { content: ListItem }) => JSX.Element;
 
 export type ContentListProps<T> = PropsWithChildren<{
+  'data-cy'?: string;
   content: Selection<T>[];
   selection: Selection<T> | null;
-  setSelection: React.Dispatch<React.SetStateAction<Selection<T> | null>>;
+  setSelection: React.Dispatch<Selection<T> | null>;
   maxHeight?: number | string;
   renderListItem?: ListContentRenderer;
+  secondaryAction?: JSX.Element | null;
 }>;
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 export function ContentList<T>({
   content,
@@ -51,8 +31,14 @@ export function ContentList<T>({
   setSelection,
   maxHeight = '100%',
   renderListItem,
+  secondaryAction = null,
+  ...props
 }: ContentListProps<T>) {
   const handleSelection = (content: ListItem) => setSelection(content);
+  const isSelected = useCallback(
+    (id: string | number) => selection?.id === id,
+    [selection?.id]
+  );
 
   const ContentListItem = ({ content }: { content: ListItem }) => {
     return (
@@ -60,46 +46,49 @@ export function ContentList<T>({
         key={content.id}
         data-cy="content-list-item"
       >
-        {renderListItem ? (
-          renderListItem({ content })
-        ) : (
-          <Box
-            sx={{
-              borderRadius: 6,
-              width: '100%',
-              backgroundColor: 'surface.main',
-            }}
+        <Box
+          sx={{
+            borderRadius: 6,
+            width: '100%',
+            bgcolor: isSelected(content.id)
+              ? 'tertiaryContainer.main'
+              : 'surfaceContainer.main',
+            color: isSelected(content.id)
+              ? 'onTertiaryContainer.main'
+              : 'onSurface.main',
+          }}
+        >
+          <ListItemButton
+            selected={selection?.id === content.id}
+            sx={{ borderRadius: 6 }}
+            onClick={() => handleSelection(content)}
+            data-cy="content-list-button"
           >
-            <ListItemButton
-              selected={selection?.id === content.id}
-              sx={{ borderRadius: 6 }}
-              onClick={() => handleSelection(content)}
-              data-cy="content-list-button"
-            >
+            {renderListItem ? (
+              renderListItem({ content })
+            ) : (
               <ListItemText
                 primary={content.primary}
                 secondary={content.secondary}
                 sx={{
-                  color: 'onSurface.main',
                   whiteSpace: 'pre-line',
                 }}
               />
-            </ListItemButton>
-          </Box>
-        )}
+            )}
+          </ListItemButton>
+        </Box>
       </ListItem>
     );
   };
 
   return (
     <List
+      data-cy={props['data-cy'] ?? "content-list"}
       sx={{
         width: '100%',
         maxHeight: maxHeight,
         overflow: 'auto',
-        bgcolor: 'background.paper',
       }}
-      data-cy="content-list"
     >
       {content.map((content) => (
         <ContentListItem

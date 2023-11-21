@@ -1,27 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { TypeOrmModule, InjectRepository } from '@nestjs/typeorm';
+import { InjectModel } from '@nestjs/mongoose';
+import type { Model } from 'mongoose';
 
 import { Ancestry, Heritage } from '@pf2-companion/compendium-models';
 import { CompendiumRepository } from '@pf2-companion/compendium-models';
 
-import type { MongoRepository } from 'typeorm';
-
 @Injectable()
 export class AncestriesService extends CompendiumRepository<Ancestry> {
   constructor(
-    @InjectRepository(Ancestry)
-    private ancestriesRepository: MongoRepository<Ancestry>,
-    @InjectRepository(Heritage)
-    private heritagesRepository: MongoRepository<Heritage>
+    @InjectModel(Ancestry.name)
+    private ancestriesModel: Model<Ancestry>,
+    @InjectModel(Heritage.name)
+    private heritagesModel: Model<Heritage>
   ) {
-    super(ancestriesRepository);
+    super(ancestriesModel);
   }
 
   public async findHeritagesByAncestryId(id: string) {
     const { name: ancestryName } = await this.findById(id);
 
-    return this.heritagesRepository.find({
-      where: { 'system.ancestry.slug': ancestryName.toLowerCase() },
+    console.log(ancestryName);
+    return this.heritagesModel.find({
+      'system.ancestry.slug': ancestryName.toLowerCase(),
     });
   }
 }

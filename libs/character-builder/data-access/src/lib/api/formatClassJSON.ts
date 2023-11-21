@@ -1,19 +1,27 @@
-import type { ClassContent } from '@pf2-companion/types/character-builder';
+import type {
+  ClassContent,
+  AbilityScore,
+} from '@pf2-companion/types/character-builder';
 import type { Class } from '@pf2-companion/types/compendium';
-
-import { calculateAbilityBoosts } from './calculateAbilityBoosts';
-
-interface ClassObject {
-  content: ClassContent;
-}
+import type { Selection } from '@pf2-companion/types/ui-selection';
 
 const calculateClassBoosts = (keyAbility: Array<string>) => {
   return keyAbility.length === 1
-    ? { fixed: [keyAbility[0]] }
-    : { restricted: [keyAbility] };
+    ? {
+        restricted: [],
+        fixed: [keyAbility[0]] as Array<AbilityScore>,
+        free: 0,
+      }
+    : {
+        restricted: [keyAbility] as Array<AbilityScore[]>,
+        fixed: [],
+        free: 0,
+      };
 };
 
-export const formatClassJSON = (classes: Array<Class>): Array<ClassObject> =>
+export const formatClassJSON = (
+  classes: Array<Class>
+): Selection<ClassContent>[] =>
   classes.map(
     ({
       name,
@@ -23,10 +31,10 @@ export const formatClassJSON = (classes: Array<Class>): Array<ClassObject> =>
         keyAbility: { value: keyAbility },
         hp,
       },
-      id,
+      _id: id,
     }: Class) => ({
       primary: name,
-      secondary: [`Starting HP: ${hp} \n Key Ability: ${keyAbility}`],
+      secondary: `Starting HP: ${hp} \n Key Ability: ${keyAbility}`,
       description,
       id,
       content: {

@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+'use client';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { Box } from '@mui/material';
 
 import { AncestrySelectionContext } from './AncestrySelectionContext';
@@ -14,10 +15,10 @@ export const AncestryList = ({ content }: { content: ListContent }) => {
 
   return (
     <ContentList<AncestryContent>
+      data-cy="ancestry-list"
       selection={selection}
       setSelection={setSelection}
       content={content}
-      data-cy="ancestry-list"
     />
   );
 };

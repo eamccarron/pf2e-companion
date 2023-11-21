@@ -1,6 +1,8 @@
+import { features } from '../../features';
+
 describe('Character Creation', () => {
   beforeEach(() => {
-    cy.visit('/character-builder/class');
+    cy.navigateToFeature(features.characterBuilder.class);
   });
 
   it('should display a list of class descriptions', () => {
@@ -12,7 +14,7 @@ describe('Character Creation', () => {
 
   it('Should display key ability for each class', () => {
     cy.getBySel('content-list').each((listItem) => {
-      expect(listItem.text()).to.match(/Key ability: \w/);
+      expect(listItem.text()).to.match(/Key Ability: \w(,\w)?/);
     });
   });
 
@@ -34,6 +36,6 @@ describe('Character Creation', () => {
 
   it('Should navigate to ability scores when next is clicked', () => {
     cy.getBySel('character-creation-next').click();
-    cy.url().should('include', '/character-builder/ability-scores');
+    cy.getBySel('ability-score-str').should('be.visible');
   });
 });

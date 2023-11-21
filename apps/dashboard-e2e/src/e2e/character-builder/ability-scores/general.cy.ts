@@ -1,8 +1,9 @@
+import { features } from '../../../features';
+
 beforeEach(() => {
-  cy.visit('/character-builder/ability-scores');
+  cy.navigateToFeature(features.characterBuilder.abilityScores);
 
   cy.getBySel('content-list-item').as('listContent');
-  cy.getBySel('content-list').as('list');
   cy.getBySel('background-tab').as('backgroundTab');
 });
 
@@ -22,7 +23,7 @@ describe('Character Creation - Ability Scores', () => {
         .first()
         .as('nextConBoost');
       // Class
-      cy.visit('/character-builder/class');
+      cy.navigateToFeature(features.characterBuilder.class);
       cy.get('@listContent').contains('Fighter').click();
       cy.getBySel('character-creation-next').click();
       cy.getBySel('restricted-boost-str').click();

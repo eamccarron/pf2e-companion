@@ -1,13 +1,19 @@
+import { features } from '../../../features';
+
 beforeEach(() => {
-  cy.visit('/character-builder/class');
+  cy.navigateToFeature(features.characterBuilder.class);
+
   cy.getBySel('content-list-item').as('listContent');
+  cy.getBySel('character-creation-next').as('nextButton');
 });
 
 describe('Class - multiple key abilities', () => {
   beforeEach(() => {
     cy.get('@listContent').contains('Fighter').click();
 
-    cy.getBySel('character-creation-next').click();
+    cy.window().scrollTo('top');
+    // cy.get('@nextButton').scrollIntoView();
+    cy.get('@nextButton').click();
   });
 
   it('Should show a toggle button for each key ability', () => {

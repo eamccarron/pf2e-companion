@@ -10,42 +10,67 @@ import {
 
 import { Selection } from './SelectionContextProvider';
 import { HTMLContent } from '@pf2-companion/ui-general';
+import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 
 interface ContentDetailPaneProps<T> {
   selection: Selection<T> | null;
   slide: boolean;
   slideDirection: 'up' | 'left' | 'right' | 'down';
+  raised?: boolean;
+  color?: string;
+  outlined?: boolean;
 }
 
 export function ContentDetailPane<T>({
   children,
   selection,
+  raised = false,
   ...slideProps
 }: PropsWithChildren<ContentDetailPaneProps<T>>) {
   return (
-    <Box sx={{ width: '100%' }}>
-      <Slide
-        in={selection !== null}
-        direction={slideProps.slideDirection}
-      >
-        <Card>
+    <Slide
+      in={selection !== null}
+      direction={slideProps.slideDirection}
+    >
+      <Box>
+        <Card
+          raised={raised}
+          elevation={raised ? 4 : 0}
+          sx={{
+            borderRadius: 6,
+            bgcolor: `surfaceVariant.main`,
+            // color: `on${color[0].toUpperCase()}${color.slice(1)}Container.main`,
+            color: 'onSurfaceVariant.main',
+            p: 1,
+          }}
+        >
           <CardHeader
             data-cy="detail-pane-header"
             title={selection?.primary}
             subheader={selection?.secondary}
             sx={{
               whiteSpace: 'pre-line',
+              // color: `on${color[0].toUpperCase()}${color.slice(
+              //   1
+              // )}Container.main`,
             }}
           />
           <CardContent data-cy="detail-pane-content">
-            {selection?.description && (
-              <HTMLContent content={selection.description} />
-            )}
-            {children}
+            <Box sx={{ color: 'onSurfaceVariant.main' }}>
+              {selection?.description && (
+                <HTMLContent
+                  content={selection.description}
+                  // styles={(theme) => ({
+                  //   body: { color: theme.palette.onSurfaceVariant.main },
+                  // })}
+                />
+              )}
+              {children}
+            </Box>
           </CardContent>
         </Card>
-      </Slide>
-    </Box>
+      </Box>
+    </Slide>
   );
 }
 
