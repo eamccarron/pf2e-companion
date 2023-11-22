@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'compendium-api-e2e',
+  displayName: 'e2e/compendium-api',
   preset: '../../jest.preset.js',
   globalSetup: '<rootDir>/src/support/global-setup.ts',
   globalTeardown: '<rootDir>/src/support/global-teardown.ts',
