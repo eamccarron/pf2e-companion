@@ -143,7 +143,10 @@ const buildM2Palette = (palette: M3Palette) =>
       key,
       {
         main: value,
-        contrastText: palette[`on${key[0].toUpperCase()}${key.slice(1)}` as keyof M3Palette],
+        contrastText:
+          palette[
+            `on${key[0].toUpperCase()}${key.slice(1)}` as keyof M3Palette
+          ],
       },
     ])
   );
