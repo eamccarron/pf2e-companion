@@ -5,6 +5,19 @@ Pathfinder second edition TTRPG. Currently, the feature set includes:
 
 - Character builder (WIP)
 
+# Running the application
+1. Install docker and docker compose plugin
+0. Clone the repo
+0. Run `npm run dev`
+
+## Processes
+There are currently 3 development processes, which are managed with pm2:
+- dashboard
+- compendium-api
+- db (mongodb docker container)
+
+You can view logs by running `npx pm2 logs process_name`
+
 # Project Structure
 
 This project is a monorepo generated and managed using nx (https://nx.dev/). It uses libraries to optimize code sharing between projects. The libraries in this project follow the library guidelines of nx: https://nx.dev/concepts/more-concepts/library-types. Following the nx mental model, roughly 80% of the application logic is kept in libraries, while only 20% is kept in applications.

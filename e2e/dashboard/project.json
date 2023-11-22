@@ -4,12 +4,12 @@
   "sourceRoot": "e2e/dashboard/src",
   "projectType": "application",
   "targets": {
-    "test-db:up": {
+    "db:up": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
           {
-            "command": "docker compose up --detach test-db"
+            "command": "docker compose up --detach db"
           }
         ],
         "cwd": "{projectRoot}"
@@ -31,7 +31,7 @@
       "dependsOn": [
         {
           "projects": "self",
-          "target": "test-db:up",
+          "target": "db:up",
           "params": "ignore"
         },
         {

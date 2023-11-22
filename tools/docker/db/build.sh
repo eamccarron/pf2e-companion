@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #
-# Builds a container image for the test-db service
+# Builds a container image for the db service
 
 # Create a fixture dataset from live development database
 [[ -d './fixtures' ]] && rm -rf ./fixtures
@@ -13,7 +13,7 @@ for pack in "${packs[@]}"; do
 done
 
 # Build image
-docker build -t registry.gitlab.com/mccarronea/pf2e-companion/test-db:latest .
+docker build -t registry.gitlab.com/mccarronea/pf2e-companion/db:latest .
 
 # Cleanup
 rm -rf ./fixtures
