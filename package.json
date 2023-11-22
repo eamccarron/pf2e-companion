@@ -9,7 +9,8 @@
     "docker:push:db": "cd ./tools/docker/db && ./push.sh",
     "docker:rebuild": "docker compose stop && docker compose rm && docker compose pull && docker compose build --no-cache",
     "db:up": "docker compose up --detach db",
-    "db:build": "docker compose pull && docker compose up --build --force-recreate -d db"
+    "db:build": "docker compose pull && docker compose up --build --force-recreate -d db",
+    "format:check": "prettier --config .prettierrc --check"
   },
   "private": true,
   "devDependencies": {
