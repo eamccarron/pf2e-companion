@@ -69,7 +69,6 @@ build:
         - ADDRESS=0.0.0.0
         - DB_HOST=db
         - DB_PORT=27017
-  services: 
     - name: "'$CONTAINER_REGISTRY_URL'/db:latest"
       alias: db
   stage: build
