@@ -5,8 +5,8 @@ variables:
 
 stages:
   - setup
-  - build
   - lint
+  - build
 
 .base:
   interruptible: true
@@ -61,7 +61,7 @@ build:
   variables:
     FF_NETWORK_PER_BUILD: 1
   services: 
-    - name: "${CONTAINER_REGISTRY_URL}/compendium-api:latest"
+    - name: "'$CONTAINER_REGISTRY_URL'/compendium-api:latest"
       alias: compendium-api
       entrypoint: ["node", "main.js"]
       variables:
@@ -70,7 +70,7 @@ build:
         - DB_HOST=db
         - DB_PORT=27017
   services: 
-    - name: "${CONTAINER_REGISTRY_URL}/db:latest"
+    - name: "'$CONTAINER_REGISTRY_URL'/db:latest"
       alias: db
   stage: build
   extends: .base
