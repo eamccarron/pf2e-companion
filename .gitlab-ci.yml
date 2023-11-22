@@ -1,6 +1,10 @@
-image: node:20
+image: node:20.9.0-alpine3.18
+
+variables:
+  CONTAINER_REGISTRY_URL: "registry.gitlab.com/mccarronea/pf2e-companion"
 
 stages:
+  - setup
   - build
   - lint
 
@@ -16,12 +20,23 @@ stages:
     paths:
       - .npm/
   before_script:
-    - npm ci --cache .npm --prefer-offline
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
 
 variables:
   GIT_DEPTH: 0
+
+install-dependencies:
+  stage: setup
+  extends: .base
+  cache:
+    policy: pull-push
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules
+  script:
+    - npm ci --cache .npm --prefer-offline
 
 format-check:
   stage: lint
@@ -41,7 +56,22 @@ lint:
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
 
+# Next.js requires compendium-api running during production build for static content generation
 build:
+  variables:
+    FF_NETWORK_PER_BUILD: 1
+  services: 
+    - name: "${CONTAINER_REGISTRY_URL}/compendium-api:latest"
+      alias: compendium-api
+      entrypoint: ["node", "main.js"]
+      variables:
+        - PORT=4000
+        - ADDRESS=0.0.0.0
+        - DB_HOST=db
+        - DB_PORT=27017
+  services: 
+    - name: "${CONTAINER_REGISTRY_URL}/db:latest"
+      alias: db
   stage: build
   extends: .base
   script:
