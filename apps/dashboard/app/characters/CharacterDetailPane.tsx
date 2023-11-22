@@ -10,6 +10,11 @@ type AbilityScoreBoxProps = {
   ability: string;
 };
 
+type AbilityScore = {
+  ability: string;
+  abilityScore: number;
+};
+
 const AbilityScoreBox = ({ abilityScore, ability }: AbilityScoreBoxProps) => {
   return (
     <Grid
@@ -39,13 +44,12 @@ export const CharacterDetailPane = () => {
   const { selection } = useContext(CharacterSelectionContext);
   const character = selection?.content;
 
-  const abilityScores = Object.entries(character?.abilityScores ?? {}).map(
-    //@ts-ignore
-    ([ability, abilityScore]: [string, number]) => ({
-      ability,
-      abilityScore,
-    })
-  );
+  const abilityScores = Object.entries(
+    character?.abilityScores ?? ({} as Array<AbilityScore>)
+  ).map(([ability, abilityScore]: [string, unknown]) => ({
+    ability,
+    abilityScore,
+  }));
 
   return (
     <ContentDetailPane
@@ -60,7 +64,7 @@ export const CharacterDetailPane = () => {
         {abilityScores.map(({ ability, abilityScore }) => (
           <AbilityScoreBox
             ability={ability}
-            abilityScore={abilityScore}
+            abilityScore={abilityScore as number}
             key={ability}
           />
         ))}
