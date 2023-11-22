@@ -1,6 +1,6 @@
 services:
-  test-db:
-    image: registry.gitlab.com/mccarronea/pf2e-companion/test-db:latest
+  db:
+    image: registry.gitlab.com/mccarronea/pf2e-companion/db:latest
     ports:
       - 26017:27017
   compendium-api:
@@ -11,7 +11,7 @@ services:
     environment:
       - PORT=4000
       - ADDRESS=0.0.0.0
-      - DB_HOST=test-db
+      - DB_HOST=db
       - DB_PORT=27017
   dashboard:
     image: registry.gitlab.com/mccarronea/pf2e-companion/dashboard:latest

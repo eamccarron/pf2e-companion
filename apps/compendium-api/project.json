@@ -1,5 +1,5 @@
 {
-  "name": "compendium-api",
+  "name": "apps/compendium-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/compendium-api/src",
   "projectType": "application",
@@ -37,17 +37,17 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "compendium-api:build"
+        "buildTarget": "apps/compendium-api:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "compendium-api:build:development"
+          "buildTarget": "apps/compendium-api:build:development"
         },
         "production": {
-          "buildTarget": "compendium-api:build:production"
+          "buildTarget": "apps/compendium-api:build:production"
         },
         "e2e": {
-          "buildTarget": "compendium-api:build:production"
+          "buildTarget": "apps/compendium-api:build:production"
         }
       }
     },
@@ -55,7 +55,7 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "compendium-api:build"
+        "buildTarget": "apps/compendium-api:build"
       }
     },
     "lint": {

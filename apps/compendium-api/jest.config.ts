@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'compendium-api',
+  displayName: 'apps/compendium-api',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {

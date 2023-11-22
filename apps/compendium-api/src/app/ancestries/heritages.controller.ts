@@ -1,4 +1,10 @@
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+} from '@nestjs/common';
 import { AncestriesService } from './ancestries.service';
 
 import type { Heritage } from '@pf2-companion/compendium-models';

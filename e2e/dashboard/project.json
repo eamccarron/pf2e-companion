@@ -1,15 +1,15 @@
 {
   "name": "apps/dashboard-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/dashboard-e2e/src",
+  "sourceRoot": "e2e/dashboard/src",
   "projectType": "application",
   "targets": {
-    "test-db:up": {
+    "db:up": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
           {
-            "command": "docker compose up --detach test-db"
+            "command": "docker compose up --detach db"
           }
         ],
         "cwd": "{projectRoot}"
@@ -31,7 +31,7 @@
       "dependsOn": [
         {
           "projects": "self",
-          "target": "test-db:up",
+          "target": "db:up",
           "params": "ignore"
         },
         {
@@ -46,7 +46,7 @@
         }
       ],
       "options": {
-        "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
+        "cypressConfig": "e2e/dashboard/cypress.config.ts",
         "devServerTarget": "apps/dashboard:serve:e2e",
         "testingType": "e2e"
       },
@@ -60,7 +60,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["e2e/dashboard/**/*.{js,ts}"]
       }
     }
   },

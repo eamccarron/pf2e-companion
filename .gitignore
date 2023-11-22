@@ -43,5 +43,5 @@ Thumbs.db
 # Next.js
 .next
 
-# Fixtures for test-db image build
-tools/docker/test-db/fixtures
+# Fixtures for db image build
+tools/docker/db/fixtures

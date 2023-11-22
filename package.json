@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "patch-package",
-    "dev": "nx serve dashboard -c 'node ./server.js'",
+    "dev": "./tools/dev-start.sh",
     "docker:auth": "docker login registry.gitlab.com -u mccarronea -p \"$(cat ~/.pki/git-lab-container-registry-token)\"",
-    "docker:build:test-db": "cd ./tools/docker/test-db && ./build.sh",
-    "docker:push:test-db": "cd ./tools/docker/test-db && ./push.sh",
+    "docker:build:db": "cd ./tools/docker/db && ./build.sh",
+    "docker:push:db": "cd ./tools/docker/db && ./push.sh",
     "docker:rebuild": "docker compose stop && docker compose rm && docker compose pull && docker compose build --no-cache",
-    "test-db:up": "docker compose up --detach test-db",
-    "test-db:build": "docker compose pull && docker compose up --build --force-recreate -d test-db"
+    "db:up": "docker compose up --detach db",
+    "db:build": "docker compose pull && docker compose up --build --force-recreate -d db"
   },
   "private": true,
   "devDependencies": {
@@ -65,6 +64,7 @@
     "jest-environment-node": "^29.4.1",
     "jsdom": "~22.1.0",
     "nx": "17.0.1",
+    "pm2": "^5.3.0",
     "prettier": "^2.6.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
