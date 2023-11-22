@@ -8,7 +8,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {
-        "jestConfig": "apps/compendium-api-e2e/jest.config.ts",
+        "jestConfig": "e2e/compendium-api/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -16,7 +16,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/compendium-api-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["e2e/compendium-api/**/*.{js,ts}"]
       }
     }
   }

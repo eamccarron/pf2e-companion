@@ -30,23 +30,11 @@
       "@pf2-companion/character-builder/feature/server": [
         "libs/character-builder/feature/src/server.ts"
       ],
-      "@pf2-companion/character-builder/types": [
-        "libs/character-builder/types/index.ts"
-      ],
       "@pf2-companion/character-builder/ui": [
         "libs/character-builder/ui/src/index.ts"
       ],
       "@pf2-companion/compendium-models": [
         "libs/compendium-models/src/index.ts"
-      ],
-      "@pf2-companion/compendium-models/types": [
-        "libs/compendium-models/types/index.ts"
-      ],
-      "@pf2-companion/data-access-characters": [
-        "libs/data-access-characters/src/index.ts"
-      ],
-      "@pf2-companion/data-access-characters/types": [
-        "libs/data-access-characters/types/index.ts"
       ],
       "@pf2-companion/types/character-builder": [
         "types/character-builder/src/index.ts"

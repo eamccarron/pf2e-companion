@@ -1,7 +1,7 @@
 {
   "name": "apps/dashboard-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/dashboard-e2e/src",
+  "sourceRoot": "e2e/dashboard/src",
   "projectType": "application",
   "targets": {
     "test-db:up": {
@@ -46,7 +46,7 @@
         }
       ],
       "options": {
-        "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
+        "cypressConfig": "e2e/dashboard/cypress.config.ts",
         "devServerTarget": "apps/dashboard:serve:e2e",
         "testingType": "e2e"
       },
@@ -60,7 +60,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["e2e/dashboard/**/*.{js,ts}"]
       }
     }
   },
