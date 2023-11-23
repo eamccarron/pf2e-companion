@@ -45,10 +45,7 @@
             "or": [
               "item:category:unarmed",
               {
-                "and": [
-                  "item:type:weapon",
-                  "item:melee"
-                ]
+                "and": ["item:type:weapon", "item:melee"]
               }
             ]
           }
@@ -60,10 +57,7 @@
     ],
     "traits": {
       "rarity": "common",
-      "value": [
-        "archetype",
-        "vigilante"
-      ]
+      "value": ["archetype", "vigilante"]
     }
   },
   "type": "feat"

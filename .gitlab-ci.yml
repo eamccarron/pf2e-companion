@@ -1,0 +1,80 @@
+image: registry.gitlab.com/mccarronea/pf2e-companion/ci-runner
+
+variables:
+  CONTAINER_REGISTRY_URL: 'registry.gitlab.com/mccarronea/pf2e-companion'
+
+stages:
+  - setup
+  - lint
+  - build
+
+default:
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+    policy: pull
+
+.base:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - 'echo $NX_BASE: $NX_BASE'
+
+install-dependencies:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+  stage: setup
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+    policy: pull-push
+  script: npm ci --cache .npm --prefer-offline
+
+format-check:
+  stage: lint
+  extends: .base
+  script:
+    - npx nx format:check
+
+type-check:
+  stage: lint
+  extends: .base
+  script:
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t type-check --parallel=3
+
+lint:
+  stage: lint
+  extends: .base
+  script:
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
+
+# Next.js requires compendium-api running during production build for static content generation
+build:
+  stage: build
+  extends: .base
+  variables:
+    FF_NETWORK_PER_BUILD: 'true'
+    PORT: '4000'
+    ADDRESS: '0.0.0.0'
+    DB_HOST: 'db'
+    DB_PORT: '27017'
+    COMPENDIUM_API_URL: 'http://compendium-api:4000'
+  services:
+    - name: '$CONTAINER_REGISTRY_URL/db:latest'
+      alias: db
+    - name: '$CONTAINER_REGISTRY_URL/compendium-api:latest'
+      alias: compendium-api
+      entrypoint: ['node', 'main.js']
+  script:
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3

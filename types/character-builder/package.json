@@ -2,7 +2,9 @@
   "name": "@pf2-companion/types/character-builder",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@pf2-companion/types/ui-selection": "^0.0.1",
+    "@pf2-companion/compendium-models": "^0.0.1"
   },
   "type": "commonjs",
   "main": "./src/index.js",

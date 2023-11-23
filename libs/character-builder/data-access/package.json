@@ -2,7 +2,11 @@
   "name": "@pf2-companion/character-builder/data-access",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@pf2-companion/types/compendium": "*",
+    "@pf2-companion/types/ui-selection": "*",
+    "@pf2-companion/types/character-builder": "*",
+    "@pf2-companion/compendium-models": "*"
   },
   "type": "commonjs",
   "main": "./src/index.js",

@@ -6,12 +6,15 @@ Pathfinder second edition TTRPG. Currently, the feature set includes:
 - Character builder (WIP)
 
 # Running the application
+
 1. Install docker and docker compose plugin
-0. Clone the repo
-0. Run `npm run dev`
+2. Clone the repo
+3. Run `npm run dev`
 
 ## Processes
+
 There are currently 3 development processes, which are managed with pm2:
+
 - dashboard
 - compendium-api
 - db (mongodb docker container)

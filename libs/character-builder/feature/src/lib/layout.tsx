@@ -37,7 +37,7 @@ export const Layout = (
       activeStep={activeStep}
       setActiveStep={setActiveStep}
     >
-      <Box sx={{ mb: 2 }}> 
+      <Box sx={{ mb: 2 }}>
         <CharacterCreationStepper steps={steps} />
       </Box>
       {props[activeRoute]}

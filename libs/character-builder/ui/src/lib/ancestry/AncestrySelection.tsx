@@ -39,9 +39,9 @@ export const AncestrySelection = ({
         <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
           <AncestryList content={listContent} />
         </Box>
-          <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
-            <AncestryDetailPane>{children}</AncestryDetailPane>
-          </Box>
+        <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
+          <AncestryDetailPane>{children}</AncestryDetailPane>
+        </Box>
       </Stack>
     </>
   );

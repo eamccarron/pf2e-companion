@@ -66,6 +66,6 @@ const createCharacter = () => ({
 });
 
 export const generateCharacters = () =>
-    faker.helpers.multiple(createCharacter, {
-      count: faker.number.int({ min: 5, max: 15 }),
-    })
+  faker.helpers.multiple(createCharacter, {
+    count: faker.number.int({ min: 5, max: 15 }),
+  });
