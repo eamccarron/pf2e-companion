@@ -1,7 +1,7 @@
 image: node:20.9.0-alpine3.18
 
 variables:
-  CONTAINER_REGISTRY_URL: "registry.gitlab.com/mccarronea/pf2e-companion"
+  CONTAINER_REGISTRY_URL: 'registry.gitlab.com/mccarronea/pf2e-companion'
 
 stages:
   - setup
@@ -22,9 +22,6 @@ stages:
   before_script:
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
-
-variables:
-  GIT_DEPTH: 0
 
 install-dependencies:
   stage: setup
@@ -60,15 +57,15 @@ lint:
 build:
   variables:
     FF_NETWORK_PER_BUILD: 1
-  services: 
+  services:
     - name: "'$CONTAINER_REGISTRY_URL'/compendium-api:latest"
       alias: compendium-api
-      entrypoint: ["node", "main.js"]
+      entrypoint: ['node', 'main.js']
       variables:
-        PORT: "4000"
-        ADDRESS: "0.0.0.0"
-        DB_HOST: "db"
-        DB_PORT: "27017"
+        PORT: '4000'
+        ADDRESS: '0.0.0.0'
+        DB_HOST: 'db'
+        DB_PORT: '27017'
     - name: "'$CONTAINER_REGISTRY_URL'/db:latest"
       alias: db
   stage: build
