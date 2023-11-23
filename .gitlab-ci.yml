@@ -1,4 +1,4 @@
-image: node:20.9.0-alpine3.18
+image: registry.gitlab.com/mccarronea/pf2e-companion/ci-runner
 
 variables:
   CONTAINER_REGISTRY_URL: 'registry.gitlab.com/mccarronea/pf2e-companion'
