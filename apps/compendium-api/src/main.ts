@@ -13,6 +13,15 @@ import {
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
+  console.log(
+    'Using mongoDB at: ',
+    process.env['DB_HOST'],
+    ':',
+    process.env['DB_PORT']
+  );
+
+  console.log(process.env);
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ logger: true })

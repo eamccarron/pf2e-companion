@@ -17,8 +17,9 @@ export const AncestryAbilityScoreSelectionContext =
 export const AncestrySelectionContextProvider = ({
   children,
 }: React.PropsWithChildren) => {
-  const [selection, setSelection] =
-    useState<Selection<AncestryContent> | null>(null);
+  const [selection, setSelection] = useState<Selection<AncestryContent> | null>(
+    null
+  );
 
   return (
     <AncestrySelectionContext.Provider value={{ selection, setSelection }}>

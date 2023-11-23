@@ -12,7 +12,6 @@ import {
 
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
-
 export type CharacterCreationContextProps = {
   activeStep: number;
   completed: Set<number>;

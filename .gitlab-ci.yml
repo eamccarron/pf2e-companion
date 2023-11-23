@@ -8,38 +8,44 @@ stages:
   - lint
   - build
 
-.base:
-  interruptible: true
-  only:
-    - main
-    - merge_requests
+default:
   cache:
     key:
       files:
         - package-lock.json
     paths:
       - .npm/
+    policy: pull
+
+.base:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
   before_script:
+    - npm ci --cache .npm --prefer-offline
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - 'echo $NX_BASE: $NX_BASE'
 
 install-dependencies:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
   stage: setup
-  extends: .base
   cache:
-    policy: pull-push
-  artifacts:
-    expire_in: 1h
+    key:
+      files:
+        - package-lock.json
     paths:
-      - node_modules
-  script:
-    - npm ci --cache .npm --prefer-offline
+      - .npm/
+    policy: pull-push
+  script: npm ci --cache .npm --prefer-offline
 
 format-check:
   stage: lint
   extends: .base
   script:
-    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
+    - npx nx format:check
 
 type-check:
   stage: lint
@@ -55,20 +61,20 @@ lint:
 
 # Next.js requires compendium-api running during production build for static content generation
 build:
-  variables:
-    FF_NETWORK_PER_BUILD: 1
-  services:
-    - name: "'$CONTAINER_REGISTRY_URL'/compendium-api:latest"
-      alias: compendium-api
-      entrypoint: ['node', 'main.js']
-      variables:
-        PORT: '4000'
-        ADDRESS: '0.0.0.0'
-        DB_HOST: 'db'
-        DB_PORT: '27017'
-    - name: "'$CONTAINER_REGISTRY_URL'/db:latest"
-      alias: db
   stage: build
   extends: .base
+  variables:
+    FF_NETWORK_PER_BUILD: 'true'
+    PORT: '4000'
+    ADDRESS: '0.0.0.0'
+    DB_HOST: 'db'
+    DB_PORT: '27017'
+    COMPENDIUM_API_URL: 'http://compendium-api:4000'
+  services:
+    - name: '$CONTAINER_REGISTRY_URL/db:latest'
+      alias: db
+    - name: '$CONTAINER_REGISTRY_URL/compendium-api:latest'
+      alias: compendium-api
+      entrypoint: ['node', 'main.js']
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3

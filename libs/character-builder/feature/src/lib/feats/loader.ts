@@ -11,7 +11,7 @@ export const classFeatsLoader = async (level: string, className: string) => {
   const classFeats: Array<Feat> = await classFeatRes.json();
 
   if (!classFeatRes.ok) {
-    return []
+    return [];
   }
 
   return formatFeatJSON(classFeats ?? []);

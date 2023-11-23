@@ -83,7 +83,7 @@ export function ContentList<T>({
 
   return (
     <List
-      data-cy={props['data-cy'] ?? "content-list"}
+      data-cy={props['data-cy'] ?? 'content-list'}
       sx={{
         width: '100%',
         maxHeight: maxHeight,
