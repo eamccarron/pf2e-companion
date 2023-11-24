@@ -4,6 +4,7 @@
   "sourceRoot": "apps/compendium-api/src",
   "projectType": "application",
   "targets": {
+    "publish": {},
     "type-check": {},
     "build": {
       "executor": "@nx/webpack:webpack",

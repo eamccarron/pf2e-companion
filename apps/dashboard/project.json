@@ -4,7 +4,20 @@
   "sourceRoot": "apps/dashboard",
   "projectType": "application",
   "targets": {
-    "build": {
+    "dev:build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
+      "options": {
+        "outputPath": "dist/apps/dashboard"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/dashboard"
+        }
+      }
+    },
+    "next:build": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -12,9 +25,6 @@
         "outputPath": "dist/apps/dashboard"
       },
       "configurations": {
-        "development": {
-          "outputPath": "apps/dashboard"
-        },
         "production": {},
         "e2e": {}
       }
@@ -24,7 +34,7 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "apps/dashboard:build",
+        "buildTarget": "apps/dashboard:dev:build",
         "dev": true
       },
       "configurations": {
@@ -33,18 +43,18 @@
           "dev": true
         },
         "production": {
-          "buildTarget": "apps/dashboard:build:production",
+          "buildTarget": "apps/dashboard:next:build:production",
           "dev": false
         },
         "e2e": {
-          "buildTarget": "apps/dashboard:build:production"
+          "buildTarget": "apps/dashboard:next:build:production"
         }
       }
     },
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "apps/dashboard:build:production"
+        "buildTarget": "apps/dashboard:next:build:production"
       }
     },
     "test": {
