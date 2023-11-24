@@ -5,7 +5,7 @@ stages:
   - lint
   - build
   - publish
-  - build:next
+  - e2e
 
 default:
   cache:
@@ -33,6 +33,23 @@ default:
   image:
     name: gcr.io/kaniko-project/executor:v1.18.0-debug
     entrypoint: ['']
+
+.e2e:
+  extends: .base
+  image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+  variables:
+    FF_NETWORK_PER_BUILD: 'true'
+    PORT: '4000'
+    ADDRESS: '0.0.0.0'
+    DB_HOST: 'db'
+    DB_PORT: '27017'
+    COMPENDIUM_API_URL: 'http://compendium-api:4000'
+  services:
+    - name: '$CI_REGISTRY_IMAGE/db:latest'
+      alias: db
+    - name: '$CI_REGISTRY_IMAGE/compendium-api:latest'
+      alias: compendium-api
+      entrypoint: ['node', 'main.js']
 
 install-dependencies:
   stage: setup
@@ -85,27 +102,23 @@ publish:compendium-api:
     - '[[ -d dist/apps/compendium-api ]] && /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/apps/compendium-api/Dockerfile"
-      --destination "${CI_REGISTRY_IMAGE}/compendium-api:latest"'
-# Next.js requires compendium-api running during build for static content generation
-# TODO: Replace with e2e stage (which will perform a production build)
-# build:next:
-#   stage: build:next
-#   extends: .base
-#   artifacts:
-#     paths:
-#       - dist/
-#   variables:
-#     FF_NETWORK_PER_BUILD: 'true'
-#     PORT: '4000'
-#     ADDRESS: '0.0.0.0'
-#     DB_HOST: 'db'
-#     DB_PORT: '27017'
-#     COMPENDIUM_API_URL: 'http://compendium-api:4000'
-#   services:
-#     - name: '$CI_REGISTRY_IMAGE/db:latest'
-#       alias: db
-#     - name: '$CI_REGISTRY_IMAGE/compendium-api:latest'
-#       alias: compendium-api
-#       entrypoint: ['node', 'main.js']
-#   script:
-#     - npx nx affected -t next:build --base=$NX_BASE --head=$NX_HEAD
+      --destination "${CI_REGISTRY_IMAGE}/compendium-api:latest"
+      || exit 0'
+
+e2e:ff:
+  extends: .e2e
+  stage: e2e
+  script:
+    - npx nx run-many -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser firefox
+
+e2e:chrome:
+  extends: .e2e
+  stage: e2e
+  script:
+    - npx nx run-many -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser chrome
+
+e2e:edge:
+  extends: .e2e
+  stage: e2e
+  script:
+    - npx nx run-many -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser edge
