@@ -7,7 +7,7 @@ stages:
   - publish
   - e2e
 
-default:
+.npm:
   cache:
     key:
       files:
@@ -15,18 +15,28 @@ default:
     paths:
       - .npm/
     policy: pull
+  before_script:
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - echo "Determining affected scopes from head $NX_HEAD and base $NX_BASE"
+    - npm ci --cache .npm --prefer-offline
 
-.base:
+.lint:
+  extends: .npm
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
+
+.build:
+  extends: .npm
+  stage: build
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
-  before_script:
-    - npm ci --cache .npm --prefer-offline
-    - NX_HEAD=$CI_COMMIT_SHA
-    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
-    - export NX_REJECT_UNKNOWN_LOCAL_CACHE=0
 
 .publish:
+  stage: publish
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
@@ -35,7 +45,11 @@ default:
     entrypoint: ['']
 
 .e2e:
-  extends: .base
+  extends: .npm
+  stage: e2e
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
   image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
   variables:
     FF_NETWORK_PER_BUILD: 'true'
@@ -54,6 +68,9 @@ default:
 install-dependencies:
   stage: setup
   rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      changes:
+        - package-lock.json
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
         - package-lock.json
@@ -67,26 +84,22 @@ install-dependencies:
   script: npm ci --cache .npm --prefer-offline
 
 format-check:
-  stage: lint
-  extends: .base
+  extends: .lint
   script:
     - npm run format:check
 
 type-check:
-  stage: lint
-  extends: .base
+  extends: .lint
   script:
     - npx nx affected -t type-check --base=$NX_BASE --head=$NX_HEAD --parallel=6
 
 lint:
-  stage: lint
-  extends: .base
+  extends: .lint
   script:
     - npx nx affected -t lint --base=$NX_BASE --head=$NX_HEAD --parallel=6
 
 build:
-  stage: build
-  extends: .base
+  extends: .build
   artifacts:
     paths:
       - dist/
@@ -96,7 +109,6 @@ build:
 # Hopefully gitlab will support rules for artifacts soon so this stage can be conditionally skipped
 # (issue here: https://gitlab.com/gitlab-org/gitlab/-/issues/215100)
 publish:compendium-api:
-  stage: publish
   extends: .publish
   script:
     - '[[ -d dist/apps/compendium-api ]] && /kaniko/executor
@@ -107,18 +119,15 @@ publish:compendium-api:
 
 e2e:ff:
   extends: .e2e
-  stage: e2e
   script:
-    - npx nx run-many -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser firefox
+    - npx nx affected -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser firefox
 
 e2e:chrome:
   extends: .e2e
-  stage: e2e
   script:
-    - npx nx run-many -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser chrome
+    - npx nx affected -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser chrome
 
 e2e:edge:
   extends: .e2e
-  stage: e2e
   script:
-    - npx nx run-many -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser edge
+    - npx nx affected -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser edge
