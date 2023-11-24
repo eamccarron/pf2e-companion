@@ -1,12 +1,11 @@
 image: registry.gitlab.com/mccarronea/pf2e-companion/ci-runner
 
-variables:
-  CONTAINER_REGISTRY_URL: 'registry.gitlab.com/mccarronea/pf2e-companion'
-
 stages:
   - setup
   - lint
   - build
+  - publish
+  - build:next
 
 default:
   cache:
@@ -25,13 +24,22 @@ default:
     - npm ci --cache .npm --prefer-offline
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
-    - 'echo $NX_BASE: $NX_BASE'
+    - export NX_REJECT_UNKNOWN_LOCAL_CACHE=0
 
-install-dependencies:
+.publish:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
+  image:
+    name: gcr.io/kaniko-project/executor:v1.18.0-debug
+    entrypoint: ['']
+
+install-dependencies:
   stage: setup
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - package-lock.json
   cache:
     key:
       files:
@@ -45,36 +53,59 @@ format-check:
   stage: lint
   extends: .base
   script:
-    - npx nx format:check
+    - npm run format:check
 
 type-check:
   stage: lint
   extends: .base
   script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t type-check --parallel=3
+    - npx nx affected -t type-check --base=$NX_BASE --head=$NX_HEAD --parallel=6
 
 lint:
   stage: lint
   extends: .base
   script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
+    - npx nx affected -t lint --base=$NX_BASE --head=$NX_HEAD --parallel=6
 
-# Next.js requires compendium-api running during production build for static content generation
 build:
   stage: build
   extends: .base
-  variables:
-    FF_NETWORK_PER_BUILD: 'true'
-    PORT: '4000'
-    ADDRESS: '0.0.0.0'
-    DB_HOST: 'db'
-    DB_PORT: '27017'
-    COMPENDIUM_API_URL: 'http://compendium-api:4000'
-  services:
-    - name: '$CONTAINER_REGISTRY_URL/db:latest'
-      alias: db
-    - name: '$CONTAINER_REGISTRY_URL/compendium-api:latest'
-      alias: compendium-api
-      entrypoint: ['node', 'main.js']
+  artifacts:
+    paths:
+      - dist/
   script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3
+    - npx nx affected -t build --base=$NX_BASE --head=$NX_HEAD --parallel=6
+
+# Hopefully gitlab will support rules for artifacts soon so this stage can be conditionally skipped
+# (issue here: https://gitlab.com/gitlab-org/gitlab/-/issues/215100)
+publish:compendium-api:
+  stage: publish
+  extends: .publish
+  script:
+    - '[[ -d dist/apps/compendium-api ]] && /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/apps/compendium-api/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}/compendium-api:latest"'
+# Next.js requires compendium-api running during build for static content generation
+# TODO: Replace with e2e stage (which will perform a production build)
+# build:next:
+#   stage: build:next
+#   extends: .base
+#   artifacts:
+#     paths:
+#       - dist/
+#   variables:
+#     FF_NETWORK_PER_BUILD: 'true'
+#     PORT: '4000'
+#     ADDRESS: '0.0.0.0'
+#     DB_HOST: 'db'
+#     DB_PORT: '27017'
+#     COMPENDIUM_API_URL: 'http://compendium-api:4000'
+#   services:
+#     - name: '$CI_REGISTRY_IMAGE/db:latest'
+#       alias: db
+#     - name: '$CI_REGISTRY_IMAGE/compendium-api:latest'
+#       alias: compendium-api
+#       entrypoint: ['node', 'main.js']
+#   script:
+#     - npx nx affected -t next:build --base=$NX_BASE --head=$NX_HEAD
