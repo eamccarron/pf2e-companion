@@ -15,14 +15,6 @@ export class FeatsService extends CompendiumRepository<Feat> {
     super(featsModel);
   }
 
-  public findByTraitName(trait: string): Query<Feat[], Feat> {
-    return this.featsModel
-      .find({
-        'system.traits.value': trait,
-      })
-      .collation({ locale: 'en', strength: 2 });
-  }
-
   public async findClassFeats(level: number, className: string) {
     const classFeats = await this.findByTraitName(className).where({
       'system.category': { $eq: 'class' },
