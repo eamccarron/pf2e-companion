@@ -19,7 +19,6 @@ export class AncestriesService extends CompendiumRepository<Ancestry> {
   public async findHeritagesByAncestryId(id: string) {
     const { name: ancestryName } = await this.findById(id);
 
-    console.log(ancestryName);
     return this.heritagesModel.find({
       'system.ancestry.slug': ancestryName.toLowerCase(),
     });

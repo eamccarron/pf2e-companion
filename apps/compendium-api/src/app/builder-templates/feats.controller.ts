@@ -40,6 +40,7 @@ export class FeatsController {
       className
     );
 
+    console.log(level, className, classFeatAvailable);
     if (!classFeatAvailable) return [];
     return await this.featsService.findClassFeats(Number(level), className);
   }
@@ -70,7 +71,6 @@ export class FeatsController {
       ancestry.name
     );
 
-    console.log('ancestry feats: ', ancestryFeats);
     return ancestryFeats;
   }
 }

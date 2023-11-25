@@ -9,6 +9,8 @@ import { TemplatesModule } from './builder-templates/templates.module';
 import { ClassesModule } from './character-classes/classes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { HealthCheckController } from './healthCheck.controller';
+
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -19,7 +21,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ClassesModule,
     TemplatesModule,
   ],
-  controllers: [],
+  controllers: [HealthCheckController],
   providers: [],
 })
 export class AppModule {}

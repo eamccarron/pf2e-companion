@@ -1,0 +1,29 @@
+{
+  "name": "libs/test/fixtures",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/test/fixtures/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/test/fixtures",
+        "main": "libs/test/fixtures/src/index.ts",
+        "tsConfig": "libs/test/fixtures/tsconfig.lib.json",
+        "assets": ["libs/test/fixtures/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/test/fixtures/**/*.ts",
+          "libs/test/fixtures/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

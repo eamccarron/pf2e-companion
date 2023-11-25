@@ -36,6 +36,7 @@
       "@pf2-companion/compendium-models": [
         "libs/compendium-models/src/index.ts"
       ],
+      "@pf2-companion/libs/test/fixtures": ["libs/test/fixtures/src/index.ts"],
       "@pf2-companion/types/character-builder": [
         "types/character-builder/src/index.ts"
       ],
@@ -43,7 +44,8 @@
       "@pf2-companion/types/ui-selection": ["types/ui-selection/src/index.ts"],
       "@pf2-companion/ui-general": ["libs/ui-general/src/index.ts"],
       "@pf2-companion/ui-selection": ["libs/ui-selection/src/index.ts"],
-      "@pf2-companion/ui-selection/types": ["libs/ui-selection/src/types.ts"]
+      "@pf2-companion/ui-selection/types": ["libs/ui-selection/src/types.ts"],
+      "@pf2-companion/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],
