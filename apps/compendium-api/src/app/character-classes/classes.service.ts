@@ -18,7 +18,7 @@ export class ClassesService extends CompendiumRepository<Class> {
   public async findByClassName(className: string): Promise<Class> {
     return await this.classesModel
       .findOne({ name: className })
-      .collation({ locale: 'en', strength: 2 });
+      .collation({ locale: 'en_US', strength: 1 });
   }
 
   public async findClassFeatAvailable(

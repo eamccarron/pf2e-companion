@@ -2,14 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AncestriesService } from './ancestries.service';
 import { AncestriesController } from './ancestries.controller';
-import { HeritagesController } from './heritages.controller';
 
-import {
-  Ancestry,
-  AncestrySchema,
-  Heritage,
-  HeritageSchema,
-} from '@pf2-companion/compendium-models';
+import { Ancestry, AncestrySchema } from '@pf2-companion/compendium-models';
 
 @Module({
   imports: [
@@ -18,14 +12,10 @@ import {
         name: Ancestry.name,
         schema: AncestrySchema,
       },
-      {
-        name: Heritage.name,
-        schema: HeritageSchema,
-      },
     ]),
   ],
   providers: [AncestriesService],
   exports: [AncestriesService],
-  controllers: [AncestriesController, HeritagesController],
+  controllers: [AncestriesController],
 })
 export class AncestriesModule {}

@@ -5,6 +5,12 @@
     "libsDir": "libs"
   },
   "targetDefaults": {
+    "pm2": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npx pm2 start pm2.config.js"]
+      }
+    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {

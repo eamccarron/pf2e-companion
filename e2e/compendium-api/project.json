@@ -4,7 +4,17 @@
   "implicitDependencies": ["apps/compendium-api"],
   "projectType": "application",
   "targets": {
+    "pm2": {},
     "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "dependsOn": ["pm2"],
+      "options": {
+        "jestConfig": "e2e/compendium-api/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "ci:api-e2e": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {

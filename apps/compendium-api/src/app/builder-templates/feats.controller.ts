@@ -4,14 +4,11 @@ import {
   Query,
   HttpException,
   HttpStatus,
-  UseInterceptors,
 } from '@nestjs/common';
 
 import { FeatsService } from './feats.service';
 import { ClassesService } from '../character-classes/classes.service';
 import { AncestriesService } from '../ancestries/ancestries.service';
-
-import { IncludeDocumentIdInterceptor } from '../IncludeDocumentId.interceptor';
 
 import type { Feat } from '@pf2-companion/compendium-models';
 
@@ -70,7 +67,6 @@ export class FeatsController {
       ancestry.name
     );
 
-    console.log('ancestry feats: ', ancestryFeats);
     return ancestryFeats;
   }
 }

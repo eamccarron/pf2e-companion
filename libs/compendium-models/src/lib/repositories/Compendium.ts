@@ -1,5 +1,5 @@
 // import type { MongoRepository, ObjectLiteral } from 'typeorm';
-import type { Model } from 'mongoose';
+import type { Model, Query } from 'mongoose';
 
 export interface CompendiumMongoRepository<T> {
   findAll: () => Promise<T[]>;
@@ -7,8 +7,16 @@ export interface CompendiumMongoRepository<T> {
 }
 
 export abstract class CompendiumRepository<T extends object> {
-  constructor(private repository: Model<T>) {}
+  constructor(private model: Model<T>) {}
 
-  public findAll = async () => this.repository.find();
-  public findById = async (id: string) => this.repository.findOne({ _id: id });
+  public findAll = async () => this.model.find();
+  public findById = async (id: string) => this.model.findOne({ _id: id });
+
+  public findByTraitName(trait: string): Query<T[], T> {
+    return this.model
+      .find({
+        'system.traits.value': trait,
+      })
+      .collation({ locale: 'en', strength: 2 });
+  }
 }
