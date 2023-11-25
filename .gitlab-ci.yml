@@ -117,17 +117,22 @@ publish:compendium-api:
       --destination "${CI_REGISTRY_IMAGE}/compendium-api:latest"
       || exit 0'
 
+e2e:compendium-api:
+  extends: .e2e
+  script:
+    - npx nx affected -t ci:api-e2e --base=$NX_BASE --head=$NX_HEAD
+
 e2e:ff:
   extends: .e2e
   script:
-    - npx nx affected -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser firefox
+    - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser firefox
 
 e2e:chrome:
   extends: .e2e
   script:
-    - npx nx affected -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser chrome
+    - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser chrome
 
 e2e:edge:
   extends: .e2e
   script:
-    - npx nx affected -t e2e:ci --base=$NX_BASE --head=$NX_HEAD --browser edge
+    - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser edge

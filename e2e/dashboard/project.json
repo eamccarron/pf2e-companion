@@ -57,7 +57,7 @@
       }
     },
 
-    "e2e:ci": {
+    "ci:frontend-e2e": {
       "executor": "@nx/cypress:cypress",
       "dependsOn": [
         {
