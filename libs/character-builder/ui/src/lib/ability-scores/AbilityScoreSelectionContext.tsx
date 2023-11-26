@@ -112,7 +112,7 @@ export const AbilityScoreSelectionContextProvider = ({
   selection,
 }: PropsWithChildren<{
   AbilityScoreContext: Context<AbilityScoreSelectionContextProps>;
-  selection: AttributeSelection | null;
+  selection?: AttributeSelection | null;
 }>) => {
   const [boosts, boostDispatch] = useReducer(boostReducer, {
     str: false,
@@ -155,7 +155,6 @@ export const AbilityScoreSelectionContextProvider = ({
     useReducer<RestrictedBoostReducer>(restrictedBoostReducer, ['', '']);
 
   useEffect(() => {
-    console.log('selection', selection);
     setFixed(selection?.content.boosts?.fixed ?? []);
     setRestrictedOptions(selection?.content.boosts?.restricted ?? []);
     setFreeBoostsAvailable(selection?.content.boosts?.free ?? 0);

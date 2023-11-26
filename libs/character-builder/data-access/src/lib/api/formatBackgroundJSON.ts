@@ -9,6 +9,7 @@ export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
       name,
       system: {
         description: { value: description },
+        trainedSkills,
         traits: { rarity },
         boosts,
       },
@@ -20,6 +21,10 @@ export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
       content: {
         rarity,
         boosts: calculateAbilityBoosts(boosts),
+        trainedSkills: {
+          skills: trainedSkills?.value,
+          additional: trainedSkills?.additional,
+        },
       },
     })
   );

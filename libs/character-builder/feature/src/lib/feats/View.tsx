@@ -9,7 +9,8 @@ import {
   AncestrySelectionContext,
 } from '@pf2-companion/character-builder/ui';
 
-import { CharacterView } from '../CharacterView';
+import { CharacterView as CharacterViewTest } from '../CharacterView';
+import { CharacterView } from '@pf2-companion/character-builder/ui';
 import { Box, Stack } from '@mui/material';
 import { useMemo, useState, useContext, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
@@ -39,8 +40,6 @@ export const FeatSelectionView = ({
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => console.log('Feat options', featOptions), [featOptions]);
-
   const [featOptionSelected, setFeatOptionSelected] = useState<Selection<
     keyof BuilderTemplate
   > | null>(null);
@@ -54,7 +53,6 @@ export const FeatSelectionView = ({
   }, [featOptionSelected]);
 
   const selectionsCompleted = useMemo(() => {
-    console.log('updating selections completed: ', selection[level - 1], level);
     return Object.fromEntries(
       Object.entries(selection[level - 1] ?? {}).map(([k, v]) => [
         k,
@@ -104,19 +102,6 @@ export const FeatSelectionView = ({
       });
     }
   }, [ancestrySelection, updateFeatDispatch, level, selection]);
-
-  useEffect(
-    () => console.log('selections completed:', selectionsCompleted),
-    [selectionsCompleted]
-  );
-
-  useEffect(() => console.log('selection: ', selection), [selection]);
-
-  useEffect(() => console.log('featOptions: ', featOptions), [featOptions]);
-  useEffect(
-    () => console.log('featOptionsAvailable: ', availableFeatOptions),
-    [availableFeatOptions]
-  );
 
   const handleLevelSelection = (level: number) => {
     router.replace(
@@ -185,7 +170,7 @@ export const FeatSelectionView = ({
         </Box>
       </Stack>
       <Box mt={2}>
-        <CharacterView />
+        <CharacterViewTest />
       </Box>
     </Box>
   );

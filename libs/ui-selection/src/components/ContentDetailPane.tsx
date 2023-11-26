@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Divider,
   Slide,
   Typography,
 } from '@mui/material';
@@ -57,6 +58,9 @@ export function ContentDetailPane<T>({
           />
           <CardContent data-cy="detail-pane-content">
             <Box sx={{ color: 'onSurfaceVariant.main' }}>
+              {children}
+              {children && selection?.description && <Divider />}
+
               {selection?.description && (
                 <HTMLContent
                   content={selection.description}
@@ -65,7 +69,6 @@ export function ContentDetailPane<T>({
                   // })}
                 />
               )}
-              {children}
             </Box>
           </CardContent>
         </Card>

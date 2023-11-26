@@ -39,7 +39,7 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "apps/dashboard:build:development",
+          "buildTarget": "apps/dashboard:dev:build",
           "dev": true
         },
         "production": {

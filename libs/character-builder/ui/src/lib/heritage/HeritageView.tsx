@@ -20,7 +20,6 @@ export const HeritageView = ({
     heritage.id === selection?.id;
 
   useEffect(() => setSelection(null), [content]);
-  useEffect(() => console.log('heritage content changed'), [content]);
   return (
     <Box>
       {content.map((heritage) => (

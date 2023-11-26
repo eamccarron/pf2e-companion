@@ -6,8 +6,8 @@ export const AbilityScores = ({
   abilityScores,
 }: {
   abilityScores: CharacterAbilityScores;
-}) =>
-  abilityScores.map(({ ability, abilityScore }) => (
+}) => {
+  return abilityScores.map(({ ability, abilityScore }) => (
     <Box key={ability}>
       <Box
         data-cy={`ability-score-${ability}`}
@@ -27,3 +27,4 @@ export const AbilityScores = ({
       </Box>
     </Box>
   ));
+};

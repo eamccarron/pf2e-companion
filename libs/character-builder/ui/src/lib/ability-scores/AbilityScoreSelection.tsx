@@ -15,15 +15,18 @@ import {
   ClassSelectionContext,
   ClassAbilityScoreSelectionContext,
 } from '../character-class/ClassSelectionContext';
+import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
 
 import { BoostSelection } from './BoostSelection';
 
-import type { AbilityScore } from './types';
-import { ancestryBoostReducer } from './ancestryBoost';
-import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
 import { AbilityScores, HPBox } from '../character-view';
 
+import { useAbilityScoreContext, useHPContext } from '../hooks';
+
 export const AbilityScoreSelection = () => {
+  const hp = useHPContext();
+  const abilityScores = useAbilityScoreContext();
+
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
   const { selection: classSelection } = useContext(ClassSelectionContext);
   const { selection: backgroundSelection } = useContext(
@@ -44,29 +47,6 @@ export const AbilityScoreSelection = () => {
     FreeAbilityScoreSelectionContext
   );
 
-  const hp = useMemo(
-    () =>
-      Number(classSelection?.content.hp ?? 0) +
-      Number(ancestrySelection?.content.hp ?? 0),
-    [classSelection, ancestrySelection]
-  );
-
-  const abilityScores = useMemo(
-    () =>
-      (['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityScore>).map(
-        (ability) => ({
-          ability,
-          abilityScore:
-            10 +
-            (ancestryBoosts[ability] ? 2 : 0) +
-            (backgroundBoosts[ability] ? 2 : 0) +
-            (classBoosts[ability] ? 2 : 0) +
-            (freeBoosts[ability] ? 2 : 0),
-        })
-      ),
-    [ancestryBoosts, backgroundBoosts, classBoosts, freeBoosts]
-  );
-
   return (
     <Box>
       <Stack
@@ -76,7 +56,6 @@ export const AbilityScoreSelection = () => {
         spacing={{ md: 5 }}
         mb={1}
       >
-        {/* HP */}
         <HPBox hp={hp} />
         <AbilityScores abilityScores={abilityScores} />
       </Stack>

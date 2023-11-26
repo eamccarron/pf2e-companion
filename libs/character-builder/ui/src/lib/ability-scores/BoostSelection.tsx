@@ -84,9 +84,7 @@ export const BoostSelection = ({
     [freeBoostsAvailable, restrictedBoosts]
   );
 
-  useEffect(() => {
-    console.log('freeBosts', freeBoostsAvailable);
-  }, [freeBoostsAvailable]);
+  useEffect(() => {}, [freeBoostsAvailable]);
 
   const RestrictedBoosts = useMemo(() => {
     if (restricted?.length !== 0) {

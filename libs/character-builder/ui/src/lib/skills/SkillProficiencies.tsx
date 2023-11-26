@@ -1,37 +1,11 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { ProficiencyRank } from '@pf2-companion/types/character-builder';
 
-import type { CharacterSkills } from './types/CharacterSkills';
+import type { CharacterSkills } from '@pf2-companion/types/character-builder';
 import type { SkillIdentifier } from '@pf2-companion/types/compendium';
 
-const skillLabels = {
-  acr: 'Acrobatics',
-  arc: 'Arcana',
-  ath: 'Athletics',
-  cra: 'Crafting',
-  dec: 'Deception',
-  dip: 'Diplomacy',
-  itm: 'Intimidation',
-  lor: 'Lore',
-  med: 'Medicine',
-  nat: 'Nature',
-  occ: 'Occultism',
-  prf: 'Performance',
-  rel: 'Religion',
-  soc: 'Society',
-  ste: 'Stealth',
-  sur: 'Survival',
-  thi: 'Thievery',
-};
+import { proficiencyRankLabels, skillLabels } from '.';
 
-const proficiencyRankLabels = {
-  [ProficiencyRank.Untrained]: 'U',
-  [ProficiencyRank.Trained]: 'T',
-  [ProficiencyRank.Expert]: 'E',
-  [ProficiencyRank.Master]: 'M',
-  [ProficiencyRank.Legendary]: 'L',
-};
-
+// Displays the character's skills, their proficiency rank, and their modifier
 export const Skills = ({
   characterSkills,
 }: {

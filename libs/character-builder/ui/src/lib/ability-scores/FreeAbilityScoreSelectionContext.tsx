@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import { useState, type PropsWithChildren } from 'react';
 import {
   AbilityScoreSelectionContextProvider,
   createAbilityScoreSelectionContext,
@@ -9,11 +9,19 @@ export const FreeAbilityScoreSelectionContext =
 
 export const FreeAbilityScoreSelectionContextProvider = ({
   children,
-}: PropsWithChildren) => (
-  <AbilityScoreSelectionContextProvider
-    AbilityScoreContext={FreeAbilityScoreSelectionContext}
-    selection={{ content: { boosts: { free: 4, fixed: [] } } }}
-  >
-    {children}
-  </AbilityScoreSelectionContextProvider>
-);
+}: PropsWithChildren) => {
+  const [selection] = useState<{
+    content: { boosts: { free: number; fixed: [] } };
+  }>({
+    content: { boosts: { free: 4, fixed: [] } },
+  });
+
+  return (
+    <AbilityScoreSelectionContextProvider
+      AbilityScoreContext={FreeAbilityScoreSelectionContext}
+      selection={selection}
+    >
+      {children}
+    </AbilityScoreSelectionContextProvider>
+  );
+};

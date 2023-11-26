@@ -7,8 +7,8 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "**/.eslintrc.json": false,
-    "**/jest.config.ts": false,
+    "**/.eslintrc.json": true,
+    "**/jest.config.ts": true,
     "**/.babelrc": true,
     "**/vite.config.ts": true
   },

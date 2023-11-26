@@ -59,8 +59,6 @@ export const AbilityScoreView = ({
 
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
 
-  useEffect(() => console.log(ancestrySelection), [ancestrySelection]);
-
   return (
     <>
       <Divider />

@@ -8,12 +8,14 @@ export {
 export {
   BackgroundSelection,
   BackgroundSelectionContextProvider,
+  BackgroundSelectionContext,
 } from './lib/background';
 
 export {
   AbilityScoreSelection,
   AbilityScoreSelectionContextProvider,
   FreeAbilityScoreSelectionContextProvider,
+  FreeAbilityScoreSelectionContext,
 } from './lib/ability-scores';
 
 export {
@@ -34,3 +36,5 @@ export {
 } from './lib/feats';
 
 export * from './lib/character-view';
+
+export * from './lib/hooks';

@@ -1,14 +1,8 @@
 import { AbilityScores } from './AbilityScores';
 
-import type { AbilityScores as CharacterAbilityScores } from '@pf2-companion/types/character-builder';
-import type { CharacterSkills } from './types/CharacterSkills';
-import { Skills } from './Skills';
+import type { Character } from '@pf2-companion/types/character-builder';
+import { Skills } from '../skills/SkillProficiencies';
 import { Stack } from '@mui/material';
-
-export type Character = {
-  abilityScores: CharacterAbilityScores;
-  characterSkills: CharacterSkills;
-};
 
 export const CharacterView = ({ character }: { character: Character }) => (
   <>

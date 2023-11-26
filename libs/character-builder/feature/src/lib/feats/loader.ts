@@ -22,7 +22,6 @@ export const ancestryFeatsLoader = async (
   className: string,
   ancestryId: string
 ) => {
-  console.log('ancestry ID:', ancestryId);
   const ancestryFeatRes = await fetchCompendium('builder/feats/ancestry', {
     className,
     level: level,
@@ -34,7 +33,6 @@ export const ancestryFeatsLoader = async (
   }
 
   const ancestryFeats: Array<Feat> = await ancestryFeatRes.json();
-  console.log('ancestry feats:', ancestryFeats);
 
   return formatFeatJSON(ancestryFeats ?? []);
 };

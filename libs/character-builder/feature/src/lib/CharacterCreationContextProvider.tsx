@@ -43,12 +43,10 @@ export const CharacterCreationContextProvider = ({
 
   const handleNext = () => {
     setActiveStep(activeStep === totalSteps ? totalSteps : activeStep + 1);
-    console.log('next');
   };
 
   const handleBack = () => {
     setActiveStep(activeStep === 0 ? 0 : activeStep - 1);
-    console.log('back');
   };
 
   return (
