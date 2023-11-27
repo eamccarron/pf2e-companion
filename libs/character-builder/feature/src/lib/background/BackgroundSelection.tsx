@@ -1,14 +1,17 @@
 'use client';
 // Server
-import { Suspense, useState } from 'react';
+import { Suspense, useContext, useState } from 'react';
 
 // Client
 import { Box, CircularProgress, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import { BackgroundList, BackgroundDetailPane } from '.';
-
-import { RarityFilter } from '../RarityFilter';
+import { BackgroundSelectionContext } from './BackgroundSelectionContext';
+import {
+  BackgroundList,
+  BackgroundDetailPane,
+} from '@pf2-companion/character-builder/ui';
+import { RarityFilter } from '@pf2-companion/character-builder/ui';
 
 import type { BackgroundContent } from '@pf2-companion/types/character-builder';
 import type { Selection } from '@pf2-companion/ui-selection/types';
@@ -17,6 +20,8 @@ type Content = Selection<BackgroundContent>[];
 export const BackgroundSelection = ({ content }: { content: Content }) => {
   const [listContent, setListContent] = useState<Content>([]);
   const [initialContent, setInitialContent] = useState<Content>([]);
+
+  const { selection, setSelection } = useContext(BackgroundSelectionContext);
 
   useEffect(() => {
     setListContent(content);
@@ -35,11 +40,15 @@ export const BackgroundSelection = ({ content }: { content: Content }) => {
         spacing={2}
       >
         <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
-          <BackgroundList content={listContent} />
+          <BackgroundList
+            content={listContent}
+            selection={selection}
+            setSelection={setSelection}
+          />
         </Box>
 
         <Box sx={{ maxWidth: '50%' }}>
-          <BackgroundDetailPane />
+          <BackgroundDetailPane selection={selection} />
         </Box>
       </Stack>
     </>

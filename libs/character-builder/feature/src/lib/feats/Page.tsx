@@ -1,3 +1,4 @@
+'use server';
 import { FeatSelectionView } from './View';
 import { Loader } from '../../types/Loader';
 import { classFeatsLoader, ancestryFeatsLoader } from './loader';

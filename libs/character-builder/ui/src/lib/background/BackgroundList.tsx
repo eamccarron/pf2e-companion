@@ -1,4 +1,4 @@
-import { Suspense, useContext } from 'react';
+import { Dispatch, SetStateAction, Suspense, useContext } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 
 import { BackgroundSelectionContext } from './BackgroundSelectionContext';
@@ -9,11 +9,13 @@ import type { Selection } from '@pf2-companion/ui-selection/types';
 
 export const BackgroundList = ({
   content,
+  selection,
+  setSelection,
 }: {
   content: Selection<BackgroundContent>[];
+  selection: Selection<BackgroundContent>;
+  setSelection: Dispatch<SetStateAction<Selection<BackgroundContent> | null>>;
 }) => {
-  const { selection, setSelection } = useContext(BackgroundSelectionContext);
-
   return (
     <ContentList<BackgroundContent>
       data-cy="background-list"

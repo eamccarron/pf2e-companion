@@ -1,14 +1,14 @@
 'use client';
-import { Box, Chip, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import type { Selection } from '@pf2-companion/ui-selection';
-import { useContext, useEffect, useState } from 'react';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 
 import { HTMLContent } from '@pf2-companion/ui-general';
-import { HeritageSelectionContext } from './HeritageSelectionContext';
 import { FilterChip } from '@pf2-companion/ui-general';
 
-export const HeritageView = ({
+import { HeritageSelectionContext } from '.';
+
+export const HeritageSelection = ({
   content,
 }: {
   content: Selection<unknown>[];
@@ -22,14 +22,12 @@ export const HeritageView = ({
   useEffect(() => setSelection(null), [content]);
   return (
     <Box>
-      {content.map((heritage) => (
+      {content?.map((heritage) => (
         <FilterChip
           key={heritage.id}
           label={heritage.primary}
           handleSelection={() => setSelection(heritage)}
           selectedFilters={isSelected(heritage) ? [heritage.primary] : []}
-          // variant={isSelected(heritage) ? 'filled' : 'outlined'}
-          // icon={isSelected(heritage) ? <CheckCircleIcon /> : undefined}
           sx={{ mr: 1, mb: 1 }}
         />
       ))}

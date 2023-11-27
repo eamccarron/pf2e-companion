@@ -6,15 +6,14 @@ import { useRouter, usePathname } from 'next/navigation';
 import { ClassSelectionContext } from './ClassSelectionContext';
 import { ContentDetailPane } from '@pf2-companion/ui-selection';
 import type { ClassContent } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/ui-selection';
 import { TrainedSkills } from '../skills/TrainedSkills';
 
-export const ClassDetailPane = () => {
-  const { selection } = useContext(ClassSelectionContext);
-  const pathname = usePathname();
-  const router = useRouter();
-
-  // useEffect(() => router.push(pathname), []);
-
+export const ClassDetailPane = ({
+  selection,
+}: {
+  selection: Selection<ClassContent>;
+}) => {
   return (
     <ContentDetailPane<ClassContent>
       slide

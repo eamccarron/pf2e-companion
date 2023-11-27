@@ -17,12 +17,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import type { SetStateAction, Dispatch } from 'react';
 import type { AbilityScore } from './types';
 
-import type {
-  BoostSelection as BoostState,
-  RestrictedBoostAction,
-  BoostAction,
-} from './AbilityScoreSelectionContext';
-
 export type BoostSelectionProps = {
   boostDispatch: Dispatch<BoostAction>;
   boosts: BoostState;
@@ -83,8 +77,6 @@ export const BoostSelection = ({
       restrictedBoosts.filter((boost) => boost === '').length,
     [freeBoostsAvailable, restrictedBoosts]
   );
-
-  useEffect(() => {}, [freeBoostsAvailable]);
 
   const RestrictedBoosts = useMemo(() => {
     if (restricted?.length !== 0) {

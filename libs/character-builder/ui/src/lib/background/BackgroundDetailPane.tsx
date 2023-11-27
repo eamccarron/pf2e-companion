@@ -6,9 +6,13 @@ import { type BackgroundContent } from '@pf2-companion/types/character-builder';
 import { TrainedSkills } from '../skills/TrainedSkills';
 import { Typography, Stack } from '@mui/material';
 
-export const BackgroundDetailPane = () => {
-  const { selection } = useContext(BackgroundSelectionContext);
+import type { Selection } from '@pf2-companion/types/ui-selection';
 
+export const BackgroundDetailPane = ({
+  selection,
+}: {
+  selection: Selection<BackgroundContent>;
+}) => {
   return (
     <ContentDetailPane<BackgroundContent>
       slide

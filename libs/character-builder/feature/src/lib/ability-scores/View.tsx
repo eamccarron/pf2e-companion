@@ -2,11 +2,9 @@
 import { Tabs, Tab, Box, Divider, Skeleton } from '@mui/material';
 import { ReactNode, Suspense, useContext, useEffect, useState } from 'react';
 
-import {
-  AncestrySelection,
-  BackgroundSelection,
-  AncestrySelectionContext,
-} from '@pf2-companion/character-builder/ui';
+import { AncestrySelection, AncestrySelectionContext } from '../ancestry';
+
+import { BackgroundSelection } from '../background/BackgroundSelection';
 
 import type { Selection } from '@pf2-companion/ui-selection';
 

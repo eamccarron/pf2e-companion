@@ -1,12 +1,15 @@
 'use client';
-import { useState, Suspense, PropsWithChildren } from 'react';
+import { useState, Suspense, PropsWithChildren, useContext } from 'react';
 
 import { Box, CircularProgress, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import { AncestryList, AncestryDetailPane } from '.';
-
-import { RarityFilter } from '../RarityFilter';
+import {
+  AncestryList,
+  AncestryDetailPane,
+  RarityFilter,
+} from '@pf2-companion/character-builder/ui';
+import { AncestrySelectionContext } from './AncestrySelectionContext';
 
 import type { AncestryContent } from '@pf2-companion/types/character-builder';
 import type { Selection } from '@pf2-companion/ui-selection/types';
@@ -19,6 +22,8 @@ export const AncestrySelection = ({
 }: PropsWithChildren<{ content: Content }>) => {
   const [listContent, setListContent] = useState<Content>([]);
   const [initialContent, setInitialContent] = useState<Content>([]);
+
+  const { selection, setSelection } = useContext(AncestrySelectionContext);
 
   useEffect(() => {
     setListContent(content);
@@ -37,10 +42,16 @@ export const AncestrySelection = ({
         spacing={2}
       >
         <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
-          <AncestryList content={listContent} />
+          <AncestryList
+            content={listContent}
+            selection={selection}
+            setSelection={setSelection}
+          />
         </Box>
         <Box sx={{ maxHeight: 600, overflow: 'auto', width: '50%' }}>
-          <AncestryDetailPane>{children}</AncestryDetailPane>
+          <AncestryDetailPane selection={selection}>
+            {children}
+          </AncestryDetailPane>
         </Box>
       </Stack>
     </>

@@ -1,25 +1,29 @@
-import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
-import { Stack, Box, Typography, Checkbox, Badge } from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+'use client';
+import { useContext } from 'react';
+import { Stack, Box } from '@mui/material';
 
 import {
   AncestrySelectionContext,
   AncestryAbilityScoreSelectionContext,
 } from '../ancestry/AncestrySelectionContext';
+
 import {
   BackgroundSelectionContext,
   BackgroundAbilityScoreSelectionContext,
 } from '../background/BackgroundSelectionContext';
+
 import {
   ClassSelectionContext,
   ClassAbilityScoreSelectionContext,
-} from '../character-class/ClassSelectionContext';
+} from '../class-selection/ClassSelectionContext';
+
 import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
 
-import { BoostSelection } from './BoostSelection';
-
-import { AbilityScores, HPBox } from '../character-view';
+import {
+  BoostSelection,
+  AbilityScores,
+  HPBox,
+} from '@pf2-companion/character-builder/ui';
 
 import { useAbilityScoreContext, useHPContext } from '../hooks';
 

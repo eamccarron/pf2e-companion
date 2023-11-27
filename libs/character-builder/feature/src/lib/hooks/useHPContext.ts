@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 
 import { AncestrySelectionContext } from '../ancestry/AncestrySelectionContext';
-import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
+import { ClassSelectionContext } from '../class-selection/ClassSelectionContext';
 
 export const useHPContext = () => {
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);

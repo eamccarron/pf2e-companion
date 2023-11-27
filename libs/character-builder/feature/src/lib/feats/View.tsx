@@ -1,13 +1,13 @@
 'use client';
 
+import { FeatSelectionContext, LevelSelection } from '.';
+
 import {
   FeatSelectionPane,
-  FeatSelectionContext,
-  LevelSelection,
   FeatOptions,
-  AncestrySelection,
-  AncestrySelectionContext,
 } from '@pf2-companion/character-builder/ui';
+
+import { AncestrySelection, AncestrySelectionContext } from '../ancestry';
 
 import { CharacterView as CharacterViewTest } from '../CharacterView';
 import { CharacterView } from '@pf2-companion/character-builder/ui';

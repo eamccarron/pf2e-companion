@@ -6,7 +6,11 @@ import type {
   PropsWithChildren,
   SetStateAction,
 } from 'react';
-import type { AbilityScore, BoostContent } from './types';
+
+import type {
+  AbilityBoostOptions as BoostContent,
+  AbilityScore,
+} from '@pf2-companion/types/character-builder';
 
 export type BoostAction =
   | {

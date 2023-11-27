@@ -1,9 +1,9 @@
 import { useContext, useMemo } from 'react';
 
 import { useAbilityScoreContext } from './useAbilityScoreContext';
-import { skillLabels, skillAbilities } from '../skills';
-import { BackgroundSelectionContext } from '../background';
-import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
+import { skillAbilities } from '../skills/skillAbilities';
+import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
+import { ClassSelectionContext } from '../class-selection/ClassSelectionContext';
 import type {
   AbilityIdentifier,
   SkillIdentifier,
@@ -31,7 +31,7 @@ export const useSkillContext = (): CharacterSkills => {
   }, [classSelection, backgroundSelection]);
 
   const skills = useMemo(() => {
-    const result = (Object.keys(skillLabels) as SkillIdentifier[]).map(
+    const result = (Object.keys(skillAbilities) as SkillIdentifier[]).map(
       (skill) => [skill, skillAbilities[skill]]
     );
 

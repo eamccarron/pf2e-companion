@@ -1,3 +1,4 @@
+'use server';
 import { fetchCompendium } from '../fetchCompendium';
 
 import { formatAncestryJSON } from '@pf2-companion/character-builder/data-access';

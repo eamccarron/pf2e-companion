@@ -1,14 +1,12 @@
 import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from '@remix-run/react';
 
-import {
-  ClassSelectionContextProvider,
-  AncestrySelectionContextProvider,
-  BackgroundSelectionContextProvider,
-  FreeAbilityScoreSelectionContextProvider,
-  HeritageSelectionContext,
-  FeatSelectionContextProvider,
-} from '@pf2-companion/character-builder/ui';
+import { ClassSelectionContextProvider } from './class-selection';
+import { AncestrySelectionContextProvider } from './ancestry';
+import { BackgroundSelectionContextProvider } from './background';
+import { FreeAbilityScoreSelectionContextProvider } from './ability-scores';
+import { HeritageSelectionContext } from './heritage';
+import { FeatSelectionContextProvider } from './feats';
 
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 

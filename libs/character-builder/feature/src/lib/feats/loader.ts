@@ -1,3 +1,4 @@
+'use server';
 import { fetchCompendium } from '../fetchCompendium';
 import { formatFeatJSON } from '@pf2-companion/character-builder/data-access';
 import type { BuilderTemplate } from '@pf2-companion/types/character-builder';

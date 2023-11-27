@@ -2,23 +2,25 @@ import { useContext, useMemo } from 'react';
 
 import { AncestryAbilityScoreSelectionContext } from '../ancestry/AncestrySelectionContext';
 import { BackgroundAbilityScoreSelectionContext } from '../background/BackgroundSelectionContext';
-import { ClassAbilityScoreSelectionContext } from '../character-class/ClassSelectionContext';
+import { ClassAbilityScoreSelectionContext } from '../class-selection/ClassSelectionContext';
 import { FreeAbilityScoreSelectionContext } from '../ability-scores/FreeAbilityScoreSelectionContext';
 
 import type { AbilityIdentifier } from '@pf2-companion/types/compendium';
 
 export const useAbilityScoreContext = () => {
-  const { boostState: backgroundBoosts, ...backgroundAbilitySelection } =
-    useContext(BackgroundAbilityScoreSelectionContext);
+  const { boostState: backgroundBoosts } = useContext(
+    BackgroundAbilityScoreSelectionContext
+  );
 
-  const { boostState: ancestryBoosts, ...ancestryAbilitySelection } =
-    useContext(AncestryAbilityScoreSelectionContext);
+  const { boostState: ancestryBoosts } = useContext(
+    AncestryAbilityScoreSelectionContext
+  );
 
-  const { boostState: classBoosts, ...classAbilitySelection } = useContext(
+  const { boostState: classBoosts } = useContext(
     ClassAbilityScoreSelectionContext
   );
 
-  const { boostState: freeBoosts, ...freeAbilitySelection } = useContext(
+  const { boostState: freeBoosts } = useContext(
     FreeAbilityScoreSelectionContext
   );
 

@@ -10,9 +10,15 @@ import type { Selection } from '@pf2-companion/ui-selection/types';
 
 type ListContent = Selection<AncestryContent>[];
 
-export const AncestryList = ({ content }: { content: ListContent }) => {
-  const { selection, setSelection } = useContext(AncestrySelectionContext);
-
+export const AncestryList = ({
+  content,
+  selection,
+  setSelection,
+}: {
+  content: ListContent;
+  selection: Selection<AncestryContent>;
+  setSelection: Dispatch<SetStateAction<Selection<AncestryContent> | null>>;
+}) => {
   return (
     <ContentList<AncestryContent>
       data-cy="ancestry-list"

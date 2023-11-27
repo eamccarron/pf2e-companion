@@ -1,17 +1,13 @@
 'use server';
-import { HeritageView } from '@pf2-companion/character-builder/ui';
 import { Suspense, useCallback, useContext, useEffect } from 'react';
 
 import type { Selection } from '@pf2-companion/ui-selection';
 import { Box, CircularProgress, Divider, Skeleton } from '@mui/material';
 
+import { HeritageSelection } from '.';
 import { loader as fetchHeritage } from './loader';
 
-export async function HeritageSelection({
-  ancestryId,
-}: {
-  ancestryId: string;
-}) {
+export async function HeritageView({ ancestryId }: { ancestryId: string }) {
   if (!ancestryId) return <></>;
 
   const heritages = (await fetchHeritage(ancestryId)) as Selection<any>[];
@@ -22,7 +18,7 @@ export async function HeritageSelection({
         sx={{ mb: 2 }}
         variant="middle"
       />
-      <HeritageView content={heritages} />
+      <HeritageSelection content={heritages} />
     </Box>
   );
 }
