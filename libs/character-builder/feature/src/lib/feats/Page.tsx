@@ -1,7 +1,10 @@
 'use server';
 import { FeatSelectionView } from './View';
-import { Loader } from '../../types/Loader';
-import { classFeatsLoader, ancestryFeatsLoader } from './loader';
+import {
+  fetchClassFeats,
+  fetchAncestryFeats,
+} from '@pf2-companion/character-builder/data-access';
+
 import { Suspense } from 'react';
 import { CircularProgress } from '@mui/material';
 
@@ -15,9 +18,9 @@ export const FeatSelectionPage = async ({
   };
 }) => {
   const { className, level, ancestryId } = searchParams;
-  const classFeats = await classFeatsLoader(level ?? '1', className ?? '');
+  const classFeats = await fetchClassFeats(level ?? '1', className ?? '');
 
-  const ancestryFeats = await ancestryFeatsLoader(
+  const ancestryFeats = await fetchAncestryFeats(
     level ?? '1',
     className ?? '',
     ancestryId ?? ''

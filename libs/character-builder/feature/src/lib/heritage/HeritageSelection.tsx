@@ -1,42 +1,28 @@
-'use client';
-import { Box } from '@mui/material';
+'use server';
 import type { Selection } from '@pf2-companion/ui-selection';
-import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
+import { Box, Divider } from '@mui/material';
 
-import { HTMLContent } from '@pf2-companion/ui-general';
-import { FilterChip } from '@pf2-companion/ui-general';
+import { HeritageSelectionView } from '.';
+import { fetchAncestryHeritages } from '@pf2-companion/character-builder/data-access';
 
-import { HeritageSelectionContext } from '.';
-
-export const HeritageSelection = ({
-  content,
+export async function HeritageSelection({
+  ancestryId,
 }: {
-  content: Selection<unknown>[];
-}) => {
-  const { selection, setSelection } = useContext(HeritageSelectionContext);
-  const { secondary } = selection ?? {};
+  ancestryId: string;
+}) {
+  if (!ancestryId) return <></>;
 
-  const isSelected = (heritage: Selection<unknown>) =>
-    heritage.id === selection?.id;
+  const heritages = (await fetchAncestryHeritages(
+    ancestryId
+  )) as Selection<any>[];
 
-  useEffect(() => setSelection(null), [content]);
   return (
-    <Box>
-      {content?.map((heritage) => (
-        <FilterChip
-          key={heritage.id}
-          label={heritage.primary}
-          handleSelection={() => setSelection(heritage)}
-          selectedFilters={isSelected(heritage) ? [heritage.primary] : []}
-          sx={{ mr: 1, mb: 1 }}
-        />
-      ))}
-
-      {secondary && (
-        <Box mt={2}>
-          <HTMLContent content={secondary} />
-        </Box>
-      )}
+    <Box mt={2}>
+      <Divider
+        sx={{ mb: 2 }}
+        variant="middle"
+      />
+      <HeritageSelectionView content={heritages} />
     </Box>
   );
-};
+}

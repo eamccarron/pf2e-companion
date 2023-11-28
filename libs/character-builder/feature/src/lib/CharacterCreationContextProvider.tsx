@@ -1,7 +1,7 @@
 import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from '@remix-run/react';
 
-import { ClassSelectionContextProvider } from './class-selection';
+import { ClassSelectionContextProvider } from './character-class';
 import { AncestrySelectionContextProvider } from './ancestry';
 import { BackgroundSelectionContextProvider } from './background';
 import { FreeAbilityScoreSelectionContextProvider } from './ability-scores';

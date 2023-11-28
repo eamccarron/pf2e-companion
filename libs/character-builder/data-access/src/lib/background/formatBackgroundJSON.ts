@@ -1,7 +1,7 @@
 import type { BackgroundContent } from '@pf2-companion/types/character-builder';
 import type { Background } from '@pf2-companion/compendium-models';
 
-import { calculateAbilityBoosts } from './calculateAbilityBoosts';
+import { calculateAbilityBoosts } from '../calculateAbilityBoosts';
 
 export const formatBackgroundJSON = (backgrounds: Array<Background>) =>
   backgrounds.map(

@@ -1,1 +1,2 @@
-export { BoostSelection } from './BoostSelection;';
+export { FreeBoostSelection } from './FreeBoostSelection';
+export { RestrictedBoostSelection } from './RestrictedBoostSelection';

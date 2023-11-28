@@ -6,7 +6,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 import { CharacterCreationContext } from './CharacterCreationContextProvider';
 import { AncestrySelectionContext } from './ancestry';
-import { ClassSelectionContext } from './class-selection';
+import { ClassSelectionContext } from './character-class';
 
 export const CharacterCreationStepper = ({
   steps,

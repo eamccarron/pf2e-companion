@@ -1,4 +1,4 @@
 'use client';
 
 export { HeritageSelectionContext } from './HeritageSelectionContext';
-export { HeritageSelection } from './HeritageSelection';
+export { HeritageSelectionView } from './HeritageSelectionView';

@@ -26,15 +26,6 @@ export type BoostAction =
       target: [];
     };
 
-export type BoostSelection = Partial<{
-  str: boolean;
-  dex: boolean;
-  con: boolean;
-  int: boolean;
-  wis: boolean;
-  cha: boolean;
-}>;
-
 export type BoostReducer = (
   state: BoostSelection,
   action: BoostAction

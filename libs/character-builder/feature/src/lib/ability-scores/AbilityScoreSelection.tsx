@@ -15,15 +15,13 @@ import {
 import {
   ClassSelectionContext,
   ClassAbilityScoreSelectionContext,
-} from '../class-selection/ClassSelectionContext';
+} from '../character-class/ClassSelectionContext';
 
 import { FreeAbilityScoreSelectionContext } from './FreeAbilityScoreSelectionContext';
 
-import {
-  BoostSelection,
-  AbilityScores,
-  HPBox,
-} from '@pf2-companion/character-builder/ui';
+import { BoostSelection } from './BoostSelection';
+
+import { AbilityScores, HPBox } from '@pf2-companion/character-builder/ui';
 
 import { useAbilityScoreContext, useHPContext } from '../hooks';
 

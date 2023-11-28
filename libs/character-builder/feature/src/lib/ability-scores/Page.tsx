@@ -5,9 +5,22 @@ import { AbilityScoreSelection } from './AbilityScoreSelection';
 import { Suspense } from 'react';
 
 import { AbilityScoreView } from './View';
-import { HeritageView } from '../heritage/HeritageView';
+import { HeritageSelection } from '../heritage/HeritageSelection';
 
-import { loader } from './loader';
+import {
+  fetchAncestries,
+  fetchBackgrounds,
+} from '@pf2-companion/character-builder/data-access';
+
+const loader = async () => {
+  const ancestries = await fetchAncestries();
+  const backgrounds = await fetchBackgrounds();
+
+  return {
+    ancestries,
+    backgrounds,
+  };
+};
 
 export const Page = async ({
   searchParams,
@@ -29,7 +42,7 @@ export const Page = async ({
             key={ancestryId}
             fallback={<CircularProgress />}
           >
-            <HeritageView ancestryId={ancestryId} />
+            <HeritageSelection ancestryId={ancestryId} />
           </Suspense>
         }
       />

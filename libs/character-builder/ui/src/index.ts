@@ -7,7 +7,10 @@ export { FeatSelectionPane, FeatOptions } from './lib/feats';
 
 export { RarityFilter } from './lib/RarityFilter';
 
-export { BoostSelection } from './lib/ability-scores/BoostSelection';
+export {
+  FreeBoostSelection,
+  RestrictedBoostSelection,
+} from './lib/ability-scores';
 
 export { AncestryList, AncestryDetailPane } from './lib/ancestry';
 

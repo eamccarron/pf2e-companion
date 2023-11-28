@@ -2,7 +2,7 @@ import { useContext, useMemo } from 'react';
 
 import { AncestryAbilityScoreSelectionContext } from '../ancestry/AncestrySelectionContext';
 import { BackgroundAbilityScoreSelectionContext } from '../background/BackgroundSelectionContext';
-import { ClassAbilityScoreSelectionContext } from '../class-selection/ClassSelectionContext';
+import { ClassAbilityScoreSelectionContext } from '../character-class/ClassSelectionContext';
 import { FreeAbilityScoreSelectionContext } from '../ability-scores/FreeAbilityScoreSelectionContext';
 
 import type { AbilityIdentifier } from '@pf2-companion/types/compendium';

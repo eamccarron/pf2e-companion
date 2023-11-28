@@ -3,7 +3,7 @@ import { useContext, useMemo } from 'react';
 import { useAbilityScoreContext } from './useAbilityScoreContext';
 import { skillAbilities } from '../skills/skillAbilities';
 import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
-import { ClassSelectionContext } from '../class-selection/ClassSelectionContext';
+import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
 import type {
   AbilityIdentifier,
   SkillIdentifier,

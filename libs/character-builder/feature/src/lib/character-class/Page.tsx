@@ -1,5 +1,6 @@
 'use server';
-import { loader as fetchClasses } from './loader';
+
+import { fetchClasses } from '@pf2-companion/character-builder/data-access';
 import { ClassSelectionView } from '.';
 
 export const Page = async () => {
