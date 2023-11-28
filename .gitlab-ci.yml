@@ -25,7 +25,7 @@ stages:
   extends: .npm
   stage: lint
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
 
 .build:
@@ -68,9 +68,6 @@ stages:
 install-dependencies:
   stage: setup
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
-      changes:
-        - package-lock.json
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
         - package-lock.json
