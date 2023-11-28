@@ -1,13 +1,13 @@
 'use server';
 import { fetchCompendium } from '../fetchCompendium';
 
-import { formatAncestryJSON } from '@pf2-companion/character-builder/data-access';
+import { formatAncestryJSON } from './formatAncestryJSON';
 
 import type { AncestryContent } from '@pf2-companion/types/character-builder';
 
 import type { Ancestry } from '@pf2-companion/compendium-models';
 
-import type { Selection } from '@pf2-companion/ui-selection/types';
+import type { Selection } from '@pf2-companion/types/ui-selection';
 
 export const fetchAncestries = async (): Promise<
   Selection<AncestryContent>[]

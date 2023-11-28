@@ -1,7 +1,4 @@
-import { Dispatch, SetStateAction, Suspense, useContext } from 'react';
-import { Box, CircularProgress } from '@mui/material';
-
-import { BackgroundSelectionContext } from './BackgroundSelectionContext';
+import { Dispatch, SetStateAction } from 'react';
 import { ContentList } from '@pf2-companion/ui-selection';
 
 import type { BackgroundContent } from '@pf2-companion/types/character-builder';

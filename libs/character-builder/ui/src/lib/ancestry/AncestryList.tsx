@@ -1,8 +1,6 @@
 'use client';
-import { Dispatch, SetStateAction, useContext } from 'react';
-import { Box } from '@mui/material';
+import { Dispatch, SetStateAction } from 'react';
 
-import { AncestrySelectionContext } from './AncestrySelectionContext';
 import { ContentList } from '@pf2-companion/ui-selection';
 
 import type { AncestryContent } from '@pf2-companion/types/character-builder';

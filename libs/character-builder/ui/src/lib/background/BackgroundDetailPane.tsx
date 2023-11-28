@@ -1,10 +1,6 @@
-import { useContext } from 'react';
-
-import { BackgroundSelectionContext } from './BackgroundSelectionContext';
 import { ContentDetailPane } from '@pf2-companion/ui-selection';
 import { type BackgroundContent } from '@pf2-companion/types/character-builder';
 import { TrainedSkills } from '../skills/TrainedSkills';
-import { Typography, Stack } from '@mui/material';
 
 import type { Selection } from '@pf2-companion/types/ui-selection';
 
