@@ -1,6 +1,6 @@
 import { CharacterView as Character } from '@pf2-companion/character-builder/ui';
 
-import { useAbilityScoreContext, useHPContext, useSkillContext } from './hooks';
+import { useAbilityScoreContext, useSkillContext } from './hooks';
 import { useEffect } from 'react';
 
 export const CharacterView = () => {

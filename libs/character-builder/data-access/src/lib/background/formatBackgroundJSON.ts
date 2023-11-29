@@ -1,4 +1,3 @@
-import type { BackgroundContent } from '@pf2-companion/types/character-builder';
 import type { Background } from '@pf2-companion/compendium-models';
 
 import { calculateAbilityBoosts } from '../calculateAbilityBoosts';

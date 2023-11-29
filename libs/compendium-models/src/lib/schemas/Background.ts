@@ -4,10 +4,9 @@ import type { HydratedDocument } from 'mongoose';
 export type BackgroundDocument = HydratedDocument<Background>;
 
 import {
+  AbilityScoreModifiers,
   Description,
   TrainedSkills,
-  Rarity,
-  AbilityScoreModifiers,
   Traits,
 } from './System';
 

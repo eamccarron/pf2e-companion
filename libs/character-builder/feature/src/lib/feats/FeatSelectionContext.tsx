@@ -1,17 +1,12 @@
-import { createContext, useReducer, useState, useEffect, useMemo } from 'react';
+import { createContext, useReducer } from 'react';
 
-import type {
-  Context,
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-} from 'react';
+import type { Dispatch, PropsWithChildren } from 'react';
 
-import type { Selection } from '@pf2-companion/ui-selection/types';
 import type {
   FeatContent,
   FeatType,
 } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/ui-selection/types';
 
 export type FeatAction = {
   type: 'ADD_FEAT' | 'ADD_LEVEL' | 'RESET';

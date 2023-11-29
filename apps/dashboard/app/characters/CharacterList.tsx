@@ -1,20 +1,18 @@
 'use client';
 import { useContext } from 'react';
 
-import { CharacterSelectionContext } from './CharacterSelectionContext';
 import { ContentList, Selection } from '@pf2-companion/ui-selection';
+import { CharacterSelectionContext } from './CharacterSelectionContext';
 
-import type { SelectionContext } from '@pf2-companion/ui-selection';
+import type { Character } from '@pf2-companion/types/character-builder';
 
 export const CharacterList = ({
   content,
-}: React.PropsWithChildren<{ content: Selection<any>[] }>) => {
-  const { selection, setSelection } = useContext<SelectionContext<any>>(
-    CharacterSelectionContext
-  );
+}: React.PropsWithChildren<{ content: Selection<Character>[] }>) => {
+  const { selection, setSelection } = useContext(CharacterSelectionContext);
 
   return (
-    <ContentList<any>
+    <ContentList<Character>
       selection={selection}
       setSelection={setSelection}
       content={content}

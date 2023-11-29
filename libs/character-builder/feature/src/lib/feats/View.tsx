@@ -3,24 +3,23 @@
 import { FeatSelectionContext, LevelSelection } from '.';
 
 import {
-  FeatSelectionPane,
   FeatOptions,
+  FeatSelectionPane,
 } from '@pf2-companion/character-builder/ui';
 
-import { AncestrySelection, AncestrySelectionContext } from '../ancestry';
+import { AncestrySelectionContext } from '../ancestry';
 
-import { CharacterView as CharacterViewTest } from '../CharacterView';
-import { CharacterView } from '@pf2-companion/character-builder/ui';
 import { Box, Stack } from '@mui/material';
-import { useMemo, useState, useContext, useEffect } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { CharacterView as CharacterViewTest } from '../CharacterView';
 
-import type { Selection } from '@pf2-companion/types/ui-selection';
 import type {
   BuilderTemplate,
   FeatContent,
   FeatType,
 } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/types/ui-selection';
 
 const featTypes: {
   [k in keyof BuilderTemplate]: FeatType;

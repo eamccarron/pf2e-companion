@@ -1,12 +1,12 @@
 'use client';
-import { useState, Suspense, PropsWithChildren, useContext } from 'react';
+import { PropsWithChildren, useContext, useState } from 'react';
 
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
 import {
-  AncestryList,
   AncestryDetailPane,
+  AncestryList,
   RarityFilter,
 } from '@pf2-companion/character-builder/ui';
 import { AncestrySelectionContext } from './AncestrySelectionContext';

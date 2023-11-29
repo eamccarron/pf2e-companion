@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0",
-    "@pf2-companion/types/ui-selection": "^0.0.1",
-    "@pf2-companion/compendium-models": "^0.0.1"
+    "@pf2-companion/types/ui-selection": "*",
+    "@pf2-companion/compendium-models": "*",
+    "@pf2-companion/types/compendium": "*"
   },
   "type": "commonjs",
   "main": "./src/index.js",

@@ -1,17 +1,15 @@
 'use client';
-// Server
-import { Suspense, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
-// Client
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
-import { BackgroundSelectionContext } from './BackgroundSelectionContext';
 import {
-  BackgroundList,
   BackgroundDetailPane,
+  BackgroundList,
+  RarityFilter,
 } from '@pf2-companion/character-builder/ui';
-import { RarityFilter } from '@pf2-companion/character-builder/ui';
+import { BackgroundSelectionContext } from './BackgroundSelectionContext';
 
 import type { BackgroundContent } from '@pf2-companion/types/character-builder';
 import type { Selection } from '@pf2-companion/ui-selection/types';

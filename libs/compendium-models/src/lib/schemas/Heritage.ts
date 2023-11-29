@@ -3,15 +3,7 @@ import type { HydratedDocument } from 'mongoose';
 
 export type HeritageDocument = HydratedDocument<Heritage>;
 
-import {
-  Description,
-  TrainedSkills,
-  Rarity,
-  AbilityScoreModifiers,
-  Traits,
-} from './System';
-
-import type { Ancestry } from './Ancestry';
+import { AbilityScoreModifiers, Description, Traits } from './System';
 
 export class RelatedAncestry {
   @Prop()

@@ -5,7 +5,8 @@
     "tslib": "^2.3.0",
     "reflect-metadata": "*",
     "@nestjs/mongoose": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "@pf2-companion/types/compendium": "*"
   },
   "type": "commonjs",
   "main": "./src/index.js",

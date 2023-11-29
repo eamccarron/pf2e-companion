@@ -1,4 +1,5 @@
-export const formatHeritageJSON = (heritages: Array<any>) =>
+import type { Heritage } from '@pf2-companion/compendium-models';
+export const formatHeritageJSON = (heritages: Array<Heritage>) =>
   heritages.map(
     ({
       name: heritageName,

@@ -1,18 +1,14 @@
 import { useContext, useMemo } from 'react';
 
-import { useAbilityScoreContext } from './useAbilityScoreContext';
-import { skillAbilities } from '../skills/skillAbilities';
-import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
-import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
-import type {
-  AbilityIdentifier,
-  SkillIdentifier,
-} from '@pf2-companion/types/compendium';
 import type { CharacterSkills } from '@pf2-companion/types/character-builder';
 import { ProficiencyRank } from '@pf2-companion/types/character-builder';
+import type { SkillIdentifier } from '@pf2-companion/types/compendium';
+import { BackgroundSelectionContext } from '../background/BackgroundSelectionContext';
+import { ClassSelectionContext } from '../character-class/ClassSelectionContext';
+import { skillAbilities } from '../skills/skillAbilities';
+import { useAbilityScoreContext } from './useAbilityScoreContext';
 
 import { calculateAbilityModifier } from '@pf2-companion/utils';
-import { profileEnd } from 'console';
 
 export const useSkillContext = (): CharacterSkills => {
   const abilityScores = useAbilityScoreContext();

@@ -2,16 +2,13 @@ import { useCallback, useMemo } from 'react';
 
 import { ContentList } from '@pf2-companion/ui-selection';
 
-import type { Dispatch, SetStateAction } from 'react';
-import type {
-  BuilderTemplate,
-  FeatContent,
-} from '@pf2-companion/types/character-builder';
-import type { Selection } from '@pf2-companion/ui-selection/types';
 import { ListItemIcon, ListItemText } from '@mui/material';
+import type { BuilderTemplate } from '@pf2-companion/types/character-builder';
+import type { Selection } from '@pf2-companion/ui-selection/types';
+import type { Dispatch, SetStateAction } from 'react';
 
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import type { FeatType } from '@pf2-companion/types/character-builder';
 
 export type FeatOptionsProps = {

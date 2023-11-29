@@ -1,5 +1,4 @@
-import { PropsWithChildren, createContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from '@remix-run/react';
+import { PropsWithChildren, createContext } from 'react';
 
 import { ClassSelectionContextProvider } from './character-class';
 import { AncestrySelectionContextProvider } from './ancestry';

@@ -1,19 +1,20 @@
-import React, { useCallback } from 'react';
-import type { PropsWithChildren } from 'react';
 import {
+  Box,
   List,
   ListItem,
   ListItemButton,
-  Box,
   ListItemText,
-  Typography,
 } from '@mui/material';
+import type { PropsWithChildren } from 'react';
+import React, { useCallback } from 'react';
 
 import type { Selection } from './SelectionContextProvider';
 
-type ListItem = Selection<any>;
-
-type ListContentRenderer = ({ content }: { content: ListItem }) => JSX.Element;
+type ListContentRenderer<T> = ({
+  content,
+}: {
+  content: Selection<T>;
+}) => JSX.Element;
 
 export type ContentListProps<T> = PropsWithChildren<{
   'data-cy'?: string;
@@ -21,7 +22,7 @@ export type ContentListProps<T> = PropsWithChildren<{
   selection: Selection<T> | null;
   setSelection: React.Dispatch<Selection<T> | null>;
   maxHeight?: number | string;
-  renderListItem?: ListContentRenderer;
+  renderListItem?: ListContentRenderer<T>;
   secondaryAction?: JSX.Element | null;
 }>;
 
@@ -34,13 +35,13 @@ export function ContentList<T>({
   secondaryAction = null,
   ...props
 }: ContentListProps<T>) {
-  const handleSelection = (content: ListItem) => setSelection(content);
+  const handleSelection = (content: Selection<T>) => setSelection(content);
   const isSelected = useCallback(
     (id: string | number) => selection?.id === id,
     [selection?.id]
   );
 
-  const ContentListItem = ({ content }: { content: ListItem }) => {
+  const ContentListItem = ({ content }: { content: Selection<T> }) => {
     return (
       <ListItem
         key={content.id}

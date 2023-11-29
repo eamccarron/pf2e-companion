@@ -1,4 +1,3 @@
-import React, { type PropsWithChildren } from 'react';
 import {
   Box,
   Card,
@@ -6,12 +5,11 @@ import {
   CardHeader,
   Divider,
   Slide,
-  Typography,
 } from '@mui/material';
+import { type PropsWithChildren } from 'react';
 
-import { Selection } from './SelectionContextProvider';
 import { HTMLContent } from '@pf2-companion/ui-general';
-import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
+import { Selection } from './SelectionContextProvider';
 
 interface ContentDetailPaneProps<T> {
   selection: Selection<T> | null;

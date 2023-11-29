@@ -14,7 +14,7 @@ export async function HeritageSelection({
 
   const heritages = (await fetchAncestryHeritages(
     ancestryId
-  )) as Selection<any>[];
+  )) as Selection<unknown>[];
 
   return (
     <Box mt={2}>

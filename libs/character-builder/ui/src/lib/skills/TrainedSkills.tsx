@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
-import type { SkillIdentifier } from '@pf2-companion/types/compendium';
-import { skillLabels } from '.';
 import { PropsWithChildren } from 'react';
+import { skillLabels } from '.';
 
 import type { TrainedSkills as TrainedSkillsContent } from '@pf2-companion/types/character-builder';
 

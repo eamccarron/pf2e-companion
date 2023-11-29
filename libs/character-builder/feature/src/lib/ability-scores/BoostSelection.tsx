@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 
 import {
   FreeBoostSelection,
