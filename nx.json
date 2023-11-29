@@ -21,7 +21,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["^type-check"],
       "options": {
-        "command": "tsc -p tsconfig.json --noEmit",
+        "command": "tsc --noEmit",
         "cwd": "{projectRoot}"
       }
     },

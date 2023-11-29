@@ -8,7 +8,7 @@ import { TrainedSkills } from '../skills/TrainedSkills';
 export const ClassDetailPane = ({
   selection,
 }: {
-  selection: Selection<ClassContent>;
+  selection: Selection<ClassContent> | null;
 }) => {
   return (
     <ContentDetailPane<ClassContent>

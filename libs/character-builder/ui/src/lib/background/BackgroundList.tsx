@@ -10,7 +10,7 @@ export const BackgroundList = ({
   setSelection,
 }: {
   content: Selection<BackgroundContent>[];
-  selection: Selection<BackgroundContent>;
+  selection: Selection<BackgroundContent> | null;
   setSelection: Dispatch<SetStateAction<Selection<BackgroundContent> | null>>;
 }) => {
   return (

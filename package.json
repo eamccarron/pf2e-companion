@@ -15,6 +15,7 @@
     "format:check": "prettier --config .prettierrc --check",
     "format:fix": "prettier --config .prettierrc --write .",
     "kaniko:build": "./tools/docker/kaniko-build.sh",
+    "tsc:clean": "rm -rf dist",
     "prepare": "husky install"
   },
   "private": true,

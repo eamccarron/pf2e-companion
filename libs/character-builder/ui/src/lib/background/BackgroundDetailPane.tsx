@@ -7,7 +7,7 @@ import type { Selection } from '@pf2-companion/types/ui-selection';
 export const BackgroundDetailPane = ({
   selection,
 }: {
-  selection: Selection<BackgroundContent>;
+  selection: Selection<BackgroundContent> | null;
 }) => {
   return (
     <ContentDetailPane<BackgroundContent>

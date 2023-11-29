@@ -14,7 +14,7 @@ export const AncestryList = ({
   setSelection,
 }: {
   content: ListContent;
-  selection: Selection<AncestryContent>;
+  selection: Selection<AncestryContent> | null;
   setSelection: Dispatch<SetStateAction<Selection<AncestryContent> | null>>;
 }) => {
   return (
