@@ -1,5 +1,6 @@
 'use client';
 import { createContext, useReducer, useState, useEffect } from 'react';
+import { BoostSelection } from '@pf2-companion/types/character-builder';
 import type {
   Context,
   Dispatch,

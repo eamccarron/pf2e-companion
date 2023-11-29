@@ -16,7 +16,11 @@ export const ClassDetailPane = ({
       slideDirection="left"
       selection={selection}
     >
-      <TrainedSkills trainedSkills={selection?.content.trainedSkills ?? []} />
+      <TrainedSkills
+        trainedSkills={
+          selection?.content.trainedSkills ?? { skills: [], additional: 0 }
+        }
+      />
     </ContentDetailPane>
   );
 };

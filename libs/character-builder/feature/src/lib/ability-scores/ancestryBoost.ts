@@ -1,4 +1,4 @@
-import type { AbilityScore } from './types';
+import type { AbilityScore } from '@pf2-companion/types/character-builder';
 
 export type AncestryBoostAction =
   | {
