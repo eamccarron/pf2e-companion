@@ -1,16 +1,15 @@
-import React, { type PropsWithChildren } from 'react';
 import {
   Box,
   Card,
   CardContent,
   CardHeader,
+  Divider,
   Slide,
-  Typography,
 } from '@mui/material';
+import { type PropsWithChildren } from 'react';
 
-import { Selection } from './SelectionContextProvider';
 import { HTMLContent } from '@pf2-companion/ui-general';
-import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
+import { Selection } from './SelectionContextProvider';
 
 interface ContentDetailPaneProps<T> {
   selection: Selection<T> | null;
@@ -57,6 +56,9 @@ export function ContentDetailPane<T>({
           />
           <CardContent data-cy="detail-pane-content">
             <Box sx={{ color: 'onSurfaceVariant.main' }}>
+              {children}
+              {children && selection?.description && <Divider />}
+
               {selection?.description && (
                 <HTMLContent
                   content={selection.description}
@@ -65,7 +67,6 @@ export function ContentDetailPane<T>({
                   // })}
                 />
               )}
-              {children}
             </Box>
           </CardContent>
         </Card>

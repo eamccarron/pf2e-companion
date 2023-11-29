@@ -1,6 +1,10 @@
-import { Prop } from '@nestjs/mongoose';
+import type {
+  SkillIdentifier,
+  ActionTypes,
+  AbilityIdentifier,
+} from '@pf2-companion/types/compendium';
 
-export type ActionTypes = 'action' | 'reaction' | 'free' | 'passive';
+import { Prop } from '@nestjs/mongoose';
 
 export class ActionType {
   value: ActionTypes;
@@ -17,26 +21,6 @@ export class Actions {
     this.value = value;
   }
 }
-
-export type AbilityIdentifier = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
-
-export type SkillIdentifier =
-  | 'acr'
-  | 'arc'
-  | 'ath'
-  | 'cra'
-  | 'dec'
-  | 'dip'
-  | 'itm'
-  | 'med'
-  | 'nat'
-  | 'occ'
-  | 'prf'
-  | 'rel'
-  | 'soc'
-  | 'ste'
-  | 'sur'
-  | 'thi';
 
 export type Rarity = 'common' | 'uncommon' | 'rare';
 

@@ -6,3 +6,11 @@ export type { AbilityScore, AbilityBoostOptions } from './AbilityBoostOptions';
 export type { BuilderTemplate } from './BuilderTemplate';
 export type { FeatContent } from './FeatContent';
 export type { FeatType } from './FeatType';
+export type { SkillProficiencies } from './SkillProficienicies';
+export type { AbilityScores } from './AbilityScores';
+export type { CharacterSkills } from './CharacterSkills';
+export type { Character } from './Character';
+export type { TrainedSkills } from './TrainedSkills';
+export type { BoostSelection } from './BoostSelection';
+
+export { ProficiencyRank } from './SkillProficienicies';

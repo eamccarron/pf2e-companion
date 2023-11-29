@@ -5,10 +5,8 @@ import { Stepper, Step, StepLabel, Button, Stack } from '@mui/material';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
 import { CharacterCreationContext } from './CharacterCreationContextProvider';
-import {
-  AncestrySelectionContext,
-  ClassSelectionContext,
-} from '@pf2-companion/character-builder/ui';
+import { AncestrySelectionContext } from './ancestry';
+import { ClassSelectionContext } from './character-class';
 
 export const CharacterCreationStepper = ({
   steps,

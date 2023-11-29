@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Feat } from '@pf2-companion/compendium-models';
-import { CompendiumRepository } from '@pf2-companion/compendium-models';
+import { CompendiumRepository, Feat } from '@pf2-companion/compendium-models';
 
-import type { Model, Query } from 'mongoose';
+import type { Model } from 'mongoose';
 
 @Injectable()
 export class FeatsService extends CompendiumRepository<Feat> {

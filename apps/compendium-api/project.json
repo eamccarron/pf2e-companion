@@ -5,7 +5,14 @@
   "projectType": "application",
   "targets": {
     "publish": {},
-    "type-check": {},
+    "type-check": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["^type-check"],
+      "options": {
+        "command": "tsc -p ./tsconfig.app.json --noEmit",
+        "cwd": "{projectRoot}"
+      }
+    },
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],

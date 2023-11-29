@@ -4,17 +4,15 @@ import type { HydratedDocument } from 'mongoose';
 export type ClassDocument = HydratedDocument<Class>;
 
 import {
-  Description,
-  TrainedSkills,
-  Rarity,
-  AbilityScoreModifiers,
-  Traits,
-  Levels,
-  AttackProficiencies,
   ArmorProficiencies,
+  AttackProficiencies,
+  Description,
   KeyAbility,
+  Levels,
   Publication,
   SavingThrowProficiencies,
+  TrainedSkills,
+  Traits,
 } from './System';
 
 export class ClassSystem {
@@ -58,7 +56,7 @@ export class ClassSystem {
   traits: Traits;
 
   @Prop()
-  rules: Array<any>;
+  rules: Array<unknown>;
 
   @Prop()
   perception: number;
@@ -83,7 +81,7 @@ export class ClassSystem {
     skillIncreaseLevels: Levels,
     trainedSkills: TrainedSkills,
     traits: Traits,
-    rules: Array<any>,
+    rules: Array<unknown>,
     perception: number,
     hp: number,
     classDC: number

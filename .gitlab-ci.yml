@@ -25,7 +25,7 @@ stages:
   extends: .npm
   stage: lint
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
 
 .build:
@@ -68,9 +68,6 @@ stages:
 install-dependencies:
   stage: setup
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
-      changes:
-        - package-lock.json
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
         - package-lock.json
@@ -121,18 +118,19 @@ e2e:compendium-api:
   extends: .e2e
   script:
     - npx nx affected -t ci:api-e2e --base=$NX_BASE --head=$NX_HEAD
+# These e2e tests take too long and use too many compute resources to run on every MR
+# I will eventually run these only on automated deployment pipeline
+# e2e:ff:
+#   extends: .e2e
+#   script:
+#     - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser firefox
 
-e2e:ff:
-  extends: .e2e
-  script:
-    - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser firefox
+# e2e:chrome:
+#   extends: .e2e
+#   script:
+#     - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser chrome
 
-e2e:chrome:
-  extends: .e2e
-  script:
-    - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser chrome
-
-e2e:edge:
-  extends: .e2e
-  script:
-    - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser edge
+# e2e:edge:
+#   extends: .e2e
+#   script:
+#     - npx nx affected -t ci:frontend-e2e --base=$NX_BASE --head=$NX_HEAD --browser edge

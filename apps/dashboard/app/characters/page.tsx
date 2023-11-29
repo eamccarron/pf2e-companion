@@ -1,21 +1,24 @@
-import { generateCharacters } from './generateCharacter.server';
+// import { generateCharacters } from './generateCharacter.server';
 
 import { Stack, Typography } from '@mui/material';
 
 import { CharacterDetailPane } from './CharacterDetailPane';
-import { CharacterList } from './CharacterList';
+// import { CharacterList } from './CharacterList';
 
 export default async function Characters() {
-  const characters = generateCharacters();
+  // const characters = generateCharacters();
 
-  const listContent = characters.map(
-    ({ name: characterName, class: classType, level, ...content }, index) => ({
-      primary: characterName ?? '',
-      secondary: `${classType} ${level}`,
-      id: index,
-      content,
-    })
-  );
+  // const listContent = characters.map(
+  //   ({ name: characterName, class: classType, level, ...content }, index) => ({
+  //     primary: characterName ?? '',
+  //     secondary: `${classType} ${level}`,
+  //     id: index,
+  //     content: {
+  //       ...content,
+  //       characterSkills: {},
+  //     },
+  //   })
+  // );
 
   return (
     <>
@@ -24,7 +27,7 @@ export default async function Characters() {
         direction="row"
         spacing={2}
       >
-        <CharacterList content={listContent} />
+        {/* <CharacterList content={listContent} /> */}
         <CharacterDetailPane />
       </Stack>
 

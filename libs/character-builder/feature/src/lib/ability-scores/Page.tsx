@@ -1,16 +1,26 @@
-import { CircularProgress, Divider, Skeleton } from '@mui/material';
+'use server';
+import { CircularProgress, Divider } from '@mui/material';
 
-import { AbilityScoreSelection } from '@pf2-companion/character-builder/ui';
+import { AbilityScoreSelection } from './AbilityScoreSelection';
 import { Suspense } from 'react';
 
-import type { Selection } from '@pf2-companion/ui-selection';
-
-import { loader as abilityScoreSelectionLoader } from './loader';
-
 import { AbilityScoreView } from './View';
-import { HeritageSelection } from './heritage/HeritageSelection';
+import { HeritageSelection } from '../heritage/HeritageSelection';
 
-import { loader } from './loader';
+import {
+  fetchAncestries,
+  fetchBackgrounds,
+} from '@pf2-companion/character-builder/data-access';
+
+const loader = async () => {
+  const ancestries = await fetchAncestries();
+  const backgrounds = await fetchBackgrounds();
+
+  return {
+    ancestries,
+    backgrounds,
+  };
+};
 
 export const Page = async ({
   searchParams,

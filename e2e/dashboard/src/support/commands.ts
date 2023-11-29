@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { features } from '../features';
 // ***********************************************
 // This example commands.js shows you how to
@@ -33,44 +34,38 @@ Cypress.Commands.add('getBySel', (selector, ...args) => {
   return cy.get(`[data-cy=${selector}]`, ...args);
 });
 
-Cypress.Commands.add(
-  'navigateToFeature',
-  (feature, selections = {}, ...args) => {
-    switch (feature) {
-      case features.characterBuilder.class:
-        cy.visit('/character-builder');
-        cy.getBySel('content-list-item').as('listContent');
-        cy.getBySel('character-creation-next').as('nextButton');
-        break;
-      case features.characterBuilder.abilityScores:
-        cy.navigateToFeature(features.characterBuilder.class, selections);
-        cy.get('@listContent')
-          .contains(selections?.characterBuilder?.className ?? 'Fighter')
-          .click();
-        cy.get('@nextButton').scrollIntoView();
-        cy.get('@nextButton').click();
-        break;
-      case features.characterBuilder.feats:
-        cy.navigateToFeature(
-          features.characterBuilder.abilityScores,
-          selections
-        );
-        cy.get('@listContent')
-          .contains(selections?.characterBuilder?.ancestryName ?? 'Human')
-          .click();
-        cy.getBySel('background-tab').click();
-        cy.get('@listContent')
-          .contains(selections?.characterBuilder?.backgroundName ?? 'Barkeep')
-          .click();
+Cypress.Commands.add('navigateToFeature', (feature, selections = {}) => {
+  switch (feature) {
+    case features.characterBuilder.class:
+      cy.visit('/character-builder');
+      cy.getBySel('content-list-item').as('listContent');
+      cy.getBySel('character-creation-next').as('nextButton');
+      break;
+    case features.characterBuilder.abilityScores:
+      cy.navigateToFeature(features.characterBuilder.class, selections);
+      cy.get('@listContent')
+        .contains(selections?.characterBuilder?.className ?? 'Fighter')
+        .click();
+      cy.get('@nextButton').scrollIntoView();
+      cy.get('@nextButton').click();
+      break;
+    case features.characterBuilder.feats:
+      cy.navigateToFeature(features.characterBuilder.abilityScores, selections);
+      cy.get('@listContent')
+        .contains(selections?.characterBuilder?.ancestryName ?? 'Human')
+        .click();
+      cy.getBySel('background-tab').click();
+      cy.get('@listContent')
+        .contains(selections?.characterBuilder?.backgroundName ?? 'Barkeep')
+        .click();
 
-        cy.location('search').should('contain', 'ancestryId=IiG7DgeLWYrSNXuX');
+      cy.location('search').should('contain', 'ancestryId=IiG7DgeLWYrSNXuX');
 
-        cy.get('@nextButton').scrollIntoView();
-        cy.get('@nextButton').click();
-        break;
-    }
+      cy.get('@nextButton').scrollIntoView();
+      cy.get('@nextButton').click();
+      break;
   }
-);
+});
 
 //
 // -- This is a parent command --

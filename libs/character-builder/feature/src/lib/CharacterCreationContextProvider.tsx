@@ -1,14 +1,11 @@
-import { PropsWithChildren, createContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from '@remix-run/react';
+import { PropsWithChildren, createContext } from 'react';
 
-import {
-  ClassSelectionContextProvider,
-  AncestrySelectionContextProvider,
-  BackgroundSelectionContextProvider,
-  FreeAbilityScoreSelectionContextProvider,
-  HeritageSelectionContext,
-  FeatSelectionContextProvider,
-} from '@pf2-companion/character-builder/ui';
+import { ClassSelectionContextProvider } from './character-class';
+import { AncestrySelectionContextProvider } from './ancestry';
+import { BackgroundSelectionContextProvider } from './background';
+import { FreeAbilityScoreSelectionContextProvider } from './ability-scores';
+import { HeritageSelectionContext } from './heritage';
+import { FeatSelectionContextProvider } from './feats';
 
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
@@ -43,12 +40,10 @@ export const CharacterCreationContextProvider = ({
 
   const handleNext = () => {
     setActiveStep(activeStep === totalSteps ? totalSteps : activeStep + 1);
-    console.log('next');
   };
 
   const handleBack = () => {
     setActiveStep(activeStep === 0 ? 0 : activeStep - 1);
-    console.log('back');
   };
 
   return (

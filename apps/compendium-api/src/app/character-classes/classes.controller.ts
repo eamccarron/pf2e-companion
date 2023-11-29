@@ -2,7 +2,6 @@ import { Controller, Get } from '@nestjs/common';
 
 import { ClassesService } from './classes.service';
 
-import type { Jsonify } from '../../../types/Jsonify';
 import type { Class } from '@pf2-companion/compendium-models';
 
 @Controller('classes')

@@ -1,11 +1,11 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { filterContent } from '../lib/filterContent';
 
+import { Box, Stack } from '@mui/material';
+import { FilterChip } from '@pf2-companion/ui-general';
 import type { Filter } from '../lib/filterContent';
 import type { Selection } from './SelectionContextProvider';
-import { Box, Stack, Checkbox, Chip } from '@mui/material';
-import { FilterChip } from '@pf2-companion/ui-general';
 
 export type ContentListFilterProps<T extends Selection<unknown>> = {
   filterMode: 'any' | 'all';

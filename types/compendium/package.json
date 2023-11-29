@@ -2,8 +2,7 @@
   "name": "@pf2-companion/types/compendium",
   "version": "0.0.1",
   "dependencies": {
-    "tslib": "^2.3.0",
-    "@pf2-companion/compendium-models": "*"
+    "tslib": "^2.3.0"
   },
   "type": "commonjs",
   "main": "./src/index.js",

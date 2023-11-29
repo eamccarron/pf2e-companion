@@ -54,4 +54,33 @@ describe('Free ability boosts', () => {
       });
     });
   });
+
+  it('should persist ability scores between character creation stages', () => {
+    cy.get('@str-boost').click();
+    cy.get('@dex-boost').click();
+    cy.get('@con-boost').click();
+    cy.get('@int-boost').click();
+
+    cy.getBySel('character-creation-next').click();
+
+    cy.getBySel('ability-score-str').should('contain.text', '12');
+    cy.getBySel('ability-score-dex').should('contain.text', '12');
+    cy.getBySel('ability-score-con').should('contain.text', '12');
+    cy.getBySel('ability-score-int').should('contain.text', '12');
+
+    cy.getBySel('character-creation-back').click();
+
+    cy.getBySel('ability-score-str').should('contain.text', '12');
+    cy.getBySel('ability-score-dex').should('contain.text', '12');
+    cy.getBySel('ability-score-con').should('contain.text', '12');
+    cy.getBySel('ability-score-int').should('contain.text', '12');
+
+    cy.getBySel('character-creation-back').click();
+    cy.getBySel('character-creation-next').click();
+
+    cy.getBySel('ability-score-str').should('contain.text', '12');
+    cy.getBySel('ability-score-dex').should('contain.text', '12');
+    cy.getBySel('ability-score-con').should('contain.text', '12');
+    cy.getBySel('ability-score-int').should('contain.text', '12');
+  });
 });

@@ -1,12 +1,10 @@
 'use client';
-import { Tabs, Tab, Box, Divider, Skeleton } from '@mui/material';
-import { ReactNode, Suspense, useContext, useEffect, useState } from 'react';
 
-import {
-  AncestrySelection,
-  BackgroundSelection,
-  AncestrySelectionContext,
-} from '@pf2-companion/character-builder/ui';
+import { Box, Divider, Tab, Tabs } from '@mui/material';
+import { ReactNode, useState } from 'react';
+
+import { AncestrySelection } from '../ancestry';
+import { BackgroundSelection } from '../background/BackgroundSelection';
 
 import type { Selection } from '@pf2-companion/ui-selection';
 
@@ -56,10 +54,6 @@ export const AbilityScoreView = ({
   ) => {
     setSection(newValue);
   };
-
-  const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
-
-  useEffect(() => console.log(ancestrySelection), [ancestrySelection]);
 
   return (
     <>

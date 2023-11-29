@@ -1,11 +1,6 @@
 # character-builder/data-access
 
-This library was generated with [Nx](https://nx.dev).
-
-## Building
-
-Run `nx build character-builder/data-access` to build the library.
-
-## Running unit tests
-
-Run `nx test character-builder/data-access` to execute the unit tests via [Jest](https://jestjs.io).
+This library contains logic for fetching data needed for the character builder
+feature, as well as transforming the data from the compendium into a format
+which simplifies the implementation of the logic for the character-builder
+feature.
