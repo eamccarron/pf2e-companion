@@ -14,4 +14,11 @@ export {
 
 export { AncestryList, AncestryDetailPane } from './lib/ancestry';
 
+export {
+  Skills,
+  SkillLabel,
+  ProficiencyRankLabel,
+  SkillSelection,
+} from './lib/skills';
+
 export * from './lib/character-view';

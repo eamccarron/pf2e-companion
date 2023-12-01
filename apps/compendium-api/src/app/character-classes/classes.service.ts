@@ -51,4 +51,20 @@ export class ClassesService extends CompendiumRepository<Class> {
 
     return ancestryFeatsAvailable?.includes(level);
   }
+
+  public async findSkillIncreaseAvailable(
+    level: number,
+    className: string
+  ): Promise<boolean> {
+    const classes = await this.findByClassName(className);
+    if (!classes) return false;
+
+    const {
+      system: {
+        skillIncreaseLevels: { value: skillIncreases },
+      },
+    } = classes;
+
+    return skillIncreases?.includes(level);
+  }
 }

@@ -5,7 +5,8 @@ import { AncestrySelectionContextProvider } from './ancestry';
 import { BackgroundSelectionContextProvider } from './background';
 import { FreeAbilityScoreSelectionContextProvider } from './ability-scores';
 import { HeritageSelectionContext } from './heritage';
-import { FeatSelectionContextProvider } from './feats';
+import { FeatSelectionContextProvider } from './level-features';
+import { SkillProficiencySelectionContextProvider } from './skills/SkillProficiencySelectionContext';
 
 import { SelectionContextProvider } from '@pf2-companion/ui-selection';
 
@@ -62,7 +63,9 @@ export const CharacterCreationContextProvider = ({
             <SelectionContextProvider Context={HeritageSelectionContext}>
               <FreeAbilityScoreSelectionContextProvider>
                 <FeatSelectionContextProvider>
-                  {children}
+                  <SkillProficiencySelectionContextProvider>
+                    {children}
+                  </SkillProficiencySelectionContextProvider>
                 </FeatSelectionContextProvider>
               </FreeAbilityScoreSelectionContextProvider>
             </SelectionContextProvider>

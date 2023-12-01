@@ -1,5 +1,5 @@
 'use server';
-import { FeatSelectionView } from './View';
+import { FeatureSelection } from './View';
 import {
   fetchClassFeats,
   fetchAncestryFeats,
@@ -28,7 +28,11 @@ export const FeatSelectionPage = async ({
 
   return (
     <Suspense fallback={<CircularProgress />}>
-      <FeatSelectionView featOptions={{ classFeats, ancestryFeats }} />
+      <FeatureSelection
+        featureOptions={{
+          feats: { classFeats, ancestryFeats, skillFeats: [] },
+        }}
+      />
     </Suspense>
   );
 };

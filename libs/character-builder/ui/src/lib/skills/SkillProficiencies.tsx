@@ -1,3 +1,5 @@
+import { SkillLabel } from '.';
+
 import { Box, Stack, Typography } from '@mui/material';
 
 import type { CharacterSkills } from '@pf2-companion/types/character-builder';
@@ -52,8 +54,7 @@ export const Skills = ({
           >
             <Typography variant="h6">+{value.modifier}</Typography>
           </Box>
-
-          <Typography>{skillLabels[key as SkillIdentifier]}</Typography>
+          <SkillLabel skillIdentifier={key as SkillIdentifier} />
         </Stack>
       ))}
     </Box>

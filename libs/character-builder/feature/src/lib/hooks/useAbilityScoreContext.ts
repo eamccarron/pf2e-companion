@@ -6,6 +6,7 @@ import { ClassAbilityScoreSelectionContext } from '../character-class/ClassSelec
 import { FreeAbilityScoreSelectionContext } from '../ability-scores/FreeAbilityScoreSelectionContext';
 
 import type { AbilityIdentifier } from '@pf2-companion/types/compendium';
+import type { AbilityScores } from '@pf2-companion/types/character-builder';
 
 export const useAbilityScoreContext = () => {
   const { boostState: backgroundBoosts } = useContext(
@@ -24,19 +25,20 @@ export const useAbilityScoreContext = () => {
     FreeAbilityScoreSelectionContext
   );
 
-  const abilityScores = useMemo(
+  const abilityScores: AbilityScores = useMemo(
     () =>
-      (
-        ['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityIdentifier>
-      ).map((ability) => ({
-        ability,
-        abilityScore:
+      Object.fromEntries(
+        (
+          ['str', 'dex', 'con', 'int', 'wis', 'cha'] as Array<AbilityIdentifier>
+        ).map((ability) => [
+          ability,
           10 +
-          (ancestryBoosts[ability] ? 2 : 0) +
-          (backgroundBoosts[ability] ? 2 : 0) +
-          (classBoosts[ability] ? 2 : 0) +
-          (freeBoosts[ability] ? 2 : 0),
-      })),
+            (ancestryBoosts[ability] ? 2 : 0) +
+            (backgroundBoosts[ability] ? 2 : 0) +
+            (classBoosts[ability] ? 2 : 0) +
+            (freeBoosts[ability] ? 2 : 0),
+        ])
+      ) as AbilityScores,
     [ancestryBoosts, backgroundBoosts, classBoosts, freeBoosts]
   );
 

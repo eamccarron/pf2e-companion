@@ -11,21 +11,23 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import type { FeatType } from '@pf2-companion/types/character-builder';
 
+type FeatOptions = BuilderTemplate['feats'];
+
 export type FeatOptionsProps = {
-  featOptions: Array<keyof BuilderTemplate>;
-  selectedOption: Selection<keyof BuilderTemplate> | null;
+  featOptions: Array<keyof FeatOptions>;
+  selectedOption: Selection<keyof FeatOptions> | null;
   setSelectedOption: Dispatch<
-    SetStateAction<Selection<keyof BuilderTemplate> | null>
+    SetStateAction<Selection<keyof FeatOptions> | null>
   >;
   featsSelected: { [K in FeatType]: boolean };
-  featTypes: { [K in keyof BuilderTemplate]: FeatType };
+  featTypes: { [K in keyof FeatOptions]: FeatType };
 };
 
 const featOptionLabels: {
-  [k in keyof BuilderTemplate]: string;
+  [k in keyof FeatOptions]: string;
 } = {
   classFeats: 'Class Feat',
-  // skillFeats: 'Skill Feat',
+  skillFeats: 'Skill Feat',
   ancestryFeats: 'Ancestry Feat',
 };
 
@@ -36,7 +38,7 @@ export const FeatOptions = ({
   featsSelected,
   featTypes,
 }: FeatOptionsProps) => {
-  const options: Selection<keyof BuilderTemplate>[] = useMemo(
+  const options: Selection<keyof FeatOptions>[] = useMemo(
     () =>
       featOptions.map((option) => ({
         id: option,
@@ -47,7 +49,7 @@ export const FeatOptions = ({
   );
 
   const renderFeatOption = useCallback(
-    ({ content }: { content: Selection<keyof BuilderTemplate> }) => {
+    ({ content }: { content: Selection<keyof FeatOptions> }) => {
       const featType = featTypes[content.content];
       return (
         <>

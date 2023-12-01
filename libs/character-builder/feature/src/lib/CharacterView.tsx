@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 export const CharacterView = () => {
   const abilityScores = useAbilityScoreContext();
-  const skills = useSkillContext();
+  const [skills] = useSkillContext();
 
   useEffect(() => console.log(abilityScores), [abilityScores]);
   return (

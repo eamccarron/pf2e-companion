@@ -7,7 +7,7 @@ export const AbilityScores = ({
 }: {
   abilityScores: CharacterAbilityScores;
 }) => {
-  return abilityScores.map(({ ability, abilityScore }) => (
+  return Object.entries(abilityScores).map(([ability, abilityScore]) => (
     <Box key={ability}>
       <Box
         data-cy={`ability-score-${ability}`}
