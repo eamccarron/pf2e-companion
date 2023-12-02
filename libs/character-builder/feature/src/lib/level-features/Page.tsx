@@ -5,9 +5,6 @@ import {
   fetchAncestryFeats,
 } from '@pf2-companion/character-builder/data-access';
 
-import { Suspense } from 'react';
-import { CircularProgress } from '@mui/material';
-
 export const FeatSelectionPage = async ({
   searchParams,
 }: {
@@ -27,12 +24,12 @@ export const FeatSelectionPage = async ({
   );
 
   return (
-    <Suspense fallback={<CircularProgress />}>
-      <FeatureSelection
-        featureOptions={{
-          feats: { classFeats, ancestryFeats, skillFeats: [] },
-        }}
-      />
-    </Suspense>
+    <FeatureSelection
+      featureOptions={{
+        feats: { classFeats, ancestryFeats, skillFeats: [] },
+        classFeatures: [],
+        abilityIncreases: 0,
+      }}
+    />
   );
 };

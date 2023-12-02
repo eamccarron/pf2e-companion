@@ -9,5 +9,5 @@ export interface BuilderTemplate {
   };
   classFeatures: Array<Selection<unknown>>;
   abilityIncreases: number;
-  skillIncreases: number;
+  skillIncrease?: number;
 }

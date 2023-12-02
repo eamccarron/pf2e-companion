@@ -30,6 +30,7 @@ export const formatClassJSON = (
         traits: { rarity },
         keyAbility: { value: keyAbility },
         trainedSkills,
+        skillIncreaseLevels: { value: skillIncreaseLevels },
         hp,
       },
       _id: id,
@@ -46,6 +47,7 @@ export const formatClassJSON = (
           skills: trainedSkills?.value,
           additional: trainedSkills?.additional,
         },
+        skillIncreaseLevels,
       },
     })
   );

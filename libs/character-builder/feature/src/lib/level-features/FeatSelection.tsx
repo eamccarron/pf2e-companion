@@ -29,6 +29,14 @@ const featTypes: {
   ancestryFeats: 'ancestry',
 };
 
+const featOptionLabels: {
+  [k in keyof FeatOptions]: string;
+} = {
+  classFeats: 'Class Feat',
+  skillFeats: 'Skill Feat',
+  ancestryFeats: 'Ancestry Feat',
+};
+
 export const FeatSelection = ({
   featOptions,
   level,
@@ -36,12 +44,30 @@ export const FeatSelection = ({
   featOptions: FeatOptions;
   level: number;
 }) => {
-  const [featOptionSelected, setFeatOptionSelected] = useState<Selection<
-    keyof FeatOptions
-  > | null>(null);
-
   const { selection, updateFeatDispatch } = useContext(FeatSelectionContext);
   const { selection: ancestrySelection } = useContext(AncestrySelectionContext);
+
+  const availableFeatOptions = useMemo(
+    () =>
+      Object.entries(featOptions)
+        .filter(([, v]) => v.length > 0)
+        .map(([k]) => k as keyof FeatOptions),
+    [featOptions]
+  );
+
+  const featOptionSelections: Selection<keyof FeatOptions>[] = useMemo(
+    () =>
+      availableFeatOptions.map((option) => ({
+        id: option,
+        primary: featOptionLabels[option],
+        content: option,
+      })),
+    [availableFeatOptions]
+  );
+
+  const [featOptionSelected, setFeatOptionSelected] = useState<Selection<
+    keyof FeatOptions
+  > | null>(featOptionSelections[0]);
 
   const featType: FeatType | null = useMemo(() => {
     const selectedOption = featOptionSelected?.content;
@@ -66,14 +92,6 @@ export const FeatSelection = ({
     const selectedOption = featOptionSelected?.content;
     return selectedOption ? featOptions[selectedOption] : [];
   }, [featOptions, featOptionSelected]);
-
-  const availableFeatOptions = useMemo(
-    () =>
-      Object.entries(featOptions)
-        .filter(([, v]) => v.length > 0)
-        .map(([k]) => k as keyof FeatOptions),
-    [featOptions]
-  );
 
   // Ideal case for the new useEffectEvent hook when it releases
   // For now, this seems like the best way to clear the ancestry feat if (and only if) the ancestry is changed
@@ -128,7 +146,7 @@ export const FeatSelection = ({
           }}
         >
           <FeatOptions
-            featOptions={availableFeatOptions}
+            featOptions={featOptionSelections}
             selectedOption={featOptionSelected}
             setSelectedOption={setFeatOptionSelected}
             featsSelected={selectionsCompleted}

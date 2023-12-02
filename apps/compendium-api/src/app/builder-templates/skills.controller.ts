@@ -16,7 +16,7 @@ export class FeatsController {
   async getSkillIncreases(
     @Query('level') level: number,
     @Query('className') className: string
-  ): Promise<number> {
+  ): Promise<boolean> {
     if (!level || !className) {
       throw new HttpException(
         'Missing required query parameters (level, className)',
@@ -24,12 +24,11 @@ export class FeatsController {
       );
     }
 
-    const skillIncreases = await this.classesService.findSkillIncreaseAvailable(
+    const skillIncrease = await this.classesService.findSkillIncreaseAvailable(
       Number(level),
       className
     );
 
-    if (!skillIncreases) return 0;
-    return skillIncreases;
+    return skillIncrease;
   }
 }

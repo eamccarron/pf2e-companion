@@ -5,4 +5,5 @@ export type ClassContent = {
   hp: number;
   boosts: AbilityBoostOptions;
   trainedSkills: TrainedSkills;
+  skillIncreaseLevels: number[];
 };

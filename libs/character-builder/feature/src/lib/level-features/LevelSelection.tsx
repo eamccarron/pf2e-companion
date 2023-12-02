@@ -10,6 +10,7 @@ import type { Dispatch } from 'react';
 export type LevelSelectionProps = {
   selectedLevel: number;
   setSelectedLevel: Dispatch<number>;
+  isPending: boolean;
 };
 
 const levels = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -17,6 +18,7 @@ const levels = Array.from({ length: 20 }, (_, i) => i + 1);
 export const LevelSelection = ({
   selectedLevel,
   setSelectedLevel,
+  isPending,
 }: LevelSelectionProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
@@ -46,7 +48,10 @@ export const LevelSelection = ({
       justifyContent={'space-between'}
     >
       <Stack direction="row">
-        <IconButton onClick={handlePreviousLevel}>
+        <IconButton
+          onClick={handlePreviousLevel}
+          disabled={isPending}
+        >
           <NavigateBeforeIcon />
         </IconButton>
 
@@ -55,11 +60,15 @@ export const LevelSelection = ({
           onClick={handleMenuOpen}
           endIcon={<KeyboardArrowDownIcon />}
           disableElevation
+          disabled={isPending}
         >
           Level {selectedLevel}
         </Button>
 
-        <IconButton onClick={handleNextLevel}>
+        <IconButton
+          onClick={handleNextLevel}
+          disabled={isPending}
+        >
           <NavigateNextIcon />
         </IconButton>
 

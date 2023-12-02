@@ -6,7 +6,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import type { PropsWithChildren } from 'react';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import type { Selection } from './SelectionContextProvider';
 

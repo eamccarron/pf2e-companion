@@ -14,21 +14,13 @@ import type { FeatType } from '@pf2-companion/types/character-builder';
 type FeatOptions = BuilderTemplate['feats'];
 
 export type FeatOptionsProps = {
-  featOptions: Array<keyof FeatOptions>;
+  featOptions: Selection<keyof FeatOptions>[];
   selectedOption: Selection<keyof FeatOptions> | null;
   setSelectedOption: Dispatch<
     SetStateAction<Selection<keyof FeatOptions> | null>
   >;
   featsSelected: { [K in FeatType]: boolean };
   featTypes: { [K in keyof FeatOptions]: FeatType };
-};
-
-const featOptionLabels: {
-  [k in keyof FeatOptions]: string;
-} = {
-  classFeats: 'Class Feat',
-  skillFeats: 'Skill Feat',
-  ancestryFeats: 'Ancestry Feat',
 };
 
 export const FeatOptions = ({
@@ -38,16 +30,6 @@ export const FeatOptions = ({
   featsSelected,
   featTypes,
 }: FeatOptionsProps) => {
-  const options: Selection<keyof FeatOptions>[] = useMemo(
-    () =>
-      featOptions.map((option) => ({
-        id: option,
-        primary: featOptionLabels[option],
-        content: option,
-      })),
-    [featOptions]
-  );
-
   const renderFeatOption = useCallback(
     ({ content }: { content: Selection<keyof FeatOptions> }) => {
       const featType = featTypes[content.content];
@@ -70,7 +52,7 @@ export const FeatOptions = ({
 
   return (
     <ContentList
-      content={options}
+      content={featOptions}
       selection={selectedOption}
       setSelection={setSelectedOption}
       renderListItem={renderFeatOption}
