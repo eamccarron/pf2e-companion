@@ -12,10 +12,11 @@ import { calculateAbilityModifier } from '@pf2-companion/utils';
 import type { CharacterSkills } from '@pf2-companion/types/character-builder';
 import type { SkillIdentifier } from '@pf2-companion/types/compendium';
 import type { SkillAction } from '../skills';
-import type { ValueOf } from '@pf2-companion/utils';
+import { useCharacterLevel } from './useCharacterLevel';
 
 export const useSkillContext = (): [CharacterSkills, Dispatch<SkillAction>] => {
   const abilityScores = useAbilityScoreContext();
+  const [level] = useCharacterLevel();
   const { selection: backgroundSelection } = useContext(
     BackgroundSelectionContext
   );
@@ -33,11 +34,6 @@ export const useSkillContext = (): [CharacterSkills, Dispatch<SkillAction>] => {
       ])
     );
   }, [classSelection, backgroundSelection]);
-
-  useEffect(
-    () => console.log(skillProficiencySelection),
-    [skillProficiencySelection]
-  );
 
   const skills = useMemo(() => {
     const result = (Object.keys(skillAbilities) as SkillIdentifier[]).map(
@@ -59,8 +55,6 @@ export const useSkillContext = (): [CharacterSkills, Dispatch<SkillAction>] => {
           abilityScores[ability] ?? 0
         );
 
-        // TODO - read level from a context
-        const level = 1;
         const proficiencyModifier = proficiencyRank * 2 + level;
 
         return [
@@ -74,7 +68,7 @@ export const useSkillContext = (): [CharacterSkills, Dispatch<SkillAction>] => {
         ];
       })
     ) as CharacterSkills;
-  }, [abilityScores, skillProficiencySelection, trainedSkills]);
+  }, [abilityScores, skillProficiencySelection, trainedSkills, level]);
 
   return [skills, updateSkillProficiencyDispatch];
 };

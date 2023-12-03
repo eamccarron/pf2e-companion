@@ -1,10 +1,8 @@
 'use client';
 import { useContext, useEffect, useMemo, useState, useTransition } from 'react';
 
-import { Box, Collapse, Stack } from '@mui/material';
-import { TransitionGroup } from 'react-transition-group';
+import { Badge, Box, Collapse, Typography } from '@mui/material';
 import { Tabs, Tab } from '@mui/material';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { FeatSelection } from './FeatSelection';
 import { ClassSelectionContext } from '../character-class';
@@ -12,10 +10,9 @@ import { ClassSelectionContext } from '../character-class';
 import type { BuilderTemplate } from '@pf2-companion/types/character-builder';
 import { CharacterView } from '../CharacterView';
 import { LevelSelection } from './LevelSelection';
-import { useAbilityScoreContext } from '../hooks';
-import { calculateAbilityModifier } from '@pf2-companion/utils';
 import { Skills } from './Skills';
-import { set } from 'mongoose';
+import { useSelectionsRequiredContext } from './useSelectionsRequiredContext';
+import { useCharacterLevel } from '../hooks';
 
 const featureLabels: {
   [k in keyof BuilderTemplate]: string;
@@ -31,36 +28,29 @@ export const FeatureSelection = ({
 }: {
   featureOptions: BuilderTemplate;
 }) => {
-  const searchParams = useSearchParams();
-  const level = Number(searchParams.get('level') ?? 1);
-  const router = useRouter();
-  const pathname = usePathname();
+  const [level, setLevel] = useCharacterLevel();
 
   const [levelTransitionPending, startLevelTransition] = useTransition();
 
-  const [selectionsCompleted, setSelectionsCompleted] = useState<
-    Array<keyof BuilderTemplate>
-  >([]);
+  const {
+    skillIncreaseSelectionsRemaining,
+    skillTrainingSelectionsRemaining,
+    skillTrainingSelectionsAvailable,
+    featSelectionsRemaining,
+  } = useSelectionsRequiredContext(level, featureOptions);
+
+  const selectionsRemaining = {
+    feats: featSelectionsRemaining,
+    skillIncrease:
+      skillIncreaseSelectionsRemaining + skillTrainingSelectionsRemaining,
+  };
 
   const { selection: classSelection } = useContext(ClassSelectionContext);
-  const abilityScores = useAbilityScoreContext();
 
   const [featureSelected, setFeatureSelected] =
     useState<keyof BuilderTemplate>();
 
-  const skillTrainingSelectionsAvailable = useMemo(() => {
-    return (
-      (classSelection.content.trainedSkills.additional ?? 0) +
-      calculateAbilityModifier(abilityScores['int'] ?? 0)
-    );
-  }, [abilityScores, classSelection.content.trainedSkills.additional]);
-
   const { skillIncreaseLevels } = classSelection.content;
-
-  // const skillIncreaseAvailable = useMemo(
-  //   () => skillIncreaseLevels.includes(level),
-  //   [skillIncreaseLevels, level]
-  // );
 
   const availableFeatureOptions = useMemo(() => {
     const { feats } = featureOptions;
@@ -79,18 +69,12 @@ export const FeatureSelection = ({
     if (!levelTransitionPending) {
       setFeatureSelected(availableFeatureOptions[0] as keyof BuilderTemplate);
     }
-  }, [availableFeatureOptions]);
+  }, [availableFeatureOptions, levelTransitionPending]);
 
   const handleLevelSelection = (level: number) => {
     startLevelTransition(() => {
       setFeatureSelected(null);
-      router.replace(
-        `${pathname}?${new URLSearchParams({
-          level: level.toString(),
-          className: searchParams.get('className') ?? '',
-          ancestryId: searchParams.get('ancestryId') ?? '',
-        })}`
-      );
+      setLevel(level);
     });
   };
 
@@ -108,10 +92,8 @@ export const FeatureSelection = ({
         setSelectedLevel={handleLevelSelection}
         isPending={levelTransitionPending}
       />
-
       <Box mt={2}>
         <CharacterView />
-
         <Collapse in={availableFeatureOptions.length > 1}>
           <Tabs
             value={featureSelected ?? false}
@@ -119,24 +101,34 @@ export const FeatureSelection = ({
           >
             {availableFeatureOptions.map((key, index) => (
               <Tab
-                label={featureLabels[key]}
+                key={key}
                 value={key}
+                sx={{
+                  pt: 4,
+                }}
+                label={
+                  <Badge
+                    badgeContent={selectionsRemaining[key]}
+                    color="primary"
+                  >
+                    <Typography sx={{ mr: 2 }}>{featureLabels[key]}</Typography>
+                  </Badge>
+                }
               />
             ))}
           </Tabs>
         </Collapse>
       </Box>
-
       {featureSelected === 'feats' && (
         <FeatSelection
           featOptions={featureOptions?.feats}
           level={level}
         />
       )}
-
       {featureSelected === 'skillIncrease' && (
         <Skills
           skillTrainingSelectionsAvailable={skillTrainingSelectionsAvailable}
+          skillTrainingSelectionsRemaining={skillTrainingSelectionsRemaining}
           level={level}
           skillIncreaseLevels={skillIncreaseLevels}
         />

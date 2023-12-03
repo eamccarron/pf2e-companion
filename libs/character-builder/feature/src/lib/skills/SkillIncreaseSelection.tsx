@@ -1,26 +1,18 @@
 import { useEffect, useMemo } from 'react';
 
 import { useSkillContext } from '../hooks';
-import { proficiencyRankLevels } from './proficiencyRankLevels';
 
 import { ProficiencyRank } from '@pf2-companion/types/character-builder';
 import { SkillIdentifier } from '@pf2-companion/types/compendium';
 
 import { SkillSelection } from '@pf2-companion/character-builder/ui';
 
-export const SkillIncreaseSelection = ({
-  level,
-  setSelectionCompleted,
-}: {
-  level: number;
-  setSelectionCompleted: (completed: boolean) => void;
-}) => {
+export const SkillIncreaseSelection = ({ level }: { level: number }) => {
   const [skills, skillReducer] = useSkillContext();
 
   useEffect(() => console.log(skills), [skills]);
 
   const handleSkillIncrease = (skill: SkillIdentifier) => {
-    setSelectionCompleted(true);
     skillReducer({
       type: 'TRAIN',
       target: { level, skill },
@@ -28,7 +20,6 @@ export const SkillIncreaseSelection = ({
   };
 
   const handleSkillDecrease = (skill: SkillIdentifier) => {
-    setSelectionCompleted(false);
     skillReducer({
       type: 'UNTRAIN',
       target: { level, skill },

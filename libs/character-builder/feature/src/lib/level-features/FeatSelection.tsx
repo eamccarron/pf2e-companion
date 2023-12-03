@@ -18,6 +18,7 @@ import type {
   FeatType,
 } from '@pf2-companion/types/character-builder';
 import type { Selection } from '@pf2-companion/types/ui-selection';
+import { useSelectionsRequiredContext } from './useSelectionsRequiredContext';
 
 type FeatOptions = BuilderTemplate['feats'];
 
